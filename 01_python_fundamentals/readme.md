@@ -1,0 +1,2 @@
+# Python Fundamentals
+The files in this folder go over how to setup Python, some basics about the Python language, and how to setup Virtual Environments (important when working on Python projects). The `05_Assignments` folder covers a variety of Python challenges, which tap into basic Python usages, along with potentially using virtual environments. No frameworkrs are utilized here, and instead a familiarity with the language and how Python projects are managed is prioritized.
