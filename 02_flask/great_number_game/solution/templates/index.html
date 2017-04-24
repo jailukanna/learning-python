@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+  <div class = '{{data["coloration"]}}'>You guessed: {{data['guess']}}  That number is: {{data['event']}} </div>
+  {{session['number']}}
+
+ <form class="" action="/" method="post">
+   <input type = "number" name = "guess">
+   <input type = "submit" value = "submit">
+  </form>
+  {% if data['correct']%}
+    <a href="/reset"> RESET </a>
+  {% endif %}
+ </form>
+</body>
+</html>

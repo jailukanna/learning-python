@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo Registration Form</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Register Below:</legend>
+        <!-- Begin Flash Alerts -->
+        <!-- Error Messages -->
+        {% with errors = get_flashed_messages(category_filter=["error"]) %} <!-- 'with errors' helps us declare a variable in our template that we can use within a specific scope. -->
+            {% if errors %}   <!-- checks if any errors have been returned from flash_messages() function -->
+                {% for error in errors %} <!-- loops through all errors -->
+                    <p style="color: red; font-weight: boldest;">{{error}}</p> <!-- print errors one by one each in a <p> tag  -->
+                {% endfor %} <!-- end for loop -->
+            {% endif %} <!-- end if conditional statement -->
+        {% endwith %} <!-- end with errors variable -->
+        <!-- Success Messages -->
+        {% with successes = get_flashed_messages(category_filter=["success"]) %} <!-- 'with successes' helps us declare a variable in our template that we can use within a specific scope. -->
+            {% if successes %}   <!-- checks if any successes have been returned from flash_messages() function -->
+                {% for success in successes %} <!-- loops through all successes -->
+                    <p style="color: green; font-weight: boldest;">{{success}}</p> <!-- print successes one by one each in a <p> tag  -->
+                {% endfor %} <!-- end for loop -->
+            {% endif %} <!-- end if conditional statement -->
+        {% endwith %} <!-- end with successes variable -->
+        <!-- End Alerts -->
+        <!-- Begin Registration Form -->
+        <form action="/register" method="POST">
+            <!-- Email Field -->
+            <input type="email" name="email" placeholder="Email">
+            <!-- First Name Field -->
+            <input type="text" name="first_name" placeholder="First Name">
+            <!-- Last Name Field -->
+            <input type="text" name="last_name" placeholder="Last Name">
+            <!-- Password -->
+            <input type="password" name="password" placeholder="Password">
+            <!-- Password Confirmation -->
+            <input type="password" name="confirm_password" placeholder="Confirm Password">
+            <!-- Submit -->
+            <input type="submit" value="Register">
+        </form>
+    </fieldset>
+</body>
+</html>

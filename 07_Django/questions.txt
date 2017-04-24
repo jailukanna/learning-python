@@ -1,0 +1,12 @@
+
+Question:
+	1. How do I set my timezone in settings.py based upon a user selection?
+	ie, when I deploy my project, won't my timezones all be off (set to whatever is set in settings.py?)
+
+
+	2. How do I properly reference my models in my django profile?
+
+		{{friendship.user.first_name}}
+		# this was given in example in which 'user' is a foreign key to Users in Friendships table.
+
+	3. Friends Cont'd Assignment: Part 2, Question 3: See files for notes and comments.

@@ -1,0 +1,1 @@
+alert('Let\'s start the survey');

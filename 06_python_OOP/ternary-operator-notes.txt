@@ -1,0 +1,22 @@
+###########
+#
+#	Ternary Operator
+#
+###########
+
+
+	Python has a ternary operator, which basically is a one line if-else statement.
+	Python's ternary operator differs from other languages in its format:
+
+		------Other Languages Like This------
+		<condition> ? <result_if_true> : <result_if_false>
+		----end other languages like this----
+
+	Python's format is as follows:
+
+		<result_if_true> if <condition> else <result_if_false>
+
+
+Here's an example:
+
+	print('Legal age' if age >= 18 else 'You are so young!')

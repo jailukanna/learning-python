@@ -1,0 +1,37 @@
+/* CSS Sheet for Dojo Survey - Tim Knab - Coding Dojo - August 2016 */
+
+body {
+	background-color: black;
+	color: white;
+	padding: 50px;
+}
+
+
+form {
+	background-color: grey;
+	padding: 30px;
+	margin: 50px auto 50px auto;
+	width: 600px;
+
+}
+
+	form label {
+		display: block;
+		padding: 20px;
+	}
+
+
+h1, h3 {
+	text-align: center;
+}
+
+input[type="submit"] {
+	display: block;
+	margin-left: auto;
+	margin-right: 40px;
+	padding: 20px;
+}
+
+#result {
+	
+}

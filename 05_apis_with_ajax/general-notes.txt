@@ -1,0 +1,190 @@
+########
+#
+# Useful URLs
+#
+########
+
+	+ You can use terminal to examine a 'request' made by your browser.
+
+	+ Requests can be images, video, html or javascript files (CDNs like jquery, etc).
+
+	+ To investigate a request, you can run in terminal:
+
+		---bash commands---
+
+		curl <insert url here>
+
+		-----end bash-----
+
+		+ Note: This will return the contents of the item you're requesting.
+
+	+ Another way to see data being requested, is to:
+
+		+ In Chrome, open Inspect Element
+		+ Click `Network` tab
+		+ Refresh the page and see all of the files that have loaded
+
+
+
+########
+#
+# APIs
+#
+########
+
+	+ `Application Program Interface`
+	+ define a set of rules in which you can interact with a particular software
+
+
+
+	var data = {
+		results: [
+		{
+			name: 'Heather',
+			hobby: 'Coding'
+		},
+		{
+			name: 'Jeff',
+			hobby: 'Coding'
+		},
+		{
+			name: 'Todd',
+			hobby: 'Teaching Others To Code'
+		}
+		],
+		date: '08-01-2016',
+		version: 0.9
+	}
+
+	########
+	#
+	# Dot Notation
+	#
+	########
+
+		+ We can reference the above object using Dot Notation:
+
+			data.results[0].name
+				#Heather
+
+			data.results[1].name
+				#Jeff
+
+	########
+	#
+	# Dot Notation For Loop
+	#
+	########
+
+
+		+ Here's how we could setup a for loop:
+
+			for (var i = 0; i < data.results.length; i++){
+				console.log("name: ", data.results[i].name, "hobby: ", data.results[i].hobby);
+			}
+
+			# returns:
+			# name: Heather hobby: Coding
+			# name: Jeff hobby: Coding
+			# name: Todd hobby: Teaching Others To Code
+
+	########
+	#
+	# Bracket Notation
+	#
+	########
+
+		Another way to reference something is using bracket notation.
+
+		Same way to get the `name` field is by the following:
+
+			data[results][0]['hobby']
+
+
+	########
+	#
+	# Bracket Notation For Loop
+	#
+	########
+
+		for (var i = 0; i < data.results.length; i++){
+			console.log("name: ", data[results][i]['name'], "hobby: ", data[results][i]['hobby']);
+		}
+
+		# returns:
+		# name: Heather hobby: Coding
+		# name: Jeff hobby: Coding
+		# name: Todd hobby: Teaching Others To Code
+
+
+########
+#
+# AJAX
+#
+########
+
+	+ Asynchronous Javascript and XML
+	+ Allows us to send an HTTP request (POST or GET) that will send or fetch data for us
+	+ We need jQuery for this!
+	+ Allows us to swap things out
+	+ Makes the page look a lot cleaner
+
+
+	########
+	#
+	# External API Example -- GET() METHOD
+	#
+	########
+
+	<script>
+	$(document).ready(function(){
+		$.get('http://someurl.com/users', function(data){
+			console.log(data);
+		}, 'json');
+	});
+	</script>
+
+	// Notice the 3 parameters from .get() above:
+		// (1) 'http://someurl.com/users'
+		// (2) 'function(data){ console.log(data); }'
+		// (3) 'json'
+  
+	// 'get' method requires two parameters
+	// the first (1) is the URL of our API to get
+	// second (2) is a 'call back function' which tells us what to do after the data from the URL is gathered, ie, the computer wants to know "what now?"
+	// in this case, we run:
+		// 	function(data){ console.log(data); }, 'json'
+		// var name 'data' can be anything
+		// we then console log data
+	// third (3) parameter is what type of data do we expect
+		// in this case, 'json'
+	// we should get a javascript object returned to us
+
+
+	########
+	#
+	# Hitting Our Flask Server Example
+	#
+	########
+
+	<script>
+	$(document).ready(function(){
+		$.get('/users', function(data){
+			console.log(data);
+		}, 'json');
+	});
+	</script>
+
+	// in this case, the first (1) parameter is linked to our route of '/users'
+
+
+########
+#
+# Setup our HTML
+#
+########
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<!-- need jquery -->
+	<script>
+	</script>

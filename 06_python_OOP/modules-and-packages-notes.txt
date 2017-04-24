@@ -1,0 +1,35 @@
+###########
+#
+#	Modules & Packages Notes
+#
+###########
+
+sample_project
+     |_____ python_file.py
+     |_____ my_modules
+               |_____ __init__.py
+               |_____ test_module.py
+               |_____ another_module.py
+               |_____ third_module.py
+
+
++ Each package in Python is a directory which MUST contain a special file called  __init__.py. This file can be empty, and it indicates that the directory containing it is a Python package, so it can be imported the same way a module can be imported.
+
++ If we create a directory called my_modules, which marks the package name, we can then create a module inside that package called test_module. We also must not forget to add the __init__.py file inside the my_modules directory.
+
++ To use the module test_module, we can import it in two ways:
+
+	import my_modules.test_module
+
+OR
+
+	from my_modules import test_module
+
++ The  __init__.py file can also decide which modules this package will export as an API, while keeping other modules internal, by overriding the __all__ variable, like so:
+
+	__init__.py:
+	__all__ = ["test_module"]
+
+
+
+	

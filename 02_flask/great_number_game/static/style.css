@@ -1,0 +1,89 @@
+/*****************************/
+/*		  CSS RESET 		*/
+/****************************/
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+/*****************************/
+/*		  MAIN STYLING 		*/
+/****************************/
+h1 { 
+	text-align: center; 
+	margin: 20px;
+}
+
+h3 {
+	text-align: center;
+	margin: 20px;
+}
+
+input[type='text'] {
+	padding: 20px;
+	width: 26%;
+	display: block;
+	margin: 0px auto 0px auto;
+}
+input[type='submit'] {
+	display: block;
+	padding: 15px;
+	margin: 20px auto 20px auto;
+	width: 29.5%;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.errorHigh, .errorLow, .errorNone, .correct {
+	text-align: center;
+	padding: 50px;
+	font-size: 1.5em;
+	font-weight: bolder;
+	border: 10px solid #a778fb;
+	width: 20%;
+	margin: 0px auto 20px auto;
+	color: white;
+}
+
+.errorHigh {
+	background-color: #ff5b5b;
+	border-color: #ffba3a;
+}
+
+.errorLow {
+	background-color: #3353dc;
+}
+
+.errorNone {
+	background-color: #8a438a;
+	border-color: #e22be2;	
+}
+
+.correct {
+	background-color: #57de57;
+	border-color: #44b338;
+	padding-bottom: 75px;
+}
+
+.startOver {
+    position: relative;
+    bottom: 368px;
+    margin: 0px auto 0px auto !important;
+    padding: 5px !important;
+    width: 91px !important;
+}
+
+
+#miniConsole {
+    padding: 15px;
+    width: 27%;
+    margin: 0px auto 20px auto;
+    border: 2px dashed lightgrey;
+    font-family: monospace;
+    text-align: center;
+    color: #afafaf;
+    background-color: #f7f7f7;
+}

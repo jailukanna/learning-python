@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo Survey with Validations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+    <fieldset><legend>Survey Form (Validations)</legend>
+        {% with messages = get_flashed_messages() %} <!-- 'with messages' helps us declare a variable in our template that we can use within a specific scope. -->
+            {% if messages %}   <!-- checks if any messages have been returned from flash_messages() function -->
+                {% for message in messages %} <!-- loops through all messages -->
+                    <p style="color: red; font-weight: boldest;">{{message}}</p> <!-- print messages one by one each in a <p> tag  -->
+                {% endfor %} <!-- end for loop -->
+            {% endif %} <!-- end if conditional statement -->
+        {% endwith %} <!-- end with messages variable -->
+        <form action="/result" method="POST">
+            <label for="name"> Name (required):
+                <input type="text" id="name" name="name">
+            </label>
+            <label for="name"> Email (required):
+                <input type="email" id="email" name="email">
+            </label>
+            <label for="location"> Location:
+                <select name="location" id="location">
+                    <option value="San Jose">San Jose</option>
+                    <option value="Seattle">Seattle</option>
+                    <option value="Denver">Denver</option>
+                    <option value="Chicago">Chicago</option>
+                </select>
+            </label>
+            <label for="language"> Favorite Language:
+                <select name="language" id="language">
+                    <option value="Javascript">Javascript</option>
+                    <option value="Python">Python</option>
+                    <option value="Ruby">Ruby</option>
+                    <option value="PHP">PHP</option>
+                </select>
+            </label>
+            <label for="comment"> Comments (required):
+                <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+            </label>
+            <input type="submit" value="Submit Survey!">
+        </form>
+    </fieldset>
+    <p>This is a basic Flask application which captures survey results and uses validation. Note: Django is not utilized here.</p>
+</body>
+</html>

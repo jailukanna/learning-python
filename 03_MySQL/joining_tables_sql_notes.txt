@@ -1,0 +1,119 @@
+let's say we want to match some values in 'clients' and 'billing' table
+
+#######
+#
+# JOIN (regular) FUNCTION  (aka INNER JOIN)
+#
+######
+
+	// this is done by ID's
+
+	// note this is different than JOIN LEFT
+
+	// note that JOIN ** ONLY ** joins entries which have a valid partner. Any records not with a partner are ommitted! For example, using LEFT JOIN these ommitted records are still passed over but as 'null'. Note that JOIN and LEFT JOIN are similar but produce different results and are doing two different things. Choose which one you'll use.
+
+			When SQL uses the keyword JOIN, it only includes those records that have matches on both sides. It will omit any records that don't have a 'partner'. 
+
+			On the other hand, LEFT JOIN will include all the records from the first table (the 'left' table, the first one mentioned when reading from left to right), regardless of whether that record has a matching foreign key in the (right) table that we are trying to join to it.
+
+	SELECT clients.first_name. clients.last_name. billing.amount. billing.charged_datetime
+	FROM clients
+	JOIN billing ON: clients.id = billing.clients_id;
+	// this will return all of the first, last names and amounts and datetime charged
+
+
+	SELECT sites.domain_name. leads.first_name. leads.last_name
+	FROM sites
+	JOIN leads ON sites.id = leads.sites_id;
+	// this will return domain name and first and last names of any leads
+
+
+	// join multiple tables
+
+
+	SELECT clients.first_name AS client_first. clients.last_name. sites.domain_name. leads.first_name AS leads_first
+	FROM clients
+	JOIN sites ON clients.id = sites.clients_id
+	JOIN leads ON sites.id = leads.sites_id
+	// same syntax but because we're joining two we have two lines
+	// returns us first name, last name, and all domains, and then those domain's leads
+	// our names column will be 'clients_first' for clients and 'leads_first' for leads
+
+
+
+#######
+#
+# JOIN (LEFT and RIGHT) FUNCTION aka (OUTER JOIN)
+#
+######
+
+	// note that LEFT JOIN or RIGHT JOIN will return records even if there is not a matching partner - ie, values missing from a joined table will appear as 'null'. Use the regular JOIN method to ONLY capture values with corresponding records in another table, or choose which one to use wisely. 
+
+	SELECT clients.first_name. clients.last_name. sites.domain_name
+	FROM clients
+	LEFT JOIN sites ON clients.id = sites.clients_id
+	// left join
+
+	typically never use right join unless the table you select from goes from one to many
+
+
+
+
+#######
+#
+# GROUP BY FUNCTION
+# 
+######
+
+	
+	// when using GROUPBY you should always use a function (see after this code example)
+
+	SELECT clients.first_name. clients.last_name. SUM(billing.amount)
+	FROM clients
+	JOIN billing ON: clients.id = billing.clients_id;
+	GROUP BY clients.id;  // group by id not the first or last name
+
+
+	// this will group by our clients id and SUM our billing amount
+
+
+			SELECT clients.first_name. clients.last_name. AVG(billing.amount)
+			FROM clients
+			JOIN billing ON: clients.id = billing.clients_id;
+			GROUP BY clients.id;  // group by id not the first or last name
+
+
+			// this will group by our clients id and AVERAGE our billing amount
+
+
+	// CAN USE 'AVG', 'MIN', 'MAX', 'SUM' functions in conjunction with GROUPBY
+
+
+
+#######
+#
+# GROUP CONCAT FUNCTION 
+#
+######
+
+	// use a the GROUP CONCAT function with GROUP BY
+	
+	SELECT GROUP_CONCAT(' ', sites.domain_name) AS domains, clients.first_name, clients.last_name
+	FROM clients
+	JOIN sites ON clients.id = sites.client_id
+	GROUP BY clients.id
+
+
+
+
+#######
+# 
+# COUNT FUNCTION
+#
+######
+
+
+	SELECT COUNT(leads.id). sites.domain_name   // only counting rows here
+	FROM sites
+	JOIN leads ON sites.id = leads.sites_id
+	GROUP BY sites.id;

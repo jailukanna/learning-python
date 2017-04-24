@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test Templates Project - Coding Dojo</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> <!-- note the formatting -->
+	<script type="text/javascript" src="{{ url_for('static', filename='js/functions.js') }}"></script>
+</head>
+<body>
+	<h3>My first flask template with embedded python</h3>
+	<p>Phrase: {{ phrase }}</p>  <!-- calls our phrase var -->
+	<p>Times: {{ times }}</p> <!-- calls our time var -->
+	{% for x in range(0, times): %} <!-- begin for-loop expression -->
+	<p>{{ x }} - {{ phrase }}</p>
+	{% endfor %} <!-- make sure to end our loop! -->
+	<div id='output'></div>
+</body>
+</html>

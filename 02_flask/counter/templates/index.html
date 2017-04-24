@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Counter using Sessions and Flask</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">  <!-- normalize -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<h1>Counter</h1>
+	<p>Welcome to the counter.</p>
+	<p>Refresh the browser to start counting or use the button below.</p>
+	<div>
+		<h3> {{ session['counter'] }} </h3>
+	</div>
+	<form  action='/increment_2' method='get'>
+		<input type="submit" value="Increase by +2">
+	</form>
+	<form  action='/reset' method='get'>
+		<input type="submit" value="Reset">
+	</form>
+</body>
+</html>

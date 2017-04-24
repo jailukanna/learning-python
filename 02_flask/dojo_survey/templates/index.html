@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dojo Survey - Tim Knab</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='welcome.js') }}"></script>
+</head>
+<body>
+	<h1>Dojo Survey</h1>
+	<h3>Fill out my survey!</h3>
+	<form action='/result' method='post'>
+		<label>
+		Your Name: <input type='text' name='your_name'>
+		</label>
+		<label>
+			Dojo Location: <select name='location'>
+				<option value="san_jose">San Jose</option>
+				<option value="seattle">Seattle</option>
+				<option value="los_angeles">Lost Angeles</option>
+				<option value="dallas">Dallas</option>
+				<option value="washington_dc">Washington DC</option>
+				<option value="chicago">Chicago</option>
+			</select>
+		</label>
+		<label>
+			Favorite Language <select name='language'>
+				<option value="javascript">Javascript</option>
+				<option value="java">Java</option>
+				<option value="python">Python</option>
+				<option value="css">CSS</option>
+				<option value="php">PHP</option>
+				<option value="ruby">Ruby</option>
+			</select>
+		</label>
+		<label>
+			Comment (optional) <textarea name='comment'>
+			</textarea>
+			</label>
+		<input type='submit' value='Submit!'>
+	</form>
+</body>
+</html>

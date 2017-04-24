@@ -1,0 +1,50 @@
+
+1. Connecting to MySQL
+
+	- need to install mysql connector (see document in folder for exact pip commands)
+
+
+2. Learn how to Import and Export MySQL Database
+
+	- either copy in SQL code exactly to import and refresh schemas
+	- or use export tool to export DB to SQL code
+
+
+3. Including files
+
+	- make sure server.py and mysqlconnection.py files are setup correctly
+
+
+4. Database Communication
+
+	- make sure all config credentials are correct in mysqlconnection.py, specifically port and username and password
+	
+
+5. Login and Registration
+	
+
+
+
+
+
+
+
+6. MySQL Injection
+
+
+
+
+
+
+##########
+#
+#	PASSING SQL QUERIES INTO PYTHON
+#
+##########
+
+	@app.route('/')
+	def index():
+	    friends = mysql.query_db("SELECT * FROM friends")
+	    print friends
+	    return render_template('index.html')
+	Notice how we use the mysql object's query_db function and pass in the query that we would like to run. 

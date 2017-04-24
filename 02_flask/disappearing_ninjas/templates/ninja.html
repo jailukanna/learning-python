@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>You Found: {{ninja}}!</title>
+</head>
+<body>
+    <!--
+    Notes: Below are two Jinja2 templating conditional statements. This is
+    because in this assignment, we've chosen only to use 2 Views, so we have
+    to do some logic to determine if the server has sent us a single ninja,
+    or a dictionary of ninjas. The actual object names are defined on the
+    server side, and are passed to this View. We then use the `{% if foo %}`
+    to do our logic internally, or `{% for foo in bar %}` to iterate through
+    a dictionary. See additonal comments below.
+    -->
+
+    <!-- Checks if only a ninja was sent by the server -->
+    {% if ninja %}
+        <!-- Loads image for that ninja -->
+        <!-- Notice we don't need to use duplicate {{ curly braces }} for `ninja` since we're already in a set of braces with `url_for` -->
+        <img src="{{ url_for('static', filename='images/ninjas/'+ ninja +'.jpg') }}">
+    {% endif %}
+    <!-- Checks if all ninjas were sent by server -->
+    {% if ninjas %}
+        <!-- Iterates through ninja dictionary -->
+        {% for ninja in ninjas %}
+            <!-- Loads image for each ninja -->
+            <!-- Again, we don't need duplicate curly brackets and can reference the variable directly: -->
+            <img src="{{ url_for('static', filename='images/ninjas/'+ ninjas[ninja] +'.jpg') }}">
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

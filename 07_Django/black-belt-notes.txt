@@ -1,0 +1,44 @@
+-- do not focus on styling, get functionality to work
+-- you can copy and paste code: ** get your login and registration code working ahead of time!
+-- there will be something on the belt exam that won't have been seen before (not in notes or previous assignments). you'll have to do some research online (this is why I say build the login/registration chunk before the exam, to widen the gap as much as possible)
+-- think of the star rating system: use some while loops which push an image a certain number of times
+-- when you first get the wireframe : do not code right away
+-- you can use raw SQL code if you're having trouble with the ORMs
+-- read over your wire frame, read over it again, take notes, write down a game plan
+-- make sure to encrypt your passwords
+-- you will not be docked for un-restful routing
+-- delete your comments and excessive coding -- don't have a lot of fluff in there
+-- OK with print statements being left in there
+-- no unused files
+-- go through deployment a few times before you take your exam
+-- go through and do everything other than clone your github account ahead of time
+-- have water around you, food around you, turn off outside distractions
+-- use restroom ahead of time
+-- choose a time that you know you won't be interrupted -- a time when you know you're sharp
+-- make sure that you run your code first and test your code as you're going
+-- tackle a feature one by one, all the way through, then add the next feature and work it all the way through
+-- don't overwrite code without testing first
+
+
+-- timer is 4.5 hours
+-- you enter code provided and you make your project
+-- go through the exam and deploy it online
+
+	(would be a good idea to already have an instance setup -- so all you have to do is run through the deployment steps)
+
+-- you must also zip up your files and submit them to the exam app
+-- put a text file in the zip file with an ip to your deployed server
+-- if your internet went down, etc, and you were 5 minutes late, submit it anyways--don't take advantage of it
+-- zip up your files with 10 minutes to go and upload regardless, and then you could deploy after and send the IP (aka priority 1 is getting that hardcopy of code uploaded and 2nd priority deploy)
+
+
+-- can message the TA ahead of time while taking the exam
+-- don't be so concerned with getting a black belt
+-- just be open to learning and that you may have to take it a second time
+
+-- if you don't get a black belt, take the wireframe and finish it off -- finish off those pieces to work -- notify the TA and share your deployed version now
+
+-- try to take the exam this week, as your next stack starts next week
+-- that's the hard thing about re-taking the belt exam
+-- we ask if you don't pass, finish it off, then take another exam and TA will give you code for that somehow reflects your issues
+-- you could come back to your black belt exam after your second stack, but then you're unlocking random exams

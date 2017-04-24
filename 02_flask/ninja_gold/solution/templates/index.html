@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  .gained{
+    color: green
+  }
+  .lost{
+    color: red
+  }
+  </style>
+</head>
+<body>
+Welcome to ninja gold!
+Gold = {{session['gold']}}
+<a href = '/reset'>Reset</a>
+<form action = '/process_gold' method = 'post'>
+  <input type="hidden" name="building" value="house">
+  <input type = 'submit' value = 'house'>
+</form>
+<form action = '/process_gold' method = 'post'>
+  <input type="hidden" name="building" value="casino">
+  <input type = 'submit' value = 'casino'>
+</form>
+<form action = '/process_gold' method = 'post'>
+  <input type="hidden" name="building" value="farm">
+  <input type = 'submit' value = 'farm'>
+</form>
+<form action = '/process_gold' method = 'post'>
+  <input type="hidden" name="building" value="cave">
+  <input type = 'submit' value = 'cave'>
+</form>
+{% for element in session['comments'] %}
+<p class  = "{{element['style']}}">{{element['comment']}}</p>
+
+{% endfor %}
+</body>
+</html>

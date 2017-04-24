@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Random Word Generator Assignment, Coding Dojo, Tim Knab</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'wordgenerator/css/style.css' %}">
+</head>
+<body>
+	<h3>Random Word</h3>
+	<h4>Attempt: #{{request.session.attempt}}</h4>
+	<h1>{{ randomWord }}</h1> <!-- note that 'randomWord' is a key-value pair in the index route of views.py -->
+	<form action="/generate" method="post">
+		{% csrf_token %}
+		<input type="submit" value="Generate!">
+	</form>
+</body>
+</html>

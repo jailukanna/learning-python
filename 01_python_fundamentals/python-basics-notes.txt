@@ -1,0 +1,404 @@
+...to get to python, run 
+'python' in terminal.
+
+
+extension is .py
+
+# is for notes instead of //
+
+
+###############
+##
+## Why Use Python?
+##
+###############
+
+	Here are some reasons why people in the development community think it's great and why we should use it!
+
+	Readability - high-level syntax that closely resembles English, and punctuation rules that promote consistent format.
+
+	Libraries - Python has been around for more than 20 years. There are tons and tons of resources and open source libraries that you can take advantage of. If you've thought about a specific library or feature you want to build and use, there is probably a library out there that has already been made by skilled developers.
+
+	Community - It always helps to ask others about things you may not have the answers to or problems that you just cannot get around. This is especially true when there is a massive community that is just as enthusiastic about Python as you are!
+
+	Scope - Python is effective across a broad range of project types - scientific computing, data analytics, machine learning, game creation, web development, and more
+
+	Ease - Python has earned a reputation for being easy to learn due to the simplicity of its syntax. It is now the most popular language taught at top universities for instruction on fundamental and advanced computing concepts
+
+	Popular apps built with Python - Python is so flexible it has been used to build some of these awesome apps that millions of people use every day! You've probably heard of some of these before ;)
+
+
+
+
+
+###############
+##
+## Data Types
+##
+###############
+
+	Data types are nothing more than  types of data. In Python, everything is an object. We will touch on this later when we get into Object Oriented Programming(OOP). Here's a list of the data types that you will surely be using in building web applications.
+
+	Boolean Values - Assesses the truth value of something. It has only two values: True and False
+	Numbers - Integers, floating point numbers, and complex numbers
+	Strings - A text literal. Most pages in the web work with strings quite often
+	Tuples - A type of data that is immutable and can hold a group of values. Tuples can contain mixed data types
+	Lists -  A type of data that is mutable and  can hold a group of values. Usually meant to store a collection of related data
+	Dictionaries - A group of key-value pairs. Dictionary elements are indexed by unique keys which are used to access values
+	Sets - An unordered collection of data with no duplicate elements supporting operations like union, intersection, and difference
+
+
+
+
+###############
+##
+## Indentation Rules and Line Endings
+##
+###############
+
+Indentation & Line-Endings
+	One of the most important aspects of Python is the indentation. Python has no brackets, braces, or keywords to indicate the start and end of certain code blocks such as functions, if statements, and loops. The only delimiter is the colon (:) and the indentation of the code itself. You'll see that indenting starts a new code block and un-indenting ends that block. Don't worry if these codes don't make sense right now; we'll go over function and if-statements later. Just take note of how the indentation looks.
+
+	# define a function that says hello to the name provided
+	# this starts a new block
+	def say_hello(name):
+	  #these lines are indented therefore part of the function
+	  if name:
+	   print 'Hello, ' + name + 'from inside the function'
+	  else:
+	   print 'No name'
+	# now we're unindented and have ended the previous block
+	print 'Outside of the function'
+
+
+
+
+###############
+##
+## User Input
+##
+###############
+
+	To get user input we will use the raw_input() or input() functions:
+
+	# create variable called greeting that holds the value of a string
+	greetings = "Hello Ninja!"
+	print greetings
+	# you can use single or double quotes for strings
+	print 'What is your name?'
+	# we use raw_input()to get user input and set it to a variable
+	name = raw_input()
+	print "How old are you?"
+	# we can also use input() to get user input
+	age = input()
+	# adding of variables to a string to be printed is like this:
+	print "Your name is", name
+	print "You are", age, "years old"
+	# you can also add the variable in between strings just like the above
+	raw_input("\n\nPress the enter key to exit.")
+	# the line above would make the app not close or exit out automatically.
+
+
+
+###############
+##
+## Comments
+##
+###############
+
+	Comments are awesome because they allow you to explain what your code is doing without actually executing the lines that are commented. In Python, there are two ways to write comments:
+
+	#
+
+	# commenting a single line
+	# we can even comment out code
+	# print "this will not print!"
+	"""  """  OR  '''  '''
+
+	print "read below for more on multi-line comments in python!" #this would execute
+	# This line and below would not execute
+	''' 
+	Triple quotations allow us to comment across multiple lines as long as 
+	the triple quoted comment is not the first thing in your file.
+	You can use double or single quotes!
+	These are quite handy when trying to comment things like functions:
+	def saySomething():
+	    print "saying something"
+	saySomething()
+	'''
+
+
+###############
+##
+## Strings
+##
+###############
+
+	Strings are any sequence of characters (letters, numerals, ~($/}\#, etc.) enclosed in single or double quotes. You can display a string like this:
+
+	print "this is a sample string"
+	Printing Strings using Variables
+	There are multiple ways that you can print a string containing data from variables.
+
+	The first is by adding a comma after the string, followed by the variable. Note that the comma is outside the closing quotation mark of the string. Print inserts a space between elements separated by a comma. 
+
+	name = "Zen"
+	print "My name is", name
+	The second is by concatenating the contents into a new string, with the help of +. 
+
+	name = "Zen"
+	print "My name is " + name
+	Lastly, you can use curly brackets - {} - and the string .format() method to inject variables into your string - this is known as string interpolation. 
+
+	first_name = "Zen"
+	last_name = "Coder"
+	print "My name is {} {}".format(first_name, last_name)
+	Above the string "Zen" is inserted where the first curly bracket is and the string "last_name" where the second curly bracket is. There should be a corresponding number of curly brackets and arguments passed to the .format() function
+
+	Built-In String Functions
+	The following are some Python built-in functions that can be used to manipulate a string.
+
+	<string>.capitalize()
+
+	Create a copy of the string with only its first character capitalized.
+
+	my_string = 'hello world'
+	print my_string.capitalize()
+	# the output would be:
+	# Hello world
+	<string>.lower
+
+	Return a copy of string converted to all-lowercase.
+
+	my_string = 'Hello WORLD'
+	print my_string.lower()
+	# the output would be:
+	# hello world
+	<string>.swapcase
+
+	Return a copy of a string with uppercase characters converted to lowercase, and vice versa.
+
+	my_string = 'Hello WORLD'
+	print my_string.swapcase()
+	# the output would be:
+	# hELLO world
+	<string>.upper
+
+	Return a copy of a string converted to all uppercase.
+
+	my_string = 'hello world'
+	print my_string.upper()
+	# the output would be:
+	# HELLO WORLD
+	<string>.find(<substring>)
+
+
+	Determine if a specified string (in this example, 'el') occurs in a given string and returns the index or location of where the substring ('el') occurred from the string. If not found, it will return -1 as a result. 
+
+	my_string = "hello world"
+	print my_string.find("el")
+	# the output would be:
+	# 1
+	<string>.replace(<old>, <new> [, max])
+
+	This method returns a copy of the string with all occurrences of substring old replaced by new. If the optional argument max is given, only the first number of times indicated in max will you have the substring old replaced.
+
+	my_string = "hello world"
+	print my_string.replace("world", "kitty")
+	# the output would be:
+	# hello kitty
+	my_string = "This is a very long string. This is just a random string"
+	print my_string.replace("is", "as", 2)
+	# the output would be:
+	# This as a very long string. This is just a random string
+	# notice that only the first 2 "is" were replaced in the string.
+	Click  here for a list of other things you can do with strings.
+
+
+
+	MORE INFO:
+	https://docs.python.org/2.6/library/string.html
+
+
+
+
+###############
+##
+## Lists
+##
+###############
+
+	Lists
+	A list, also commonly known as an array in other programming languages, is a data type that allows you to hold groups of values. Think of a list like a dresser with multiple drawers in which each drawer stores some information. Lists are created with values inside of square brackets [], where each value is separated by a comma. After a list is created, it can still be updated by adding values and/or by deleting values. An empty list is simply [ ].
+
+	ninjas = ['Rozen', 'KB', 'Oliver']
+	my_list = ['4', ['list', 'in', 'a', 'list'], 987]
+	empty_list = []
+	In Python, the elements of a list do not have to be of the same data type. A list can be a mixture of any Python data types, including, tuples, strings, numeric, and even a list itself (a list within a list). An example:
+
+
+
+	And if we run the code, the output would look like:
+
+
+
+	Accessing Values
+	Back to the dresser analogy, imagine that each drawer is numbered starting with 0. Say the first drawer( index of 0) has 'documents' inside, the second drawer (index 1) has 'envelopes' inside, and so on. Each drawer holds a number, also known as the index (which serves as the unique address that points to each of our items inside the drawer). You can access the items in the drawer like below:
+
+	drawer = ['documents', 'envelopes', 'pens']
+	#access the drawer with index of 0 and print value
+	print drawer[0]  #prints documents
+	#access the drawer with index of 1 and print value
+	print drawer[1] #prints envelopes
+	#access the drawer with index of 2 and print value
+	print drawer[2] #prints pens
+	Manipulating Lists
+	Here are some functions that we will use to manipulate lists
+
+	.append
+	<list>.append(<new_element>)
+
+	Appends a new item onto the end of the given list. You can pass any data type into this function
+
+	x = [1,2,3,4,5]
+	x.append(99)
+	print x
+	#the output would be [1,2,3,4,5,99]
+	.insert
+	<list>.insert(<index>, <new_element>)
+
+	Inserts a new item into the list at the given index. You can pass any data type into this function
+
+	x = [1,2,3,4,5]
+	x.insert(2,99)
+	print x
+	#the output would be [1,2,99,3,4,5]
+	.remove
+	<list>.remove(<element>)
+
+	Remove the first item from the list whose value is provided. Errors if the element does not exist
+
+	x = [1,2,3,4,5]
+	x.remove(3)
+	print x
+	#the output would be [1,2,4,5]
+	.pop
+	<list>.pop(<optional_index>
+
+
+
+	)
+
+	Remove the item at a given position; if the position is not given, it will remove the last entry from the list
+
+	x = [1,2,3,4,5]
+	x.pop()
+	print x
+	#the output would be [1,2,3,4]
+	y = [10,11,12,13,14]
+	y.pop(1)
+	print y
+	#the output would be [10,12,13,14]
+	.sort
+	<list>.sort(
+
+
+
+	)
+
+	Sorts the elements in a list.
+
+	x = [99,4,2,5,-3];
+	x.sort()
+	print x
+	#the output would be [-3,2,4,5,99];
+	slicing
+	Uses [ ] characters to return a copy of the list, constrained to the specified indices. The starting index and ending index should be separated by the ":" character. 
+
+	x = [99,4,2,5,-3];
+	print x[:]
+	#the output would be [99,4,2,5,-3]
+	print x[1:]
+	#the output would be [4,2,5,-3];
+	print x[:4]
+	#the output would be [99,4,2,5]
+	print x[2:4]
+	#the output would be [2,5];
+	List Built-in Functions
+	Below are some built-in functions that deal with lists. The following functions can also be applied to all sequences, including tuples and strings.
+
+	len()
+	Returns the number of items in a sequence.
+
+	my_list = [1, 'Zen', 'hi']
+	print len(my_list)
+	# the output would be 3
+	max()
+	Returns the largest item in the sequence.
+
+	my_list = [1, 7, 3]
+	print max(my_list)
+	# the output would be 7
+	min()
+	Returns the smallest item in the sequence. When comparing boolean to numbers, True == 1 and False == 0.  Comparing items of differing types are quite uncommon, but if you ever do this, note that all numbers < all dictionaries < all lists < all strings < all tuples.  
+
+	my_list = [1, 7, 3]
+	print min(my_list)
+	# the output would be 1
+	any()
+	Returns True if there exists any item in the sequence which is True.
+
+	my_list = [0, 'hi', '']
+	print any(my_list)
+	# the output would be True since a string would equate to true in this case
+	my_list = [0, '']
+	print any(my_list)
+	# the output would be False since 0 (zero) and an empty string will both be false
+	all()
+	Returns True if all items in the sequence are True.
+
+	my_list = [0, 'Zen', '']
+	print all(my_list)
+	# the output would be False
+	my_list = [4, 'hi']
+	print all(my_list)
+	# the output would be True
+	These are just some of the things you can do to manipulate or extract information from a list. Click here to learn more about other built-in functions you can use with a list. 
+
+
+	MORE INFO:
+	http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch14s07.html
+
+
+
+###############
+##
+##	Join
+##
+###############
+
+	say you have,
+
+	names = ['KB','Oliver','Mikey','John']
+
+	and you want them each on a sep line,
+		here's how:
+
+	print '\n'.join(names)       # this joins the \n (new line) character to printing Names
+
+
+
+
+###############
+##
+## Conditional Expressions
+##
+###############
+
+	for loops
+	while loops
+	if else elif statements
+	pass, break, continue statements
+
+
+

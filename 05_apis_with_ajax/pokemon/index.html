@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pokemon API Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+		//fd875a5c99962c8256476cc58cf466ae
+		$(document).ready(function(){
+			$('#submitButton').click(function() {
+				for ( var i = 1; i < 151; i++  ) {
+					$.get('http://pokeapi.co/api/v2/pokemon/' + i , function(pokemon){
+						$("#pokemon").append("<div><img src='" + pokemon.sprites.front_shiny + "' alt='" + pokemon.name + "'><h3>" + pokemon.name + "</h3></div>");
+						console.log(pokemon)
+					}, 'json');
+				}; // end for loop
+			return false;
+			}); // end click
+		}); // end doc ready
+	</script>
+	<style>
+		h3 { text-align: center; }
+		div { display: inline-block; }
+	</style>
+</head>
+<body>
+	<div>
+		<div id="pokemon">
+		</div>
+		<form id="showPokemon" method="post" action="process.php">
+			<input type="submit" id="submitButton" value="Show Pokemon!">
+		</form>
+	</div>
+</body>
+</html>

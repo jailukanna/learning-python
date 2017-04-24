@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Friends</title>
+</head>
+<body>
+  {{ all_friends }}
+  <h1>These are all my friends!</h1>
+  {% for friend in all_friends: %}
+    <p>ID: {{ friend['id'] }}</p>
+    <p>First Name: {{ friend['first_name'] }}</p>
+    <p>Last Name: {{ friend['last_name'] }}</p>
+    <p>Occupation: {{ friend['occupation'] }}</p>
+    <hr>
+  {% endfor %}
+  <h2>Add a Friend</h2>
+  <form action='/friends' method='POST'>
+    <label for="first_name">First Name:<input type="text" name="first_name" id="first_name"></label>
+    <label for="last_name">Last Name:<input type="text" name="last_name" id="last_name"></label>
+    <label for="occupation">Occupation:<input type="text" name="occupation" id="occupation"></label>
+    <input type="submit" value="Add">
+  </form>
+  <h2>Update a Friend (need an ID)</h2>
+  <form action='/update_friend/<friend_id>' method='POST'>
+    <label for="first_name">First Name:<input type="text" name="first_name" id="first_name"></label>
+    <label for="last_name">Last Name:<input type="text" name="last_name" id="last_name"></label>
+    <label for="occupation">Occupation:<input type="text" name="occupation" id="occupation"></label>
+    <label for="id">ID:<input type="text" name="friend_id" id="friend_id"></label>
+    <input type="submit" value="Add">
+  </form>
+ <h2> Search for a User by ID</h2>  
+  <form action='/friends/<friend_id>' method='POST'>
+    <label for="search">Search:<input type="text" name="friend_id" id="friend_id"></label>
+    <input type="submit" value="Search">
+    {{ one_friend }}
+  </form>
+ <h2> Delete a User by ID</h2>  
+  <form action='/remove_friend/<friend_id>' method='POST'>
+    <label for="delete">Delete:<input type="text" name="friend_id" id="friend_id"></label>
+    <input type="submit" value="Delete">
+  </form>
+</body>
+</html>

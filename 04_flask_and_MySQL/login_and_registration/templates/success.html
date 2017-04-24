@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login and Registration Project | Coding Dojo</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+</head>
+<body>
+	<h1>Hi, {{ user.first_name }} {{ user.last_name }}!</h1>
+	<p>You are logged in!</p>
+	<!-- begin flash messaging  -->
+  	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		<ul class="flashes">
+      		{% for message in messages %}
+        		<li class="error">{{ message }}</li>
+      		{% endfor %}
+      		</ul>
+    	{% endif %}
+  	{% endwith %}
+  	<!-- end flash messaging -->
+	<a href="/logout" class='button'>Logout</a>
+	&nbsp;
+	<a href="/" class='button'>Go Home</a>
+	<p id="sub_caption"><small><strong>Note:</strong> if you're already logged in, clicking home will keep you on this page - thank you session and flask :)</small></p>
+</body>
+</html>

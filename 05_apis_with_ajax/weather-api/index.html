@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Weather API Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+		//fd875a5c99962c8256476cc58cf466ae
+		$(document).ready(function(){
+			$('#submitButton').click(function() {
+				var city = $('#city').serializeArray();
+				$.get('http://api.openweathermap.org/data/2.5/weather?q=' +  city[0].value +'&units=imperial&APPID=fd875a5c99962c8256476cc58cf466ae', function(data){
+					console.log(data)
+					$("#temp").html('Current Temp: ' + data.main.temp + ' deg F');
+					$("#humidity").html('Current Humidity: ' + data.main.humidity + '%'); 
+				}, 'json');
+				return false;
+			}); // end click
+		}); // end doc ready
+	</script>
+
+</head>
+<body>
+	<div>
+		<h1>Temperature</h1>
+		<h3 id='temp'></h3>
+		<h3 id='humidity'></h3>
+		<form id="city" method="post" action="process.php">
+			<input type="text" name="cityName" id='cityName' placeholder='Enter a City'>
+			<input type="submit" id="submitButton" value="Show Weather!">
+		</form>
+	</div>
+</body>
+</html>

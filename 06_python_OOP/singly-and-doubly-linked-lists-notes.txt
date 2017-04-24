@@ -1,0 +1,66 @@
+#################
+#
+#	LINKED LISTS
+#
+#################
+
+
+	+ Linked Lists are another data structure (like an array or a dictionary), but allow us more "indexing" control over our data. That is to say, we can more easily insert and delete data, and in a more organized fashion than the certain limitations that can come with things like arrays, etc.
+
+
+	+ Linked lists are made up of NODES
+
+		+ NODES can store attributes, but TWO REQUIRED are:
+			+ VALUE attribute - like  a string or number
+			+ NEXT attribute - a POINTER which points to the next NODE
+
+
+	+ Has a HEAD and a TAIL
+		+ HEAD points to the first node in the List
+		+ TAIL points to the last node in the List
+
+
+	#################
+	#
+	#	PYTHON LINKED LIST CODE
+	#
+	#################
+
+		How do we determine second value in our list?
+
+			`print head.next` will give us value next to `head` (note an object is returned)
+
+		How do we get the head object?
+
+			`print head`
+
+		What if we want only the value inside the node instead of the object?
+
+			`print head.next.value`
+
+		What if we wanted value after that?
+
+			`print head.next.next.next.value`
+
+
+	#################
+	#
+	#	SINGLY LINKED LISTS
+	#
+	#################
+
+		+ SINGLY LINKED LISTS only have NEXT pointers
+
+
+
+	#################
+	#
+	#	DOUBLY LINKED LISTS
+	#
+	#################
+
+		+ DOUBLY LINKED LISTS have both NEXT and PREVIOUS pointers
+
+
+
+

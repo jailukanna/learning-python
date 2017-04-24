@@ -1,0 +1,26 @@
+Useful resource about `pip`:
+https://www.atlantic.net/community/howto/useful-pip-commands/
+
+`pip` is a package manager tool for Python (akin to `npm` for Node)
+
+#upgrade pip:
+pip install -U pip
+
+#pip search:
+# allows you to search through the DB of packages in the central repository: https://pypi.python.org/pypi
+pip search {{package-name}}
+
+#pip install:
+pip install {{my-package}}
+
+#pip freeze: get list of all pip packages on your machine but saved to a text file:
+pip freeze > ~/desktop/requirements.text
+# will save to your desktop--change path accordingly
+# install from someone's requirements.txt:
+pip install -r
+
+#pip list: gives list of dependencies but not in requirements.txt format:
+pip list
+
+#pip show: gives more information about a package:
+pip show {{name-of-package}}

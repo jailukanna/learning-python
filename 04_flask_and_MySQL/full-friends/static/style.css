@@ -1,0 +1,115 @@
+/* CSS Document for Full Friends Project - Tim Knab - Coding Dojo - August 2016 */
+
+/*****************************/
+/*		  CSS RESET 		*/
+/****************************/
+* {
+	padding: 0;
+	margin: 0;
+}
+
+/*****************************/
+/*		  MAIN STYLING 		*/
+/****************************/
+h1, h3, p, .flashes {
+	padding: 50px 0px 20px 0px;
+	text-align: center;
+}
+
+a {
+	text-align: center;
+}
+
+.error {
+	color: red;
+}
+
+.success {
+	color: green;
+}
+
+form.createUser {
+	margin-left: auto;
+	margin-right: auto;
+	width: 288px;
+	margin-bottom: 50px;
+}
+
+	form.createUser label {
+		display: block;
+		padding: 10px;
+	}
+
+		form.createUser label input[type="text"] {
+			margin-left: 10px;
+		}
+
+		form.createUser label input[type="email"] {
+			margin-left: 47px;
+		}
+
+	form.createUser input[type="submit"] {
+		display: block;
+		margin-left: auto;
+		margin-right: 12px;
+		padding: 10px;
+	}
+
+form.editUser {
+	margin-left: auto;
+	margin-right: auto;
+	width: 288px;
+	margin-bottom: 50px;
+}
+
+	form.editUser label {
+		display: block;
+		padding: 10px;
+	}
+
+		form.editUser label input[type="text"] {
+			margin-left: 10px;
+		}
+
+		form.editUser label input[type="email"] {
+			margin-left: 47px;
+		}
+
+	form.editUser input[type="submit"] {
+		display: block;
+		margin-left: auto;
+		margin-right: 12px;
+		padding: 10px;
+		background-color: green;
+		color: white;
+	}
+
+.friends {
+    padding-left: 60px;
+    margin-bottom: 50px;
+}
+
+form.delete {
+  display: inline-block;
+}
+  
+	form.delete input {
+		background-color: red;
+		color: white;
+		padding: 5px;
+	}
+
+form.edit {
+	display: inline-block;
+}
+
+	form.edit input {
+		background-color: blue;
+		color: white;
+		padding: 5px;
+	}
+
+li {
+	list-style-type: none;
+	margin: 10px 0;
+}

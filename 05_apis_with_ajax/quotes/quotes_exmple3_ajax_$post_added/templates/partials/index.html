@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Quotes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Quotsy</h1>
+    <div id="quotes">
+      <!-- the for loop below retrieves our quotes -->
+      {% for quote in quotes %}
+        <div class='quote'>
+          <h2>{{ quote['author'] }}</h2>
+          <p>{{ quote['quote'] }}</p>
+        </div>
+      {% endfor %}
+      <!-- end for loop -->
+    </div>
+  </body>
+</html>

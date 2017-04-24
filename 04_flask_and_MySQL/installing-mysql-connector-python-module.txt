@@ -1,0 +1,12 @@
+In this chapter, we are going to teach you how to connect to MySQL in using a Python module named mysql-connector. Keep in mind while you are going through this chapter that we have provided you with a connection file so that you can learn how to interact with the database and run certain commands through an interface that we are providing. You do not need to understand how to create the connection file (you will by the end of the bootcamp we promise) but you do need to understand how it works.
+
+The first step in connecting to the database is installing the mysql-connector-python module. In your terminal, with your project-specific virtual environment active, run the following command:
+
+pip install MySQL-python==1.2.5
+pip install Flask-SQLAlchemy==2.1 
+FOR PC users:
+pip install Flask-SQLAlchemy==2.1 mysqlclient
+If you are running MySQL through MAMP and are getting errors with installing MySQL-python, run the following command to install the dev-headers for MySQL so that the MySQL-python package can install properly.
+
+brew install mysql-connector-c
+A

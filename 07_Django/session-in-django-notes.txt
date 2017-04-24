@@ -1,0 +1,17 @@
+request.session['key']
+This will retrieve (get) the value stored in key
+
+request.session['key'] = 'value'
+Set the value that will be stored by key
+
+del request.session['key']
+Deletes a session key if it exists, throws a keyError if it doesn’t. Use along with 'try' and 'except' since it’s better to ask for forgiveness than permission
+
+'key' in request.session
+Returns a boolean of whether a key is in session or not
+
+{{ request.session.name }}
+Use dot notation (.) to access request.session keys from templates since square brackets ([]) aren’t allowed there
+
+
+Only store small things in session -- it is inefficient 

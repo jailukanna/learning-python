@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pokedex</title>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			for ( var i =1; i < 152; i++ ) {
+				var img = "<img id='" + i + "' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + i + ".png'>"
+				$('#pokemon').append(img);
+			};
+
+			$("img").click(function(){
+				var $img = $( this )
+				$.get('http://pokeapi.co/api/v2/pokemon/' + $img.attr('id') , function(pokemon){
+						var html_str = "";
+	                    html_str += "<h1>" + pokemon.name + "</h1>";
+	                    html_str += "<img id='" + $img.attr('id') + "' src='" + pokemon.sprites.front_shiny + "' class='detailsPokemonImg'>";
+	                    html_str += "<h4>Types:</h4>";
+	                    html_str += "<ul>";
+	                    	for ( var typesLength = 0; typesLength < pokemon.types.length; typesLength++) {
+	                    		html_str += "<li>" + pokemon.types[typesLength].type.name + "</li>";
+	                    	};
+	                    html_str += "</ul>";
+                       	html_str += "<h4>Height:</h4>";
+                        html_str += "<p>" + pokemon.height + "</p>";
+	                    html_str += "<h4>Weight:</h4>";
+						html_str += "<p>" + pokemon.weight + "</p>";
+	                    $("#details").html(html_str);
+				 		console.log(pokemon);
+					}, 'json');
+			});
+		}); // end doc ready
+	</script>
+	<style>
+		div { display: inline-block; }
+
+		h1 { text-align: center; }
+
+		h4 { margin-left: 30px; }
+
+		li { margin-left: 30px; }
+
+		p { margin-left: 50px; }
+
+		.detailsPokemonImg {
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
+
+		#pokemon {
+			width: 72%;
+		}
+
+		#details {
+			vertical-align: top;
+			margin-top: 20px;
+			border: 15px solid #e91e63;
+			height: 500px;
+			width: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<div id="pokemon">
+		</div>
+		<div id="details">
+		</div>
+	</div>
+</body>
+</html>

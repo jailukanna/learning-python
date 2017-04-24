@@ -1,0 +1,52 @@
+<!-- see todo.md -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Full Friends Flask and MySQL Assignment - Tim Knab</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+</head>
+<body>
+	<h1>Welcome to Add a Friend</h1>
+	<p>Add a friend to the database using the form below. Once added, your new friend will appear, along with an 'edit' button, in case you'd like to update any details.</p>
+	<!-- begin flash messaging  -->
+  	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		<ul class="flashes">
+      		{% for message in messages %}
+        		<li class="error">{{ message }}</li>
+      		{% endfor %}
+      		</ul>
+    	{% endif %}
+  	{% endwith %}
+  	<!-- end flash messaging -->
+	<form class="createUser" action="/friends" method='POST'>
+		<label for="first_name">
+			First Name: <input type="text" id="first_name" name="first_name">
+		</label>
+		<label for="last_name">
+			Last Name: <input type="text" id="last_name" name="last_name">
+		</label>
+		<label for="email">
+			Email: <input type="email" id="email" name="email">
+		</label>
+		<input type="submit" value="Add Friend">
+	</form>
+	<hr>
+	<div class="friends">
+		<h1>Friends List</h1>
+		{% for friend in friendsList %}
+			<li>
+				{{ friend['first_name'] }} {{ friend['last_name'] }} -- ({{ friend['email'] }}) -- {{ friend['created_at'].strftime('%m/%d/%y %I:%M%p') }}
+        		<form class="edit" action="/friends/{{ friend['id'] }}/edit" method='GET'>
+					<input type="submit" value="Edit Friend">
+				</form>
+				<form class="delete" action="/friends/{{ friend['id'] }}/delete" method='post'>
+					<input type="submit" value="Delete Friend">
+        		</form>
+        	</li>
+      {% endfor %}
+    </div>
+</body>
+</html>

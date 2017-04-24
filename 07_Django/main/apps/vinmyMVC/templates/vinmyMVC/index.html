@@ -1,0 +1,23 @@
+<!-- this is your Views/Templates in your MVC model -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Index File</title>
+	{% load staticfiles %}
+	<!-- the line above tells django to listen for static files -->
+	<link rel='stylesheet' href="{% static 'vinmyMVC/css/main.css' %}" media='screen' title='no title' charset='utf-8'>
+</head>
+<body>
+	<h1>Index page rendered!</h1>
+	{% load static %}
+	<img src="{% static "vinmyMVC/images/astronomy.jpg" %}" alt="Space the final frontier" title='space the final frontier'/>
+	<br/>
+	{{request.session.name}}
+	<form action="/create_user" method="post">
+		{% csrf_token %} <!-- needed for django to process the form (notice lives inside of form) -->
+		<input type="text" name="first_name" id="first_name">
+		<input type="submit" value="Create User!">
+	</form>
+</body>
+</html>

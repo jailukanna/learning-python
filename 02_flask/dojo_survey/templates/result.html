@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>User Results</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='users.js') }}"></script>
+</head>
+<body>
+	<h1>Submitted Info</h1>
+	<form action='/' method='get'>
+		<p>Name: {{ your_name }}</p>
+		<p>Dojo Location: {{ location }}</p>
+		<p>Favorite Language: {{ language }}</p>
+		<p>Comment: {{ comment }}</p>
+		<input type='submit' value='Go Back'>
+	</form>
+</body>
+</html>

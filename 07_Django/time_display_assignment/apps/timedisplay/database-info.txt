@@ -1,0 +1,10 @@
+DATABASES = {
+        'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'timedisplaydb', # This name must be lowercase but can be anything!
+                'USER': 'timknab', # you can put whatever you want here
+                'PASSWORD': 'QWD:c5-`hj(.8h3$', # you can put whatever you want here
+                'HOST': 'localhost',
+                'PORT': '',
+        }
+}

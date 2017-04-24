@@ -1,0 +1,63 @@
+########
+#
+#	FUNCTIONS
+#
+########
+
+
+			MySQL contains functions as well, and we can use these to manipulate our data
+
+
+			CONCAT()
+				// lets you put two values together
+
+				SELECT CONCAT('Mr.' . ' ' . first_name . ' ' . last_name) AS full_name FROM clients;
+				// this will add 'Mr.' to the front of all first names and join it with the last name in 'clients'
+				// this data will be stored under the column 'full_name' (if you don't do this, your column will be the name of the code!)
+
+
+			CONCAT_WS()
+				// adds items with a space automatically (which the regular concat function does not)
+
+				SELECT CONCAT_WS(' '. first_name . last_name . 'cool') AS full_name FROM clients;
+				// this will add 'cool' to the end of the first and last names in 'clients'
+
+			LENGTH()
+				SELECT LENGTH(last_name) AS last_len FROM clients;
+				// will give # of characters for last name in 'clients'
+
+			LOWER()
+				SELECT LOWER(first_name) AS first_lowercase FROM clients;
+				// lower case all vals
+
+			UPPER()
+				SELECT UPPER(first_name) AS first_uppercase FROM clients;
+				// upper case all vals
+
+
+			HOUR()
+				// actually part of DATETIME
+
+				SELECT HOUR(joined_datetime) AS date_hour . joined_datetime FROM clients;
+				// gives hour in 24 hour format
+
+
+			DAYNAME()
+				SELECT DAYNAME(joined_datetime) AS date_name . joined_datetime FROM clients;
+				// gives name of day
+
+			MONTH()
+				SELECT MONTH(joined_datetime) AS month_number . joined_datetime FROM clients;
+
+			NOW()
+				SELECT NOW() AS right_now:
+
+			DATE_FORMAT()
+				// use w3schools or other resources to look up SQL DATE_FORMAT function parameters!
+				%W - weekday name
+				%M - month name
+				%e - day of week name
+				%Y - year
+
+				SELECT DATE_FORMAT(joined_datetime . '%W %M %e %Y') FROM clients;
+				// will give us data in format of 'Wednesday February 9, 2011'

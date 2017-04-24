@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Coding Dojo Survey in Django!</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'survey/css/style.css' %}">
+</head>
+<body>
+	<form action="/survey/process" method="POST">
+		{% csrf_token %}
+		<label required for="my_name">
+			Your Name: 
+			<input type="text" id='my_name' name='my_name'>
+		</label>
+		<label for="location">
+			Dojo Location
+			<select required name="dojo_location" id="location">
+				<option value="default" selected>Choose your Location...</option>
+				<option value="Silicon Valley">Silicon Valley</option>
+				<option value="Seattle">Seattle</option>
+				<option value="Los Angeles">Los Angeles</option>
+				<option value="Dallas">Dallas</option>
+				<option value="Washington DC">Washington DC</option>
+				<option value="Chicago">Chicago</option>
+			</select>
+		</label>
+		<label for="language">
+			Favorite Language
+			<select required name="favorite_language" id="language">
+				<option value="default" selected>Choose your favorite language below...</option>
+				<option value="javascript">Javascript</option>
+				<option value="python">Python</option>
+				<option value="php">PHP</option>
+				<option value="ios">iOS</option>
+			</select>
+		</label>
+		<label for="comments">Your Comments (optional):
+			<textarea name="user_comments" id="comments" cols="30" rows="10" placeholder='Enter your comments here...'></textarea>
+		</label>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>

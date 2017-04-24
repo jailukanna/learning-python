@@ -1,0 +1,13 @@
+/* CSS Document for Dojo Survey - Django Assignment - September 2016 */
+
+.alert {
+	border: 2px solid black;
+	padding: 20px;
+	background-color: green;
+	color: white;
+}
+
+.infobox {
+	padding: 20px;
+	border: 2px solid black;
+}

@@ -1,0 +1,154 @@
+/* CSS Stylsheet for Ninja Gold Project - Tim Knab - Coding Dojo - August 2016 */
+
+/*****************************/
+/*		  CSS RESET 		*/
+/****************************/
+* {
+	padding: 0;
+	margin: 0;
+}
+
+/*****************************/
+/*		  MAIN STYLING 		*/
+/****************************/
+h1 {
+	text-align: center;
+}
+
+h3 {
+	color: white;
+    text-shadow: 1px 1px 1px #000000;
+	padding: 10px;
+}
+
+p {
+	padding: 10px 0px 10px 0px;
+}
+
+#your-gold-txt, #your-gold-status, #farm, #cave, #house, #casino {
+	display: inline-block;
+}
+
+#your-gold-txt {
+	margin: 0px 20px 0px 100px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 1.5em;
+	position: relative;
+	top: 5px;
+}
+
+#your-gold-status {
+	border: 4px solid #c348d8;
+	padding: 10px;
+	width: 30px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.25em;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+}
+
+.blocks {
+	margin: 0px auto 0px auto;
+	width: 75%;
+}	
+
+
+.block-subtext {
+	color: white;
+    text-shadow: 1px 1px 2px #000000;
+    font-weight: bolder;
+}
+
+#farm, #cave, #house, #casino {
+	padding: 30px;
+	text-align: center;
+	margin: 20px 10px 20px 10px;
+	border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	width: 135px;
+}
+
+#farm {
+	background: rgb(210,255,82);
+	background: -moz-linear-gradient(top,  rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(210,255,82,1) 0%,rgba(145,232,66,1) 100%);
+	background: linear-gradient(to bottom,  rgba(210,255,82,1) 0%,rgba(145,232,66,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 );
+	border: 10px solid #4caf50;
+}
+
+#cave {
+	background: rgb(206,220,231);
+	background: -moz-linear-gradient(top,  rgba(206,220,231,1) 0%, rgba(89,106,114,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%);
+	background: linear-gradient(to bottom,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 );
+	border: 10px solid #5F7078;
+}
+
+#house {
+	background: rgb(252,151,59);
+	background: -moz-linear-gradient(top,  rgba(252,151,59,1) 0%, rgba(230,71,5,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(252,151,59,1) 0%,rgba(230,71,5,1) 100%);
+	background: linear-gradient(to bottom,  rgba(252,151,59,1) 0%,rgba(230,71,5,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fc973b', endColorstr='#e64705',GradientType=0 );
+	border: 10px solid #E74907;
+}
+
+#casino {
+	background: rgb(63,192,247);
+	background: -moz-linear-gradient(top,  rgba(63,192,247,1) 0%, rgba(0,127,184,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(63,192,247,1) 0%,rgba(0,127,184,1) 100%);
+	background: linear-gradient(to bottom,  rgba(63,192,247,1) 0%,rgba(0,127,184,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3fc0f7', endColorstr='#007fb8',GradientType=0 );
+	border: 10px solid #0382BB;
+}
+
+input[type='submit'] {
+	margin: 10px 0px 0px 0px;
+	padding: 15px;
+	font-weight: bold;
+	border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border: none;
+	background: rgb(238,238,238);
+	background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%);
+	background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 );
+}
+
+	input[type='submit']:focus {
+		outline: none;
+		background: rgb(255,255,255);
+		background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+		background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+		background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+	}
+
+	input[type='submit']:hover {
+		box-shadow: 0px 0px 0px 5px #a9a9a9;
+	}
+
+#activity-txt {
+	margin: 0px 20px 0px 100px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+textarea {
+	border: 4px solid #c348d8;
+	margin: 10px 0px 30px 95px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	width: 57%;
+	height: 150px;
+	display: block;
+}

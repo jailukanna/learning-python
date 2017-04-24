@@ -1,0 +1,56 @@
+f<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ninja Gold App - Django - Coding Dojo - Tim Knab</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'gold/css/style.css' %}">
+</head>
+<body>
+	<h1>Welcome to Ninja Gold</h1>
+	<h3>Your Gold: {{gold}}</h3>
+	<div id='wrapper'>
+		<div class='building'>
+			<h1>Farm</h1>
+			<h3>(earns 10-20 gold)</h3>
+			<form action="/process_money" method='POST'>{% csrf_token %}
+				<input type="hidden" name="building" value="farm">
+				<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+		<div class='building'>
+			<h1>Cave</h1>
+			<h3>(earns 5-10 gold)</h3>
+			<form action="/process_money" method='POST'>
+				{% csrf_token %}
+				<input type="hidden" name="building" value="cave">
+				<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+		<div class='building'>
+			<h1>House</h1>
+			<h3>(earns 2-5 gold)</h3>
+			<form action="/process_money" method='POST'>
+				{% csrf_token %}
+				<input type="hidden" name="building" value="house">
+				<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+		<div class='building'>
+			<h1>Casino</h1>
+			<h3>(earns/takes 0-50 gold)</h3>
+			<form action="/process_money" method='POST'>
+				{% csrf_token %}
+				<input type="hidden" name="building" value="casino">
+				<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+	</div>	
+	<h3>Activities:</h3>
+	<textarea name="activities" id="" cols="30" rows="10">
+{% for item in activity %}
+	{{item}}
+{% endfor %}
+	</textarea>
+</body>
+</html>

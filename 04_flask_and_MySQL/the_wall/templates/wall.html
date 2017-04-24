@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='description' content='The Wall - A project which blends Python, Flask, and MySQL databases served on a platter of HTML and CSS'>
+	<meta name='keywords' content='Python, Flask, MySQL, HTML, CSS'>
+	<meta name='author' content='Tim Knab'>
+	<title>The Wall - Python and MySQL - Tim Knab - Coding Dojo - August 2016</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/jquery-ui.theme.css') }}">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1 id='wallTitleText'>CodingDojo Wall</h1>
+		<p id='welcomeNameText'>Welcome, {{ loggedInUser['first_name'] }}!</p>
+		<a href='/logout'>Log Out</a>
+	</div>
+	<!-- begin flash messaging  -->
+  	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		<ul class="flashes">
+      		{% for message in messages %}
+        		<li class="error">{{ message }}</li>
+      		{% endfor %}
+      		</ul>
+    	{% endif %}
+  	{% endwith %}
+  	<!-- end flash messaging -->
+  	<div id='content'>
+		<h1 id='postMessageText'>Post a Message</h1>
+		<form action='/post' method='POST' id='createPost'>
+			<textarea name='message' id='message' class='postMessage'></textarea>
+			<button form='createPost' formaction='/post' formmethod='post' type='submit' class="ui-button ui-corner-all ui-widget createPostButton">Post a message</button>
+		</form>
+		<!-- begin messages list -->
+		{% for message in messageList %}
+			<ul class='postList'>
+				<li class='postDisplay'>	
+					<div class='posts'>
+						<p class='postTitleText'>
+							{{ message['name'] }} - {{ message['created_at'].strftime('%B %d %Y, %I:%M%p') }} posted:
+						</p>
+						<p class='postMessageText'>
+							{{ message['message'] }}
+							<!-- begin edit/delete user check - may only edit/delete posts for logged in user -->
+							{% if message['user_id'] == session['loggedInUser'] %}
+								<form action="/post/{{ message['id'] }}/delete" method="POST" id='deletePost'>
+									<button form='deletePost' formaction="/post/{{ message['id'] }}/delete" formmethod='post' type='submit' class="ui-button ui-corner-all ui-widget deletePostButton">Delete post</button>
+								</form>
+								<!-- begin 30 minute check - edit only if post was made i last 30 minutes --> 
+								{% if message['created_at'] > now - thirtyMinutes  %}
+									<form action="/post/{{ message['id'] }}/edit" method="POST" id='editPost'>
+										<button form='editPost' formaction="/post/{{ message['id'] }}/edit" formmethod='post' type='submit' class="ui-button ui-corner-all ui-widget editPostButton">Edit post</button>
+									</form>
+								{% endif %}
+								<!-- end 30 minute edit validation check -->
+							{% endif %}
+							<!-- end edit/delete user check -->
+						</p>
+						<div class='comments'>
+							<!-- begin comments list -->
+							{% for comment in commentList %}
+								{% if comment['message_id'] == message['id'] %}
+									<p class='commentTitleText'> {{ comment['name'] }} - {{ comment['created_at'].strftime('%B %d %Y, %I:%M%p') }} - commented:</p>
+									<p class='commentText'> {{ comment['comment'] }} </p>
+								{% endif %}
+							{% endfor %} 
+							<!-- end comments list -->
+							<h6>Comment:</h6>
+							<form action="/comment/{{ message['id'] }}" method='POST' id='createComment{{ message["id"] }}'>
+								<textarea name='comment{{ message["id"] }}' id='comment{{ message["id"] }}' class='postComment'></textarea>
+								<button form='createComment{{ message["id"] }}' formaction="/comment/{{ message['id'] }}" formmethod='post' type='submit' class="ui-button ui-corner-all ui-widget createCommentButton">Post a comment</button>
+							</form>
+						</div>
+					</div>
+				</li>
+			</ul>
+		{% endfor %} 
+		<!-- end messages list (posts) -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Note that when server.py is run in this assignment, the default index page does not load, but rather localhost:5000/quotes must be manually typed in (this was the setup in the demo which was followed)

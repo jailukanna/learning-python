@@ -1,0 +1,38 @@
+/* CSS Document for Email Validation Project using Flask + MySQL - Tim Knab, Coding Dojo, August 2016 */
+
+/*****************************/
+/*		  CSS RESET 		*/
+/****************************/
+* {
+	padding: 0;
+	margin: 0;
+}
+
+/*****************************/
+/*		  MAIN STYLING 		*/
+/****************************/
+body {
+	padding: 100px;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+form.delete {
+  display: inline-block;
+}
+  
+  form.delete input {
+    background-color: red;
+    color: white;
+  }
+
+li {
+  list-style-type: none;
+  margin: 10px 0;
+}

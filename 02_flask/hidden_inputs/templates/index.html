@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hidden Inputs Test</title>
+</head>
+<body>
+	<!-- Here we look at some hidden fields and how we can store them using the POST method (make sure to define both your METHOD and your route when you're setting up your python code) -->
+	<h1>Hidden Form Test</h1>
+	<form method="post" action="/process">
+	    <input type="hidden" name="action" value="register"> <!-- notice name='action' here -->
+	    <input type="text" name="first_name">
+	    <input type="text" name="last_name">
+	    <input type="text" name="email">
+	    <input type="password" name="password">
+	    <input type="submit" value="Register">
+	</form>
+	<form method="post" action="/process"> <!-- notice method='post' here -->
+	    <input type="hidden" name="action" value="login">  <!-- notice name='action' here -->
+	    <input type="text" name="email">
+	    <input type="password" name="password">
+	    <input type="submit" value="Login">
+	</form>
+	<h1>Registered?</h1>
+	<p>{{  }}</p>
+</body>
+</html>

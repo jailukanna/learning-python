@@ -1,0 +1,28 @@
+#######
+#
+#	Traditional Development vs. Test Driven Development (TDD)
+#
+#######
+
+'''
+	Traditional development follows the cycle: 
+		Design -> Build -> Test , start over again
+	The problem with this method is you might break something as you build each feature
+
+
+	Test Driven Development instead, uses the following cycle:
+		Write Test -> Write Code -> Improve Design , start over again
+	TDD requires you to test throughout the entire development process
+
+		The benefits:
+			Clearer picture of how features work BEFORE building
+			Develop without the fear of breaking an app
+			Encourage improvement and refactoring code base to create leaner code
+
+		The downsides:
+			Larger time investment
+			Additional complexity of code
+			More code to maintain
+
+
+'''

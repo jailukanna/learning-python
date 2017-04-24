@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login and Registration Project | Coding Dojo</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+</head>
+<body>
+	<h1>User Registration &amp; Login Project</h1>
+	<h2 id='tagline'>Go ahead and login below.</h2>
+	<p>Be sure to register first!</p>
+	<!-- begin flash messaging  -->
+  	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		<ul class="flashes">
+      		{% for message in messages %}
+        		<li class="error">{{ message }}</li>
+      		{% endfor %}
+      		</ul>
+    	{% endif %}
+  	{% endwith %}
+  	<!-- end flash messaging -->
+	<div id='column_one'>
+	  	<h2 class='form_titles'>Registration</h2>
+		<form action='/success' method='POST'>
+			<label for='first_name'>
+				First Name: <input type="text" name='first_name' id='first_name' placeholder='My First Name'>
+			</label>
+			<label for='last_name'>
+				Last Name: <input type="text" name='last_name' id='last_name' placeholder='My Last Name'>
+			</label>
+			<label for='email'>
+				Email: <input type="email" name='email' id='email' placeholder='My Email'>
+			</label>
+			<label for='password'>
+				Password: <input type="password" name='password' id='password' placeholder='My Password'>
+			</label>
+			<label for='password_confirm'>
+				Confirm Password: <input type="password" name='password_confirm' id='password_confirm' placeholder='Confirm My Password'>
+			</label>
+			<input type="submit" value="Register Me!">
+		</form>
+	</div>
+	<div id='column_two'>
+		<h2 class='form_titles'>Login</h2>
+		<form action='/login' method='POST'>
+			<label for='email'>
+				Email: <input type="email" name='email' id='email' placeholder='My Email'>
+			</label>
+			<label for='password'>
+				Password: <input type="password" name='password' id='password' placeholder='My Password'>
+			</label>
+			<input type="submit" value="Log Me In!">
+		</form>
+	</div>
+</body>
+</html>

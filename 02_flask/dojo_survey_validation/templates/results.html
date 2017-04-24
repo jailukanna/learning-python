@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey Result</title>
+</head>
+<body>
+    <fieldset><legend>Submitted Survey:</legend>
+        <p>Name: {{data['name']}}</p>
+        <p>Email: {{data['email']}}</p>
+        <p>Location: {{data['location']}}</p>
+        <p>Language: {{data['language']}}</p>
+        <p>Comment: {{data['comment']}}</p>
+    </fieldset>
+    <form action="/">
+        <input type="submit" value="Go Back">
+    </form>
+    <fieldset><legend>Colors:</legend>
+        <!--
+        # ADDITIONAL NOTES FOR JINJA2 DEMONSTRATION:
+        ## Question: Can templating be nested, like: {{..{{object}}..}}?
+        ### Answer: No. However, if double nesting, just reference the object
+        without the curly braces and it will load. Checkout the example image
+        below to see.
+
+        // FOR DEMO PURPOSES ONLY
+        In the `img` example below, we've passed a dictionary into our view from our route
+        called `colors`, and rather than use double nested braces like:
+             `{{ url_for(....filename="images/Colors/" + {{colors['P']}} + ".jpg"}}` // this will throw an error for having extra `{}`
+        We instead just simply reference the dictionary without the braces and it will take,
+        as long as we've properly passed it through our route:
+        -->
+
+        <img src="{{ url_for('static', filename='images/Colors/' + colors["P"] + '.jpg') }}">  <!-- should show `images/Colors/purple.jpg` -->
+
+        <!-- Could also iterate here through the images colors object and spit out the rest of the images -->
+
+        <!--
+        // FOR DEMO PURPOSES ONLY:
+        Note that the dictionary value below will only appear in our view
+        once we've included the double braces. The `<img>` tag above,
+        because it utilizes `url_for()`, the inclusion of the double
+        braces is unnecessary.
+
+        -->
+        {{colors["P"]}} <!-- should print 'purple' -->
+
+
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Email Validation with DB</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">  <!-- normalize -->
+</head>
+<body>
+  <h2>Validate an Email Address</h2>  
+  <!-- begin messages display, note the following is exact code from: http://flask.pocoo.org/docs/0.11/patterns/flashing/ -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li class='error'>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <!-- end messages display -->
+  <form action='/' method='POST'>
+    <label for="email">Enter an email address to validate:<input type="text" name="email" id="email"></label>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

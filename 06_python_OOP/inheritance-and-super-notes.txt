@@ -1,0 +1,65 @@
+################
+#
+#	INHERITANCE
+#
+################
+
+	Inheritance is simply forming new classes using classes that have already been defined. In other words, it allows one class to take on some or even all of its attributes and methods from a parent class. The benefits of inheritance are code reuse and reduction of complexity of a program. The derived classes (descendants) can override or extend the functionality of base classes (ancestors).
+
+
+	########
+	#
+	# SKELETON OF HOW TO CREATE A CLASS WHICH INHERITS 
+	#
+	########
+
+		+ Step 1: Define your parent object:
+
+			class Parent(object): # inherits from the object class
+	  			# parent methods and attributes here
+
+	  	+ Step 2: Create your child class, calling to your Parent as its parameter. 
+
+			class Child(Parent): #inherits from Parent class so we define Parent as the first parameter
+				# parent methods and attributes are implicitly inherited
+	  			# child methods and attributes
+
+
+
+################
+#
+#	SUPER
+#
+################
+
+	+ If we want to change one of our parent attributes (defined by our __init__ method), we can use a 'super' command, which will allow us to change the value of any attribute we defined in our parent. This is useful if you don't want to create a new attribute (as we do in inheritence), but instead, modify an attribute of the parent for a particular instance.
+
+	Here's a snippet:
+
+		super(ChildClassName, self).parent_method()
+
+	Here's an example in action:
+
+		from human import Human
+		class Wizard(Human):
+		    def __init__(self):
+		        super(Wizard, self).__init__()   # use super to call the Human __init__ method
+		        self.intelligence = 10           # every wizard starts off with 10 intelligence
+		    def heal(self):
+		        self.health += 10
+
+	+ In the instance above, we created a new class and inherited the value from the parent, but we also modified the parent `intelligence` attribute for our new child class to have a value of `10`. Note the default value in our Human.py file for the __init__ method is `3`, so *JUST* for our Wizard(Human), our `intelligence` starts off at `10`.
+
+
+
+################
+#
+#	SUMMARY
+#
+################
+
+	Remember that a class is more than just a collection of properties and methods. If you want to create a new class with attributes and methods that are already defined in another class, you can have this new class inherit from that other class (called the parent) instead of copying and pasting code from the original class. 
+
+	Child classes can access all the attributes and methods of a parent class AND have new attributes and methods of its own, for child instances to call. As we see with Wizard / Ninja / Samurai (that are each descended from Human), we can have numerous unique child classes that inherit from the same parent class.
+
+	

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Friendships</title>
+  </head>
+  <body>
+
+  <!-- Warning: Given the volume of flask variables here (and the need for non-repeating variable names), this page is a little less aesthetically pleasing than desired. Please forgive me and inspect each for loop. I've included a number which corresponds in views.py (controller) as to which query generates each of the outputs below: -->
+
+	<!-- ps: in-line css included here just to help for reading on template side - not best practices -->
+	<p style='margin-top: 30px;'>Note: Both <a href="#friends">Friends Assignment</a> and <a href="#friends_continued">Friends Continued Assignment</a> are here on the same page.</p>
+
+	<!-- begin friends assignment 1 questions and output -->
+
+	<h1 id='friends'>*FRIENDS ASSIGNMENT PART 1*</h1>	
+	<div style='padding-left: 40px;'>
+		
+		<!-- #1a -->
+	    <h1>1a. I've got some friends? - all()</h1>
+		<ul>
+		{% for user in users %}
+			<li>{{user.first_name}} {{user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #1 -->
+		<h1>1. Show me Rodriguez - filter()</h1>
+		<ul>
+		{% for filtered in filtered_users %}
+			<li>{{filtered.first_name}} {{filtered.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #2 -->
+		<h1>2. Show me those who aren't Rodriguez - exclude()</h1>
+		<ul>
+		{% for not_excluded in not_excluded_users %}
+			<li>{{not_excluded.first_name}} {{not_excluded.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #3 -->
+		<h1>3. Show me all with last name Rodriguez and all with last name Daniels- filter() and | operator</h1>
+		<ul>
+		{% for and_user in and_users %}
+			<li>{{and_user.first_name}} {{and_user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #4 -->
+		<h1>4. Show me all of the Rodriguez family but not Madison Rodriguez</h1>
+		<ul>
+		{% for filtered_except_user in filtered_except_users %}
+			<li>{{filtered_except_user.first_name}} {{filtered_except_user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #5 -->
+		<h1>5. Show me everyone but first name of Daniel and Michael</h1>
+		<ul>
+		{% for get_exclude_user in get_exclude_users %}
+			<li>{{get_exclude_user.first_name}} {{get_exclude_user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #6 -->
+		<h1>6. Get me the user with an id of 1</h1>
+		<!-- notice we didn't use a for loop here because only one item is returned it is not iterable -->
+		<p>{{get_user_id.first_name}} {{get_user_id.last_name}}</p> 
+		<hr>
+
+		<!-- #7 -->
+		<h1>7. Get me the user with last name of Rodriguez</h1>
+		<p>Note: we can't use get() here (see views.py for comments), because get only returns a single object. We'd have to use filter if we wanted our result as there are multiple matching objects</p> 
+		<hr>
+
+		<!-- #8 -->
+		<h1>8. Get me the user with id of 1000</h1>
+		<p>Note: we can't use get() here either as 1000 id does not exist and this will break django</p> 
+		<hr>
+
+		<!-- #8b -->
+		<h1>8b. Show me all users with id less than 7 and greater than 9</h1>
+		<ul>
+		{% for grtr_or_lssr_user in grtr_or_lssr_users %}
+			<li>{{grtr_or_lssr_user.first_name}} {{grtr_or_lssr_user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #9 -->
+		<h1>9. Order users by first name</h1>
+		<ul>
+		{% for order_by_first_name_user in order_by_first_name_users %}
+			<li>{{order_by_first_name_user.first_name}} {{order_by_first_name_user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #10 -->
+		<h1>10. Order users by last name in reverse</h1>
+		<ul>
+		{% for last_name_reverse_user in last_name_reverse_users %}
+			<li>{{last_name_reverse_user.first_name}} {{last_name_reverse_user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+		
+		<!-- #11 -->
+		<h1>11. Print all friendships objects in terminal</h1>
+		<p>See terminal and views.py</p>
+		<p>user ==> friend (from 'Friendships')</p>
+		<ul>
+		{% for each_friendship in friendship_objects %}
+			<li>{{each_friendship.user.first_name}} {{each_friendship.user.last_name}} ==> {{each_friendship.friend.first_name}} {{each_friendship.friend.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #12 -->
+		<h1>12. Retrieve the friendships where User.id=4 is the 'user' in the Friendships table</h1>
+		<h4>Basically, this is saying show me everyone whom this user set as their friend</h4>
+		<p>See terminal and views.py</p>
+		<p>{{friendships_m2m_by_id.0.user.first_name}} {{friendships_m2m_by_id.0.user.last_name}}'s Chosen Friends:</p>
+		<ul>
+		{% for friendships in friendships_m2m_by_id %}
+			<li>{{friendships.friend.first_name}} {{friendships.friend.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #13 -->
+		<h1>13. Retrieve all friendships where User.id=4 is the 'friend' in the Friendships table</h1>
+		<h4>Basically, this is saying find me everyone whom also chose this person as a friend</h4>
+		<p>See terminal and views.py</p>
+		<p>Those Who Also Chose {{friendships_m2m_by_friend.0.friend.first_name}} {{friendships_m2m_by_friend.0.friend.last_name}} As A Friend:</p>
+		<ul>
+		{% for friends_who_chose_user in friendships_m2m_by_friend %}
+			<li>{{friends_who_chose_user.user.first_name}} {{friends_who_chose_user.user.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #14 -->
+		<h1>14. Retrieve all friendships where the user is not id=4,5 or 6</h1>
+		<p>See terminal and views.py</p>
+		<p>user ==> friend</p>
+		<ul>
+		{% for non_excluded_friends in friendships_m2m_exclude_by_id %}
+			<li>{{non_excluded_friends.user.first_name}} {{non_excluded_friends.user.last_name}} ==> {{non_excluded_friends.friend.first_name}} {{non_excluded_friends.friend.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<h3>BTW, the users excluded, with id's 4,5,6 respectively:</h3>
+		<h4>They shouldn't appear on left hand side of list above (user)</h4>
+		<ul>
+		{% for excluded_friends in users_excluded %}
+			<li>{{excluded_friends.first_name}} {{excluded_friends.last_name}}</li>
+		{% endfor %}
+		</ul>
+		<hr>
+
+	</div>
+
+	<!-- begin friends assignment 2 questions and output -->
+	
+	<h1 id='friends_continued'>*FRIENDS ASSIGNMENT PART 2*</h1>
+	<div style='padding-left: 40px;'>
+		
+		<!-- #1  -->
+		<h1>1. Display first and last name for 'user' and 'friend' in friendships:</h1>
+		<ul>
+		{% for friendships in all_friendships %}
+			<li><strong>User Value:</strong>{{friendships.user.first_name}} {{friendships.user.last_name}}</li>
+			<li><strong>Friend Value:</strong>{{friendships.friend.first_name}} {{friendships.friend.last_name}}</li><br/>
+		{% endfor %}
+		<!-- notes: this one took me 'forever' in the not-forever-reality but what felt as such. I was massively struggling with the many-to-many referencing and then suddenly, (well not, suddenly) it made sense. I had thought I'd tried this similar method initially, and must not have done so correctly, and proceeded to make things more and more complicated. Reverting back to the basics helped, and just remember: do a .get() and grab all of your objects, than in a for loop, you can reference your linked table by using its key-name ('user' or 'friend') and django will automatically give you access to that table's columns ('first_name' or 'last_name') in the examples above. -->
+		</ul>
+		<hr>
+		
+		<!-- #2 -->
+		<h1>2. Display first and last name of all friends whom are associated with user with the first first name of 'Michael'</h1>
+		{% for michael_friend in michael_friends %}
+			<li>{{michael_friend.friend.first_name}} {{michael_friend.friend.last_name}}</li>
+		{% endfor %}
+		<hr>
+
+		<!-- #3 -->
+		<h1>3. Display all first names and last names of all friends whom Daniel is not friends with</h1>
+		<h6>Note: this was challenging for me</h6>
+		<ul>
+			{% for not_daniel_friend in not_daniels_friends %}
+				<li>{{ not_daniel_friend.first_name }} {{ not_daniel_friend.last_name }}</li>
+			{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #4 -->
+		<h1>4. Show first and last name of all friends with *both* User id=1 and user last_name = Hernandez</h1>
+		<ul>
+			{% for user_friend in user_friends %}
+				<li>{{ user_friend.first_name }} {{ user_friend.last_name }}</li>
+			{% endfor %}
+		</ul>
+		<p>This statement here is *after* the for loop. You can see nothing printed, this is because there are no users that BOTH are friends with users.id=1 and users.last_name=Hernandez.</p>
+		<p>OR if the question was asking:</p>
+		<h3> 'Show all first and last names for friends with user.id=1, and show all first and last names for friends with user.last_name="Hernandez"', then we could do this:</h3>
+		<p>Loop over all friends of user.id=1:</p>
+		<ul>
+			{% for friend_id_1 in friends_id_1 %}
+			<li>{{ friend_id_1.friend.first_name }} {{friend_id_1.friend.last_name}}</li>
+			{% endfor %}
+		</ul>
+		<p>Loop over all friends of user.last_name='Hernandez':</p>
+		<ul>
+			{% for hernandez_friend in hernandez_friends %}
+			<li>{{ hernandez_friend.user.first_name }} {{hernandez_friend.user.last_name}}</li>
+			{% endfor %}
+		</ul>
+		<hr>
+		
+		<!-- #5 -->
+		<h1>5. Order these by friend first_name and print them on your index.html page.</h1>
+		<p>Friends with the user.id=1 <em>sorted by alphabetical first_name:</em>:</p>
+		<ul>
+			{% for ordered_friend in ordered_friends %}
+			<li>{{ordered_friend.friend.first_name}} {{ordered_friend.friend.last_name}}</li>
+			{% endfor %}
+		</ul>
+
+		<p>Friends with the user.last_name="Hernandez" <em>sorted by alphabetical first_name:</em>:</p>
+		<ul>
+			{% for ordered_hernandez in ordered_hernandezes %}
+			<li>{{ordered_hernandez.user.first_name}} {{ordered_hernandez.user.last_name}}</li>
+			{% endfor %}
+		</ul>
+		<hr>
+
+		<!-- #6 and #7 -->
+		<h1>6. and <strong>7. (answers bolded)</strong>. Print first and last name of friends of user.id=2 using related_name</h1>
+		<h3>For #7, print the user with id of 2 (use your existing template loop)</h3>
+		<h3>See console and ORM query for how we are able to use 'related_name'</h3>
+		<ul>
+			{% for question_six_user in question_six_users %}
+			<li>{{question_six_user.first_name}} {{question_six_user.first_name}}</li>
+				{% for question_six_friendship in question_six_user.usersfriend.all %}
+					{%  if question_six_friendship.friend.id == 2 %}
+					<b>{{question_six_friendship.friend.first_name}} {{question_six_friendship.friend.last_name}}</b>
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<!-- HTML solution for question 7!-->
+		</ul>
+		<hr>
+
+		<!-- #8 -->
+		<h1>8. Re-do #4 but using related_name</h1>
+		<h3>Print all of the friends who are friends with both User with the id of 1 and with Users with the last name Hernandez:</h3>
+		<p>Friends with user.id=1</p>
+		<ul>
+			{% for id_of_one_user in id_of_one_users %}
+			<li>{{id_of_one_user.first_name}} {{id_of_one_user.last_name}}</li>
+			{% endfor %}
+		</ul>
+
+		<p>Friends with user.last_name='Hernandez'</p>
+		<ul>
+			{% for hernandez_user in hernandez_users %}
+			<li>{{hernandez_user.first_name}} {{hernandez_user.last_name}}</li>
+			{% endfor %}
+		</ul>
+		<h6>holy cow you made it =)</h6>
+	</div>
+
+  </body>
+</html>

@@ -1,0 +1,252 @@
+###########
+#
+#	MySQL Databases
+#
+###########
+
+	- uses Structured Query Language (SQL) to manage data and relationship databases
+	- uses things like SELECT, WHERE, INSERT, UPDATE, DELETE, JOIN to manipulate data
+
+	- note that your MySQL server is your database server, and this is different than your web server
+	- you'll use MySQL WorkBench to create your databases and MySQL
+	- you'll use MAMP then to emulate an Apache web server, and run your MySQL server
+	- note:
+		- for the mysql stuff, we're mostly interested in our database server
+		- we first must figure out which port the DB server is listening to, and then we need to configure MySQL Workbench to connect to that port. 
+		- then, we can use MySQL workbench to send SQL commands to the DB server
+
+	- an integral part to a web application and holds our data
+	- important to reduce redundancies 
+
+
+	- ERD
+	--- 'Entity Relationship Diagram'
+	--- Essentially a visual blueprint of how your database looks and behaves
+	--- An ERD is a map of the structure we want our databases to take, and the SQL is the language we use to build it.
+
+
+	- Don't Repeat Data
+	- 'ids' and 'foreign keys' are the glue that brings tables together (and allows them to be cross-referenced)
+
+	- By 'normalizing' our tables and setting relationships, we save storage space.
+	- Our database also becomes more 'modular', allowing for more customizations.
+
+
+	###########
+	#
+	#	Important Conventions
+	#
+	###########
+
+		- Always write tables in plural, ie, 'customers' in all lowercase
+		- make sure 'id' is used as primary key
+		- write your foreign keys as singular, ie, 'customer_id'
+		- use 'created_at' and 'updated_at' as columns for the timestamp in every table you create
+		
+
+###########
+#
+#	Main Concepts
+#
+###########
+
+	1. Database Relationships
+			One to One
+			One to Many
+			Many to Many
+	5. Three (3) Forms of Normalization
+	6. MySQL Workbench
+	7. Data Types
+
+
+		###########
+		#
+		#	One to One
+		#
+		###########
+
+
+		This is where you have one set of data and you're directly relating to another set of data
+		We call this a one to one relationship
+
+		every column needs an ID, first record cannot be 0(?)
+
+		names {
+			id: 1
+			name: randall
+			address: 101 some address
+
+			id: 2
+			name: john
+			address: 202 some address
+
+			id: 3
+			name: mary
+			address: 303 some address
+		}
+
+		// names can be rewritten and draw the data out to another table called 'addresses'
+		names {
+			id: 1
+			name: randall
+			address: 1
+
+			id: 2
+			name: john
+			address: 2
+
+			id: 3
+			name: mary
+			address: 3
+		}
+
+
+			addresses {
+				id: 1
+				name: randall
+				address: 1
+
+				id: 2
+				name: john
+				address: 2
+
+				id: 3
+				name: mary
+				address: 3
+			}
+
+
+			###########
+			#
+			#	One to Many
+			#
+			###########
+
+				Say we now create an Orders {} database
+				In this case, one customer might have more than one order
+				As customers place orders, their customer ID is placed in that database
+				This allows us to trace back
+				This is a "one to many" relationship
+
+
+
+
+				###########
+				#
+				#	Many to Many
+				#
+				###########
+
+					Many to many relationship is when you might have something like an items table
+					Orders placed may refer to many items, and:
+					Many items may exist in many different orders
+					This is a "many to many relationship"
+					Note that you need to create a 3rd table to serve as a 'connector' table
+
+
+
+
+
+###########
+#
+#	Normalization
+#
+###########
+
+
+	First Form
+
+		Each Column in your table can only have 1 value.
+
+		Ex. You should not have an address column in your table that lists the address, city, state, and zip, all separated by commas.
+
+	Second Form
+		Each Column in your table that is not a key (primary or foreign) must have unique values.
+
+		Ex. If you have a movies table with a categories column, you should not have a category repeated more than once.
+
+	Third Form
+		You cannot have a non-key column that is dependent on another non-key column.
+
+		Ex. If you have a books table with columns publisher_name and publisher_address, the publisher_address and publisher_name should be separated into a separate table and linked to books with a foreign key. The publisher_address is dependent on the publisher_name and neither column is a key column.
+
+
+
+
+###########
+#
+#	Data Types
+#
+###########
+
+
+	VARCHAR(number of characters)
+
+		Used to store non-numeric values that can be up to 255 characters. It is called a VARCHAR because it can store a variable number of characters and will only use the space required for each that is stored in the database. VARCHAR should be used for values with different character lengths like an email, first_name, or last_name.
+
+	CHAR(number of characters)
+
+		Also used to store non-numeric values, however, it will use up all space for the set number of characters regardless of what value is added. For instance, if I set CHAR(15), and I try to store the value "Coding", it will use up the equivalent of 15 characters even though "Coding" is only 6 characters long. Char is good to use for things that will always be a given number of characters. Char would work well for something like a state_abreviation.
+
+	INT
+
+		Used to store integers.
+		The columns that you will find mostly using the INT are things like a unique identifier for each table. The majority of rows in a table will not exceed 2.1 billion records. INT is good to use for most normal number values like a phone_number or a zip_code.
+		unsigned (positive numbers only) - can store numerical values from 0 up to 4294967295
+		signed (positive and negative numbers) - can store numerical values from -2147483648 up to 2147483647
+
+	BIGINT
+	
+		BIGINT would be used for columns that would need to store huge numbers. In most cases you wouldn't need BIGINT, but if you wanted to store something like a Facebook id when using Facebook's API, since they have over a billion users the id will need to be a data type of BIGINT.
+		unsigned (again positive numbers only) - can store numerical values from 0 up to 18446744073709551615
+		signed (positive and negative numbers) - can store numerical values from 9223372036854775807 to -9223372036854775808.
+	
+	TINYINT
+	
+		TINYINT would be good to use for numbers that will be relatively small. A good example of something that would use a TINYINT is user level identifier (0 - inactive user, 1 - active user, 9 - admin).
+		unsigned - can store numerical values from 0 up to 255
+		signed - can store numerical values from -128 up to 127
+	
+	FLOAT
+	
+		Used to store floating point numbers (numbers that need to have decimal places). An example column for this would be like an item_cost.
+	
+	TEXT
+	
+		Used to store a large amount of text, like a description, message, or comment. Use this for any text that VARCHAR() is too small to handle.
+	
+	DATETIME
+	
+		used to store a date and time in the format YYYY-MM-DD hh:mm:ss
+
+
+
+
+
+
+
+###########
+#
+#	Exporting Databases
+#
+###########
+
+	Server > Data Export
+
+	Under Export Options, make sure to export to select 'Export to Self-Contained File'
+		- Change the path and give it an appropriate name
+
+	Make sure to click 'Include Create Schema'
+		- This adds 'create database' to top of SQL file and won't appear without clicking this box
+
+	Make sure on the large left hand panel, under "Tables to Export" you've selected the database you're exporting.
+
+
+	This can then be copied into your SQL editor to create this database.
+
+
+
+
+
+
+

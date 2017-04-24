@@ -1,0 +1,88 @@
+############
+#
+#	Object Oriented Programming
+#
+############
+
+
+** AGE OF EMPIRES EXAMPLE **
+
+	1. CLASS
+
+		The blueprint of what I want to do and create. This is where you would say you want to have an X and Y coordiante, a health attribute, create or destroy or move attributes 
+
+	2. ATTRIBUTES
+
+		What can it have?
+
+	3. METHODS
+
+		What can it do?
+		The actual functions that control things.
+
+	4. INSTANCES or OBJECTS
+
+		When we run the class, this is what is created (in our Age of Empires example, this would be 'barracks')
+
+		Each barrack would have its own X and Y coordinates, its own health attributes, etc.
+
+		These are called INSTANCE ATTRIBUTES or INSTANCE METHODS
+
+#####
+#
+#	PRIVATE vs PUBLIC
+#
+#####
+
+What if you want some instances to NOT have some of the attributes you created in your Class?
+
+	Say you want to make one of these functionalities 'PRIVATE'
+
+	When you make a method PRIVATE or attribute PRIVATTE, these are no longer accessed by the instances or objects.
+
+	Often you have to specify whether PUBLIC (default) or PRIVATE
+
+#####
+#
+#	CONSTRUCTOR and DESTRUCTOR
+#
+#####
+
+What if you wanted to set some defaults when you created your attributes?
+
+	CONSTRUCTOR - this method will let you define the values of these attributes when you create each instance
+
+	These are methods that run when you construct your instances
+
+	DESTRUCTOR -
+	this is a method that runs when that object is destroyed (erased from memory)
+
+#####
+#
+#	INHERIT and PROTECTED
+#
+#####
+
+What if we want the barrack to upgrade?
+
+	Lets say we start with a basic barrack A and later this becomes barrack B (this is an upgrade). It does what A can do but with additional attributes and methods (HAVE/DO)
+
+	I can create a new class called BA and inherit everything that the barrack has and everything the barrack can do.
+
+	this is called INHERIT - this INHERITs all attributes and methods from the PARENT class into the CHILD CLASS
+
+	Private methods in Barrack, would this be accessible? NO- PRIVATE methods would not be accessible. Anything PRIVATE is NOT INHERITED.
+
+	What if you wanted to keep these attributes PRIVATE but ALSO want to INHERIT?
+
+	To do this, you must use PROTECTED. this allows this PRIVATE class to be INHERITED into your CHILD classes (it will be kept private however)
+
+#####
+#
+#	OOP Summary
+#
+#####
+
+	Using OOP we can organize our code a lot better. We create a blue print, and then call to ATTRIBUTES and METHODS to create INSTANCES
+
+	This allows you to organize your code a lot better and make everyone happy.

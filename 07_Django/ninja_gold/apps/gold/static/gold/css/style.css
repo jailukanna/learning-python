@@ -1,0 +1,17 @@
+/* CSS Document for Ninja Gold, September 2016, Tim Knab, Coding Dojo */
+
+#wrapper {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.building {
+	display: inline-block;
+	padding: 20px;
+}
+
+textarea {
+	width: 500px;
+}

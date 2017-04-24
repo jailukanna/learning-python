@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='description' content='The Wall - A project which blends Python, Flask, and MySQL databases served on a platter of HTML and CSS'>
+	<meta name='keywords' content='Python, Flask, MySQL, HTML, CSS'>
+	<meta name='author' content='Tim Knab'>
+	<title>The Wall - Python and MySQL - Tim Knab - Coding Dojo - August 2016</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$( "#register" ).click(function() {
+		  $( "#first_name" ).focus();
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="header">
+		<h1 id='wallTitleText'>CodingDojo Wall</h1>
+		<p>Please<a id='register' href='#'>Register</a> to begin.</p>
+	</div>
+	<p id='welcomeText'>Welcome to The Wall! Register or login below!</p>
+	<!-- begin flash messaging  -->
+  	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		<ul class="flashes">
+      		{% for message in messages %}
+        		<li class="error">{{ message }}</li>
+      		{% endfor %}
+      		</ul>
+    	{% endif %}
+  	{% endwith %}
+  	<!-- end flash messaging -->
+  	<div>
+		<div id='columnOneHalf'>
+			<h2>Register</h2>
+			<form action='/register' method='POST' id='registerUser'>
+				<label for='first_name'>
+					First Name: <input type='text' name='first_name' id='first_name'>
+				</label>
+				<label for='last_name'>
+					Last Name: <input type='text' name='last_name' id='last_name'>
+				</label>
+				<label for='email'>
+					Email: <input type='email' name='email' id='email'>
+				</label>
+				<label for='password'>
+					Password: <input type='password' name='password' id='password'>
+				</label>
+				<label for='password_confirm'>
+					Confirm Password: <input type='password' name='password_confirm' id='password_confirm'>
+				</label>
+				<button form='registerUser' formaction="/register" formmethod='post' type='submit' class="ui-button ui-corner-all ui-widget registerButton">Register</button>
+			</form>
+		</div>
+		<div id='columnOneHalfLast'>
+			<h2>Login</h2>
+			<form action='/login' method='POST' id='loginUser'>
+				<label for='loginEmail'>
+					Email: <input type='email' name='loginEmail' id='loginEmail'>
+				</label>
+				<label for='loginPassword'>
+					Password: <input type='password' name='loginPassword' id='loginPassword'>
+				</label>
+				<button form='loginUser' formaction="/login" formmethod='post' type='submit' class="ui-button ui-corner-all ui-widget loginButton">Login</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

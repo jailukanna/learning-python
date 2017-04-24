@@ -1,0 +1,57 @@
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (2003, "Can't connect to MySQL server on '127.0.0.1' (61)")
+
+		// this happened when I changed port to '3306' instead of '8889' (configured for MAMP)
+		// changing port back to '8889' resolved this and connection works again
+
+
+
+
+
+
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+
+		// the credentials for the database are not accepted
+		// there is no clear output in error if username or password, specifically, were incorrect, therfor check both
+		// note 'YES' in error code, meaning password was used, 'NO' would be returned if config had no password value
+		// changing password field to correct password ('root') resolved this issue
+
+
+
+
+
+
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1045, "Access denied for user 'admin'@'localhost' (using password: YES)")
+
+		// credentials for database were not accepted
+		// no clear distinction if username or password, specifically is invalid
+		// in this case, the username was changed to 'admin' instead of 'root' and was incorrect
+		// any time this error code is given, make sure to check *both* username and password, as one is incorrect
+
+
+
+
+
+
+NameError: global name 'users' is not defined
+
+		// 'users' database is not defined
+		// this means the 'users' database cannot be found
+		// double check the database name and ensure that spelling is correct, and that the database does indeed exist
+		// in this case, 'users' is a table within 'mydb', however the config file is looking instead for our argument for a function
+		// so we input 'db' here instead, due to our usage of functions elsewhere in our mysqlconnection.py file
+		// changing 'users' back to 'db' resolved this issue
+
+
+
+
+
+
+Oddly enough, any changes to 'host' value seemed not to break server. The server ran with alternative IPs like, '127.0.0.2' or '192.168.0.9' or even 'google.com' seemed to still run the server.py file and return the database values (?)
+
+		// why?
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ORM Practice with Django - Coding Dojo - September 2016, Tim Knab</title>
+</head>
+<body>
+	<h1>Hello Dude!</h1>
+	<!-- let's spit out our blogs: -->
+	{% for blog in blogs %}
+		<h5>{{blog.title}}</h5> <!-- should give us our title column value -->
+		<p>{{blog.blog}}</p> <!-- should give us our blog column value -->
+		{% for comment in blog.comment_set.all %} <!-- _set.all gives us access to cross-table data: in this case, we're getting the 'comment' table data that relates to our blog entry (singluar because we are going through a loop) -->
+			{{comment.comment}}
+		{% endfor %}
+		<form action="/comments/{{blog.id}}" method="POST">
+			{% csrf_token %}
+			<textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+			<input type="submit" value="Submit Comment">
+		</form>
+	{% endfor %}
+	<form action="/blogs" method="POST">
+		{% csrf_token %}
+		<label for="title">
+			Name:
+			<input type="text" name="title">
+		</label>
+		<textarea name="blog" id="blog" cols="30" rows="10"></textarea>
+		<input type="submit" value="Enter Blog">
+	</form>
+</body>
+</html>

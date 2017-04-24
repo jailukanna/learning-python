@@ -1,0 +1,221 @@
+https://github.com/MikeHannon/DjangoDeployment
+
+Make sure to create a .gitignore
+
+inside should have:
+
+*.pyc
+venv/
+
+
+1. prepare your current project following rules.
+2. upload to github so we can transfer it later
+3. sign up for amazon cloud server services
+4. start a server using steps in documentation on your server.
+5. install your unbuntu onto the server and then add in python and all other dependancies
+6. transfer your github project to your amazon server now ubuntu box
+7. setup your database and user
+8. connect your database and user
+
+
+
+
+// SETUP YOUR DJANGO PROJECT AND PREPARE FOR DEPLOYMENT
+
+1. create your django project
+2. create .gitignore file in main directory
+3. add *.pyc and venv/ into the file and save it
+4. git init inside of your project directory, gid add . and git commit the whole directory
+5. build rest of project and continue committing to local repo
+
+// CREATE REPO ON GITHUB AND PUSH YOUR PROJECT
+
+1. goto github.com and create a new repository - don't add a README.md
+2. in terminal, git remote add your new repository (from your project directory - the same dir you git init'd previously)
+3. git push your project repo to your online github repo
+4. use pip freeze > requirements.txt to generate Django dependancies
+5. remove any tricky dependancies (pygraphviz, pydot, mysql, etc)
+6. git add , git commit and git push your new file to update your online repo
+
+// SETUP AN AMAZON WEB SERVER
+
+1. make sure you have an AWS account
+2. make sure you select the right SERVER from the DROP DOWN upper right
+3. start a new instance using the Ubuntu Server 14.04 option, select t2.micro and review and launch
+4. setup security -- click 'edit security groups' and set SSH to be sourced to MyIP, add HTTP and HTTPS and set their sourced to Anywhere.
+5. click review and launch - either generate a new key or provide one - save the .PEM file locally and secretly.
+6. navigate in terminal to your key file (.PEM) and run chmod 400 my-key-pair.pem to change permissions of the file
+
+// CONNECT TO YOUR NEW SERVER VIA SSH
+
+1. go to your instance page on the AWS website
+2. click connect and a pop up should provide the ssh command which will look something like this:
+	ssh -i "django.pem" ubuntu@ec2-54-71-21-61.us-west-2.compute.amazonaws.com
+4. you're now connected to your ubuntu box (but there's no files uploaded here yet, and of course we have to setup ubuntu for python which comes in the next steps.)
+
+
+// SETUP YOUR SERVER BOX FOR DEPLOYMENT
+
+(install all the things we need):
+1. install pip, postGRES, ngnix, git -- type the following into terminal once connected to AWS via SSH:
+	'sudo apt-get update'
+	'sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib nginx git'
+	// wait for the above installs to finish
+
+2. install virtualenv:
+	sudo apt-get update
+	sudo pip install virtualenv
+
+
+// CLONE YOUR PROJECT ONTO YOUR AWS SITE FROM YOUR GITHUB
+
+1. from your ssh connection with AWS, type: 
+	'git clone https://github.com/<username>/<myrepo>.git'
+2. your github project should download.
+3. if you type -ls you should now see your project directory! (w00t) - and if you go inside that folder, you should see manage.py
+4. if you don't see manage.py than that's no good and you've got to start over - your github transfer was not successful.
+
+
+// CREATE VIRTUALENV ON CLOUD SERVER AND ACTIVATE
+
+1. in your ssh > aws connnection, type (do this from INSIDE YOUR PROJECT FOLDER):
+	'virutalenv venv'
+	'source venv/bin/activate'
+
+2. your virtual server should start
+
+3. now add the following components:
+pip install django bcrypt django-extensions
+pip install gunicorn
+pip install psycopg2
+
+
+// CREATE OUR DATABASE
+
+1. navigate into your REPO name folder (not apps/project-name), but your overall folder - make sure you can see your settings.py file
+2. type 'sudo nano settings.py' to open and begin editing:
+3. you should be able to instantly start using arrow keys.
+4. change the DATABASES = {} to the following:
+
+		DATABASES = {
+		    'default': {
+		        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		        'NAME': 'anyname', # This name must be lowercase but can be anything!
+		        'USER': 'mikehannon', # you can put whatever you want here
+		        'PASSWORD': 'passwordYO', # you can put whatever you want here
+		        'HOST': 'localhost',
+		        'PORT': '',
+		    }
+		}
+
+5. And add the following to the bottom of the file(this will allow you to serve static content):
+	#Inside settings.py
+	STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+6. Now just ctrl-X and the Y to save! We just set up our settings.py for a postgres database and added a place for all of our static files.
+
+QWD:c5-`hj(.8h3$
+
+// CONFIGURE OUR DATABASE
+
+1. setup the database. Note that all of the commands in the Postgres shell must end with a semicolon.
+2. type into your ssh connection with virtual env running:
+	(venv) ubuntu@ip-my-ip:~$ sudo su - postgres
+	(venv) ubuntu@ip-my-ip:~$ psql
+	postgres=# CREATE DATABASE anyname; #matches the anyname in the DATABASES and is all lower case!
+	postgres=# CREATE USER mikehannon WITH PASSWORD 'passwordYO'; #username is not in quotes, but password is, and both should match what you put into settings.py.
+	postgres=# GRANT ALL PRIVILEGES ON DATABASE anyname TO mikehannon;
+	postgres=# \q #quits this prompt
+	ubuntu@ip-my-ip:~$ exit
+
+
+// GO BACK TO MAIN PROJECT DIR
+
+1. most likely you'll want to cd .. to get back up to where your manage.py file is
+2. with virutalenv running, type the following commands:
+	(venv) ubuntu@ip-my-ip:~myRepoName$ python manage.py collectstatic #say yes
+	(venv) ubuntu@ip-my-ip:~myRepoName$ python manage.py makemigrations
+	(venv) ubuntu@ip-my-ip:~myRepoName$ python manage.py migrate
+	Migrations made. Now let's run the following:
+
+3. setup gunicorn:
+	(venv) ubuntu@ip-my-ip:~myRepoName$ gunicorn --bind 0.0.0.0:8000 projectName.wsgi:application
+	// make sure that <projectName> is the same as the folder INSIDE of your repo folder (NOT your APPS but inside the main directory, the sibling folder - aka your projectname)
+4. Run ctrl-c and deactivate your virtual environment.
+
+
+// CONFIGURE GREENUNICORN
+// this will start your virutualenv and navigate to and start your project for you.
+
+1. navigate out of your folders to your root connection with the ssh host
+2. type:
+	'sudo nano /etc/init/gunicorn.conf'
+3. Add the following to this empty file, updating the code that's in between curly braces {{}} (this assumes the name of your virtual environment is venv):
+
+	description "Gunicorn application server handling our project"
+	start on runlevel [2345]
+	stop on runlevel [!2345]
+	respawn
+	setuid ubuntu
+	setgid www-data
+	chdir /home/ubuntu/{{myRepoName}}
+	exec venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{myRepoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
+
+	##REMINDER: myRepoName is the name of the repo you cloned in, projectName is the name of the folder that was used when you ran the django-admin startproject command. This folder is sibling to your apps folder.
+
+	## Here's what's actually happening: 
+		1. runlevels are system configuration bytes (just use 2,3,4,5 as stated on the start, stop) 
+		2. respawn -- if the project stops, restart it 
+		3. setuid -- ubuntu can use this project 
+		4. setgid -- establishes a group 
+		5. chdir -- go to the /home/ubuntu/{yourProject} #This needs to be updated to have your project's name 
+		6. exec venv/bin/gunicorn... -- execute gunicorn in your virtualenv where you pip installed it. Futhermore, bind some workers to it and activate the wsgi file in your main project folder. Look at these names carefully!
+
+4. CTRL + X to save and then type Y and hit enter.
+5. Turn on the process -- to turn on or off this process:
+
+	ubuntu@ip-my-ip:~$ sudo service gunicorn start
+	#OR
+	ubuntu@ip-my-ip:~$ sudo service gunicorn stop
+	Turn it on!
+
+
+// FINAL EDITS
+
+1. From your terminal with your ssh connection (no virtual env running):
+2. type: 
+	'sudo nano /etc/nginx/sites-available/{{projectName}}'
+3. Add this to the following, editing what's inside curly brackets {{}}:
+	* NOTE * make sure to add the ; after each line or it won't work!
+
+	server {
+	    listen 80;
+	    server_name {{yourEC2.public.ip.here}}; # This should be just the digits from AWS public ip!
+	    location = /favicon.ico { access_log off; log_not_found off; }
+	    location /static/ {
+	        root /home/ubuntu/{{myRepoName}};
+	    }
+	    location / {
+	        include proxy_params;
+	        proxy_pass http://unix:/home/ubuntu/{{myRepoName}}/{{projectName}}.sock;
+	    }
+	}
+	Remove the # This should be just the digits from AWS public ip! statement
+
+4. Run ctrl-x , type Y to accept and then hit enter to save.
+
+5. Now in terminal, run the following (taking note of the space after {{projectName}}):
+
+	'sudo ln -s /etc/nginx/sites-available/{{projectName}} /etc/nginx/sites-enabled'
+	'sudo nginx -t'
+	Take a careful look at everything that's in that file. Compare these names to the gunicorn names, and what you actually are using!
+
+5. Finally, restart your server:
+	'sudo service nginx restart'
+	If you get an OK, hopefully you are rockin and rollin' and your app is deployed! 
+
+6. Go to the public domain and bask in its brilliance!
+
+
+
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='description' content='The Wall - A project which blends Python, Flask, and MySQL databases served on a platter of HTML and CSS'>
+	<meta name='keywords' content='Python, Flask, MySQL, HTML, CSS'>
+	<meta name='author' content='Tim Knab'>
+	<title>Edit Your Post - Tim Knab - Coding Dojo - August 2016</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/jquery-ui.theme.css') }}">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1 id='wallTitleText'>CodingDojo Wall</h1>
+		<p id='welcomeNameText'>Welcome, {{ loggedInUser['first_name'] }}!</p>
+		<a href='/logout'>Log Out</a>
+	</div>
+	<!-- begin flash messaging  -->
+  	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		<ul class="flashes">
+      		{% for message in messages %}
+        		<li class="error">{{ message }}</li>
+      		{% endfor %}
+      		</ul>
+    	{% endif %}
+  	{% endwith %}
+  	<!-- end flash messaging -->
+  	<!-- begin message loop -->
+  	{% for message in messageList %}
+	  	<div id='content'>
+			<h1 id='postMessageText'>Update Your Post</h1>
+			<form action="/post/{{ message['id'] }}/update" method='POST' id='updatePost'>
+				<textarea name='message' id='message' class='postMessage' autofocus='1'>{{ message['message'] }}</textarea>
+				<button form='updatePost' formaction="/post/{{ message['id'] }}/update" formmethod='post' type='submit' class="ui-button ui-corner-all ui-widget createPostButton updatePostButton">Update message</button>
+			</form>
+			<form action="/" method='GET' id='cancel'>
+				<button form='cancel' formaction="/" formmethod='get' type='submit' class="ui-button ui-corner-all ui-widget createPostButton cancelUpdatePostButton">Cancel</button>
+			</form>
+		</div>
+	{% endfor %}
+	<!-- end message loop -->
+</body>
+</html>

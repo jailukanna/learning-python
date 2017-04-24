@@ -1,0 +1,166 @@
+/* CSS Document for Login and Registration Project - Tim Knab - Coding Dojo - August 2016 */
+
+/*****************************/
+/*		  CSS RESET 		*/
+/****************************/
+* {
+	padding: 0;
+	margin: 0;
+}
+
+/*****************************/
+/*		  MAIN STYLING 		*/
+/****************************/
+body {
+	background: #61d334;
+	background-image: url("../img/zenbg-1.png"), url("../img/zenbg-2.png");
+	background-repeat: repeat-x, repeat;
+	color: white;
+	text-shadow: 1px 2px 5px black;
+}
+
+h1 {
+	font-size: 2.7em !important;
+	text-align: center;
+	padding: 20px 0px 20px 0px;
+}
+
+p {
+	text-align: center;
+	padding: 20px;
+}
+
+	p#sub_caption {
+		width: 220px;
+	    background-color: rgba(99, 97, 98, 0.52);
+	    border-radius: 5px;
+	    -moz-border-radius: 5px;
+	    -webkit-border-radius: 5px;
+	    margin: 20px auto 20px auto;
+	    letter-spacing: 0.3px;
+        box-shadow: 2px 2px 3px 0px rgba(1, 1, 1, 0.38);
+	    -moz-box-shadow: 2px 2px 3px 0px rgba(1, 1, 1, 0.38);
+	    -webkit-box-shadow: 2px 2px 3px 0px rgba(1, 1, 1, 0.38);
+	}
+
+#column_one {
+	width: 49%;
+	display: inline-block;
+	border-right: dashed 5px #cddc39;
+}
+
+#column_two {
+	width: 49%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+h2.form_titles {
+	padding: 20px;
+	margin-left: 100px;
+	background-color: #FF5722;
+    display: inline-block;
+}
+
+h2#tagline {
+	text-align: center;
+	font-style: italic;
+}
+
+form {
+	padding: 20px;
+	margin-bottom: 30px;
+}
+
+	form label {
+		display: block;
+		padding: 20px;
+		margin-left: 150px;
+	    text-transform: uppercase;
+	    font-size: 0.9em;
+	}
+
+	form input[type="text"], input[type="email"], input[type="password"]  {
+		padding: 10px;
+		margin-left: 20px;
+		margin-right: auto;
+		font-weight: bold;
+	    color: #673AB7;
+	}
+
+		form input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus  {
+			    outline: 5px solid #FF5722;
+		}
+
+	form input[type="submit"] {
+		padding: 15px;
+	    margin-left: 180px;
+	    background-color: #FF5722;
+	    outline: none;
+	    border: none;
+	    color: white;
+	    font-weight: bold;
+	    text-shadow: 1px 1px 2px black;
+	    text-transform: uppercase;
+	    border-radius: 5px;
+	    -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+
+	}
+
+	form input[type="submit"]:hover {
+		background-color: #ff9800;
+	}
+
+	form input#last_name {
+		margin-left: 25px;
+	}
+
+	form input#email {
+		margin-left: 63px;
+	}
+
+	form input#password {
+		margin-left: 22px;
+	}
+
+.button {
+	padding: 15px;
+    background-color: #FF5722;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+    text-transform: uppercase;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 100px;
+	text-align: center;
+	text-decoration: none;
+}
+
+	.button:hover{
+		background-color: #ff9800;
+	}
+
+.error {
+	color: white;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    background-color: #ff5722;
+    width: 500px;
+    padding: 20px;
+    margin: 0px auto 20px auto;
+    border: 6px solid #ffc107;
+    list-style: none;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}

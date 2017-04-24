@@ -1,0 +1,9 @@
+<!-- the for loop below retrieves our notes -->
+{% for note in notes %}
+  <div class='note'>
+    <h2>{{ note['description'] }}</h2>
+    <p>{{ note['created_at'].strftime('%B %d %Y, %I:%M%p') }}</p>
+  </div>
+{% endfor %}
+<!-- end for loop -->
+

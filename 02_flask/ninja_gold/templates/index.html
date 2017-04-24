@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ninja Gold</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">  <!-- normalize -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<h1>Ninja Money</h1>
+	<p id ='your-gold-txt'>Your Gold:</p><div id='your-gold-status'>{{ session['gold'] }}</div>
+	<div class='blocks'>
+		<div id='farm'>
+			<h3>Farm</h3>
+			<p class='block-subtext'>(earn 10-20 gold)</p>
+			<form action='/process_money' method='post' name='farm-add-gold'>
+				<input type="hidden" name="building" value="farm" />
+				<input type="submit" value='Find Gold!'>
+			</form>
+		</div>
+		<div id='cave'>
+			<h3>Cave</h3>
+			<p class='block-subtext'>(earn 5-10 gold)</p>
+			<form action='/process_money' method='post' name='cave-add-gold'>
+				<input type="hidden" name="building" value="cave" />
+				<input type="submit" value='Find Gold!'>
+			</form>
+		</div>
+		<div id='house'>
+			<h3>House</h3>
+			<p class='block-subtext'>(earn 2-5 gold)</p>
+			<form action='/process_money' method='post' name='house-add-gold'>
+				<input type="hidden" name="building" value="house" />
+				<input type="submit" value='Find Gold!'>
+			</form>
+		</div>
+		<div id='casino'>
+			<h3>Casino</h3>
+			<p class='block-subtext'>(earn 0-50 golds)</p>
+			<form action='/process_money' method='post' name='casino-add-gold'>
+				<input type="hidden" name="building" value="casino" />
+				<input type="submit" value='Find Gold!'>
+			</form>
+		</div>
+	</div>
+	<p id='activity-txt'>Activities:</p>
+	<textarea name="activity" id="activityLog">
+	{% for activity in session['activity'] %}
+		{{ activity }}
+	{% endfor  %}
+	</textarea>
+</body>
+</html>

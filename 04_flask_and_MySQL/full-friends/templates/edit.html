@@ -1,0 +1,54 @@
+<!-- see todo.md -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Friends - Flask and MySQL Assignment - Tim Knab</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+</head>
+<body>
+	<h1>Edit a Friend</h1>
+	<p>Edit your friend's details by using the form below. Values in the database will be updated after clicking the 'Update Friend' button.</p>
+	<!-- begin flash messaging  -->
+  	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		<ul class=flashes>
+      		{% for message in messages %}
+        		<li class='error'>{{ message }}</li>
+      		{% endfor %}
+      		</ul>
+    	{% endif %}
+  	{% endwith %}
+  	<!-- end flash messaging -->
+
+  	<!-- Developer Notes for section below:
+  		- the variable 'showFriend.first_name' or 'showFriend.id' may confuse you:
+  			> this comes from our server.py file
+  			> for @app.route('/friends/<id>/edit', we set 'showFriend' using our mysql function
+  			> this way now we can grab elements via 'showFriend'
+
+		- notice for the form items themselves:
+			> we added 'value' attribute for inputs 
+			> this puts the old values into the actual fields when editing
+  			> this is helpful for user experience when editing
+  	End Developer Notes -->
+
+  	<h3>Update details for: {{ showFriend.first_name }} {{ showFriend.last_name }}</h3>
+	<form class="editUser" action="/friends/{{ showFriend.id }}" method='POST'>
+		<label for="first_name">
+			First Name: <input type="text" id="first_name" name="first_name" value="{{ showFriend.first_name }}">
+		</label>
+		<label for="last_name">
+			Last Name: <input type="text" id="last_name" name="last_name" value="{{ showFriend.last_name }}">
+		</label>
+		<label for="email">
+			Email: <input type="email" id="email" name="email" value="{{ showFriend.email }}">
+		</label>
+		<input type="submit" value="Update Friend">
+	</form>
+	<p>
+		<a href="/">Take Me Home</a>
+	</p>
+</body>
+</html>

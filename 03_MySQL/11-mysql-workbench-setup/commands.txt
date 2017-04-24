@@ -1,0 +1,46 @@
+Steps before commands:
+	Setup MySQL to connect to MAMP on :8889
+	Copied 'morepractice.sql' contents into query box
+	Ran query and 'lead_gen_business' was added as a valid database
+
+
+
+Commands Used:
+
+	USE lead_gen_business
+	// switches to 'lead_gen_business' database
+
+
+	SELECT * FROM clients
+	// displays all from 'clients' table
+
+
+	ORDER BY joined_datetime DESC;
+	// orders our clients by their joined_datetime descending
+
+
+	SELECT *
+	FROM clients
+	WHERE first_name LIKE "M%"
+	ORDER BY joined_datetime DESC;
+	// orders clients by their joined_datetime descending while filtering for first_name starting with 'M'
+
+
+
+	INSERT INTO clients (id, first_name, last_name, email, joined_datetime)
+	VALUES (11, 'Timothy', 'Knab', 'timknab@gmail.com', NOW());
+	// adds a new ID of 11, 'Timothy' 'Knab' 'timknab@gmail.com' and a current timestamp to 'clients' table
+
+
+	SELECT *
+	FROM clients
+	// shows all clients with the 11th ID of 'Timothy' now added
+
+
+	DELETE FROM clients WHERE id=11;
+	// deletes the new ID of 11 that I just created
+
+
+	SELECT *
+	FROM clients
+	// shows new output now with the line erased

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Advanced Routing Assignment Example</title>
+</head>
+<body>
+    <fieldset><legend>Route Parameter Data:</legend>
+        <p>Here is the route parameter:</p>
+        <!-- Access our `username` data that we passed from the server: -->
+        <!--
+        Note: that we capture the route on our server, and save the data
+        there, and then pass that along to our jinja2 templating when
+        we render_template
+        -->
+        <p><strong>{{username}}</strong></p>
+    </fieldset>
+</body>
+</html>

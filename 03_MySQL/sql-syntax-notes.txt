@@ -1,0 +1,209 @@
+########
+#
+#	SELECT
+#
+########
+
+
+			// we can use direct SQL commands to manipulate or examine databases and tables.
+
+			########
+			#
+			#	BASICS
+			#
+			########
+
+					// With MAMP running, startup a connection with MySQL WorkBench
+					// import your desired database
+
+
+					SELECT * FROM users  
+					// selects all from users table in active database we're working in
+
+
+					USE twitter
+					// forces us to switch to twitter database
+
+
+					SELECT * FROM users
+					// gives us all users from users table
+
+
+					SELECT first_name, last_name FROM users;
+					// selects first_name, last_name columns from users table
+
+
+					SELECT first_name as first, last_name as hello FROM users;
+					// selects first_name, last_name columns from users table but then spits out the information in columns called 'first' and 'hello' respectively
+
+
+
+			########
+			#
+			#	SELECT WITH CONDITIONALS
+			#
+			########
+
+					SELECT * FROM users 
+					WHERE id = 1 OR id = 2;
+					// selects all from users where id=1 or id=2
+
+
+					SELECT *
+					FROM follows;
+					// selects all things in the follows table
+
+
+					SELECT *
+					FROM faves;
+					// selects all things in the faves table
+
+
+
+					SELECT *
+					FROM users
+					WHERE first_name LIKE "%e"
+					// this would give us all users in users whose first name *ends* with 'e'
+
+
+					SELECT *
+					FROM users
+					WHERE first_name LIKE "K%"
+					// gives us all users in users whose first name *starts* with 'K'
+
+
+
+
+			########
+			#
+			#	SELECT WITH SORTING
+			#
+			########
+
+					SELECT *
+					FROM users
+					ORDER BY birthday;
+					// will select all from users and order by birthday , default is ascending
+
+
+					SELECT *
+					FROM users
+					ORDER BY birthday, DESC;
+					// will select al from users table and order by birthday, this time descending
+
+
+					SELECT *
+					FROM users
+					WHERE first_name LIKE "%e"
+					ORDER BY birthday DESC;
+					// this would select all from users table where first name ends with 'e' and then will order by birthday descending
+
+
+					SELECT *
+					FROM users
+					ORDER BY first_name;
+					// this will give us all the first names in alphabetical order
+
+
+########
+#
+#	CREATE TABLE
+#
+########
+		
+			CREATE TABLE table_name
+			(
+			column_name1 data_type(size),
+			column_name2 data_type(size),
+			column_name3 data_type(size),
+			....
+			);
+
+
+########
+#
+#	INSERT
+#
+########
+
+			INSERT INTO table_name (column_name1, column_name2) 
+			VALUES('column1_value', 'column2_value');
+			// the following will insert 'column1_value' and 'column2_value' into 'table_name' under 'column_name1' and 'column_name2' columns
+
+
+			INSERT INTO tweets (tweet, user_id, created_at, updated_at)
+			VALUES ("hello", 1, NOW(), NOW());
+			// this will try and insert into 'tweets' table for our current database (note we didnt define the DB just uses one we're in) and then will insert into the columns 'tweet', 'user_id', 'created_at' and 'updated_at' the values after the VALUES line
+
+
+				If we ran
+				SELECT * from tweets
+				we'd see our new line now inserted
+
+
+
+
+########
+#
+#	UPDATE
+#
+########
+
+
+			UPDATE table_name SET column_name1 = 'some_value', column_name2='another_value' WHERE condition(s)
+
+			ex)
+
+			UPDATE users 
+			SET first_name = 'Kobe'
+			WHERE id = 1;
+
+			more advanced)
+			UPDATE 'twitter'.'users' SET 'first_name' = 'KOBE' WHERE 'id' = '1'   
+
+			**IMPORTANT WARNING**: if WHERE condition is not added to the UPDATE statement, the changes will be applied to *EVERY* record in the table!
+
+
+
+
+
+
+########
+#
+#	DELETE
+#
+########
+
+
+			You can DELETE your records as well. 
+
+			If you are getting an error regarding SQL SAFE UPDATES, run the following command to let MySQL Workbench know that you know what you are doing and you want to DELETE stuff from the database.
+
+			SET SQL_SAFE_UPDATES = 0;
+			// lets SQL know you're safe and can delete now
+
+			Deleting Records
+			The SQL command pattern for deleting/removing records is as follows:
+
+			DELETE FROM table_name WHERE condition(s)
+			**IMPORTANT WARNING**: if WHERE condition is not added to the DELETE statement, it will delete *ALL* the records on the table.
+
+			another example)
+
+			DELETE FROM 'twitter'.'tweets' WHERE 'id'='13';
+
+			another example )
+
+			DELETE from tweets
+			WHERE id = 14;
+
+
+
+
+
+
+
+
+
+
+

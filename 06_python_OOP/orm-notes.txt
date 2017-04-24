@@ -1,0 +1,63 @@
+########
+#
+# ORM Notes (MySQL lite):
+#
+########
+
+# here's an example of us creating a table model called 'User':
+
+	class User(models.Model):
+		first_name = models.CharField(max_length=45)
+		last_name = models.CharField(max_length=45)
+		password = models.CharField(max_length=100)
+		created_at = models.DateTimeField(auto_now_add = True) # auto_now_add = True is MySQL's `NOW()`
+		updated_at = models.DateTimeField(auto_now = True)  # auto_now = True is basically MySQL's `NOW()`
+
+
+# here's how we can query it:
+
+	`User.objects.all()`
+		This is how we could get all of the objects of the User model
+
+
+		########
+		#
+		# Custom Managers
+		#
+		########
+
+		Managers can help us run examinations of our other classes. For example, if we wanted to create a validation, we can create a new model:
+
+			class UserManager (models.Manager):
+				def login(self, **kwargs):
+					#...
+					errors = []
+					if len(kwargs['first_name']) < 1:
+						errors.append('Hobby name is required')
+
+					if len(errors) > 0:
+						return (False, errors)
+					else:
+						h = User.objects.create(first_name=kwargs['first_name'])
+						return (True, h)
+
+				def register(self, **kwargs):
+					#...
+
+
+
+			class User(models.Model):
+				first_name = models.CharField(max_length=45)
+				last_name = models.CharField(max_length=45)
+				password = models.CharField(max_length=100)
+				created_at = models.DateTimeField(auto_now_add = True)
+				updated_at = models.DateTimeField(auto_now = True)
+				objects = UserManager()  # this hooks us into our `UserManager` class above
+				User.objects.login()
+
+
+
+
+
+
+

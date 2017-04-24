@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AJAX Notes</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+
+		$(document).ready(function(){
+
+			// create note
+			$('form').submit(function(){
+				
+				$.post($(this).attr('action'), $(this).serialize(), function(notes){
+					console.log(notes);
+					$('#notes').html(notes);
+					$('input[type="text"]').val("");
+				}, 'html')
+			
+			return false;
+			}); // end submit
+
+			// delete note
+			$('#notes').on('submit', 'form', function(){
+
+				$.get($(this).attr('action'), function(notes){
+					$('#notes').html(notes);
+				}, 'html');
+
+			return false;
+			}); // end submit
+
+			// update description
+			$('#notes').on('focusout', 'textarea', function(){
+				console.log(this);
+				console.log($(this).parent());
+
+				$.post('/notes/'+$(this).attr("data-id")+'/update', $(this).serialize($(this).val()), function(notes){
+					$('#notes').html(notes);
+				}, 'html');
+			}); // end focus out
+
+		}); // end doc ready
+
+	</script>
+</head>
+<body>
+	<div id='notes'>
+		{% for note in notes %}
+		<div class='note'>
+			<h3>{{note.title}}
+				<form style="float:right;" action="/notes/{{note.id}}/destroy" method='GET'>
+					<input type="submit" value='delete'>
+				</form>
+			</h3>
+			<form action="/notes/{{note.id}}/update" method="POST">
+			{% if note.description %}
+				<textarea name='description' data-id='{{note.id}}'>{{note.description}}</textarea>
+			{% else %}
+				<textarea name='description' data-id='{{note.id}}'></textarea>
+			{% endif %}	
+			</form>
+		</div>
+		{% endfor %}
+	</div>
+	<h1>Notes</h1>
+	<form action='/notes/create' method='post'>
+		<input type="text" name='title' placeholder='Enter title...'>
+		<input type="submit" value='Add Note!'>
+	</form>
+</body>
+</html>
