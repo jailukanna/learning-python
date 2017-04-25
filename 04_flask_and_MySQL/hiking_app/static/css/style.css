@@ -1,0 +1,13 @@
+.success {
+    font-weight: normal;
+    background-color: rgb(226, 255, 73);
+    padding: 10px;
+}
+
+fieldset {
+    margin: 30px;
+}
+
+h6 {
+    margin: 30px;
+}

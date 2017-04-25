@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css"> -->
+    <title>Python Hiking Time Estimator</title>
+</head>
+<body>
+    <fieldset><legend><h1>Hiking Time Estimator:</h1></legend>
+        <form action="/" method="POST">
+            <label for="total_distance"> Total Roundtrip Distance in Miles:
+                <p>
+                    <input type="text" name="total_distance" id="total_distance" placeholder="Total Distance (mi)">
+                </p>
+            </label>
+            <label for="total_elev_gain"> Total Elevation Gain in Feet:
+                <p>
+                    <input type="text" name="total_elev_gain" id="total_elev_gain" placeholder="Total Elevation Gain (ft)">
+                </p>
+            </label>
+            <label for="hourly_break_duration"> Break Duration/Hour in Minutes:
+                <p>
+                    <input type="text" name="hourly_break_duration" id="hourly_break_duration" value="5">
+                </p>
+            </label>
+            <input type="submit" value="Calculate Travel Time!">
+        </form>
+        {% if hiking_data %}
+            <h2>Total Travel Time: <span class="success">{{hiking_data['time']}}</span></h2>
+            <ul>
+                <li><strong>Total Roundtrip Distance:</strong> {{hiking_data['distance']}} miles</li>
+                <li><strong>Total Elevation Gain:</strong> {{hiking_data['gain']}} feet</li>
+                <li><strong>Rest Duration:</strong> {{hiking_data['rest']}} minutes each hour</li>
+            </ul>
+            <a href="/">Reset Results</a>
+        {% endif %}
+    </fieldset>
+    <h6>Disclaimer: This tool is designed to give a general travel estimation based upon a popularly used equation in outdoor education. Although this equation is generally a close estimate for average hikers, depending upon your personal/group skill level, weather, terrain or other variables, your actual travel time may vary.</h6>
+</body>
+</html>
