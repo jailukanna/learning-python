@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit {{user_to_edit['first_name']}} {{user_to_edit['last_name']}}</title>
+</head>
+<body>
+    <fieldset><legend>Edit {{user_to_edit['first_name']}} {{user_to_edit['last_name']}}</legend>
+        <form action="/users/{{user_to_edit['id']}}" method="POST">
+            <input type="text" name="first_name" id="first_name" value="{{user_to_edit['first_name']}}">
+            <input type="text" name="last_name" id="last_name" value="{{user_to_edit['last_name']}}">
+            <input type="email" name="email" id="email" value="{{user_to_edit['email']}}">
+            <input type="submit" value="Update!">
+        </form>
+    </fieldset>
+    <a href="/users">Home</a>
+</body>
+</html>

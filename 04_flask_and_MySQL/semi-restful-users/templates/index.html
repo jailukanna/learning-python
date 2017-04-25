@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Semi-RESTful Users</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+<p>In this project we use Flask and MySQL to create a basic RESTful CRUD application for `Users`.</p>
+<!-- begin flash messaging  -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+            <li class="error">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<!-- end flash messaging -->
+<fieldset><legend>All Users:</legend>
+    <form action="/users/new" method="GET">
+        <input type="submit" value="Add New User">
+    </form>
+    {% for user in users_list %}
+        <li>
+            <a href="/users/{{ user['id'] }}">{{ user['first_name'] }} {{ user['last_name'] }}</a> -- ({{ user['email'] }}) -- {{ user['created_at'].strftime('%m/%d/%y %I:%M%p') }}
+            <form class="edit" action="/users/{{ user['id'] }}/edit" method='GET'>
+                <input type="submit" value="Edit User">
+            </form>
+            <form class="delete" action="/users/{{ user['id'] }}/destroy" method='GET'>
+                <input type="submit" value="Delete User">
+            </form>
+        </li>
+  {% endfor %}
+</fieldset>
+</body>
+</html>
