@@ -21,7 +21,7 @@ MM77???????+7$MMM S A S Q U A T. C H MMM
 MM877$7+?77MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMD778$NZMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-> You Discovered Traces of the Sasquatch 
+> You Discovered Traces of the Sasquatch
  _______  _______  _______  _______           _______ _________ _______          
 (  ____ \(  ___  )(  ____ \(  ___  )|\     /|(  ___  )\__   __/(  ____ \|\     /|
 | (    \/| (   ) || (    \/| (   ) || )   ( || (   ) |   ) (   | (    \/| )   ( |
@@ -34,8 +34,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 # Python Hiking in a Flask
 This project utilizes Flask to calculate your hiking time, based on an algorithm.
-While this projection may vary slightly, it can give you a general data point
-to help in decision making and route safety.
+While actual hiking time may vary slightly, this tool can give you a general data
+point to help in decision making and route safety. By default, rest times are set
+to 5 minutes per hour, but if you find yourself taking longer breaks, you can
+tweak this setting.
 
 ## Technologies:
 + Request

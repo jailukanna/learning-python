@@ -63,5 +63,9 @@ def root():
 #-------------------------#
 #----- Run Flask App -----#
 #-------------------------#
+'''
+IMPORTANT: Be sure to REMOVE `debug` and `host` parameters below BEFORE DEPLOYING
+otherwise, per QuickStart documentation, there are security issues.
+'''
 # Run Flask Application in Debug Mode:
-app.run(debug=True)
+app.run(debug=True, host='0.0.0.0')
