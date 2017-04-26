@@ -9,35 +9,48 @@
     <title>Python Hiking Time Estimator</title>
 </head>
 <body>
-    <fieldset><legend><h1>Hiking Time Estimator:</h1></legend>
+    <h1>Hiking-Time-Estimator:</h1>
+    <div class="wrapper">
+        {% with messages = get_flashed_messages() %} <!-- 'with messages' helps us declare a variable in our template that we can use within a specific scope. -->
+            {% if messages %}   <!-- checks if any messages have been returned from flash_messages() function -->
+                {% for message in messages %} <!-- loops through all messages -->
+                    <p class="error">{{message}}</p> <!-- print messages one by one each in a <p> tag  -->
+                {% endfor %} <!-- end for loop -->
+            {% endif %} <!-- end if conditional statement -->
+        {% endwith %} <!-- end with messages variable -->
         <form action="/" method="POST">
-            <label for="total_distance"> Total Roundtrip Distance in Miles:
+            <label for="total_distance">
                 <p>
-                    <input type="text" name="total_distance" id="total_distance" placeholder="Total Distance (mi)">
+                    Total Roundtrip Distance in Miles: <input type="text" name="total_distance" id="total_distance" placeholder="Total Distance (mi)" {% if hiking_data %} value="{{hiking_data['distance']}}" {% endif %}>
                 </p>
             </label>
-            <label for="total_elev_gain"> Total Elevation Gain in Feet:
+            <label for="total_elev_gain">
                 <p>
-                    <input type="text" name="total_elev_gain" id="total_elev_gain" placeholder="Total Elevation Gain (ft)">
+                    Total Elevation Gain in Feet: <input type="text" name="total_elev_gain" id="total_elev_gain" placeholder="Total Elevation Gain (ft)" {% if hiking_data %} value="{{hiking_data['gain']}}" {% endif %}>
                 </p>
             </label>
-            <label for="hourly_break_duration"> Break Duration/Hour in Minutes:
+            <label for="hourly_break_duration">
                 <p>
-                    <input type="text" name="hourly_break_duration" id="hourly_break_duration" value="5">
+                    Break Duration/Hour in Minutes: <input type="text" name="hourly_break_duration" id="hourly_break_duration" {% if hiking_data %} value="{{hiking_data['rest']}}" {% else %} value="5" {% endif %}>
                 </p>
             </label>
             <input type="submit" value="Calculate Travel Time!">
         </form>
         {% if hiking_data %}
-            <h2>Total Travel Time: <span class="success">{{hiking_data['time']}}</span></h2>
-            <ul>
-                <li><strong>Total Roundtrip Distance:</strong> {{hiking_data['distance']}} miles</li>
-                <li><strong>Total Elevation Gain:</strong> {{hiking_data['gain']}} feet</li>
-                <li><strong>Rest Duration:</strong> {{hiking_data['rest']}} minutes each hour</li>
-            </ul>
-            <a href="/">Reset Results</a>
+            <div class="results">
+                <h2>Total Travel Time:</h2>
+                <h2><span class="success">{{hiking_data['time']}}</span></h2>
+                <ul>
+                    <li>Total Roundtrip Distance: {{hiking_data['distance']}} miles</li>
+                    <li>Total Elevation Gain: {{hiking_data['gain']}} feet</li>
+                    <li>Rest Duration: {{hiking_data['rest']}} minutes each hour</li>
+                </ul>
+                <a href="/">Reset Results</a>
+            </div>
         {% endif %}
-    </fieldset>
-    <h6>Disclaimer: This tool is designed to give a general travel estimation based upon a popularly used equation in outdoor education. Although this equation is generally a close estimate for average hikers, depending upon your personal/group skill level, weather, terrain or other variables, your actual travel time may vary.</h6>
+    </div>
+    <div class="tags">
+        <a href="#">disclaimer</a> | <a href="http://sasquat.ch">sasquat.ch</a>
+    </div>
 </body>
 </html>

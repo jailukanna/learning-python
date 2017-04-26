@@ -1,13 +1,110 @@
-.success {
-    font-weight: normal;
-    background-color: rgb(226, 255, 73);
-    padding: 10px;
+/****************************************/
+/******* Stylesheet for Hiking App ******/
+/****************************************/
+
+/*----------------------*/
+/*-- Element Stylings --*/
+/*----------------------*/
+* {
+    font-family: sans-serif;
 }
 
-fieldset {
-    margin: 30px;
+body {
+    color: #ffffff;
+    font-weight: bolder;
+    background: ##ffbf00;
+    background-image: url("./../images/zenbg-1.png"), url("./../images/zenbg-2.png");
+    background-repeat: repeat-y, repeat;
+}
+
+h1 {
+    text-align: center;
 }
 
 h6 {
     margin: 30px;
+}
+
+input[type="submit"] {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+input[type="text"] {
+    padding: 3px;
+}
+
+ul {
+    list-style: none;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+a {
+    color: rgb(204, 255, 40);
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+
+input#total_elev_gain {
+    margin-left: 45px;
+}
+
+input#hourly_break_duration {
+    margin-left: 13px;
+}
+
+/*-------------------*/
+/*----- Classes -----*/
+/*-------------------*/
+.success {
+    font-weight: normal;
+    padding: 10px;
+    background-color: rgb(204, 255, 40);
+    color: rgb(71, 82, 43);
+    font-weight: bolder;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.wrapper {
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    background-color: rgba(35, 14, 61, 0.51);
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    box-shadow: 1px 1px #000000;
+}
+
+.results {
+    margin-left: auto;
+    margin-right: auto;
+    width: 73%;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: red;
+    font-weight: boldest;
+    text-align: center;
+}
+
+.tags {
+    margin: 30px;
+    font-size: 11px;
+    text-align: center;
 }
