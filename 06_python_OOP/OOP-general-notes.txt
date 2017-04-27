@@ -9,7 +9,7 @@
 
 	1. CLASS
 
-		The blueprint of what I want to do and create. This is where you would say you want to have an X and Y coordiante, a health attribute, create or destroy or move attributes 
+		The blueprint of what I want to do and create. This is where you would say you want to have an X and Y coordiante, a health attribute, create or destroy or move attributes
 
 	2. ATTRIBUTES
 
@@ -38,7 +38,7 @@ What if you want some instances to NOT have some of the attributes you created i
 
 	Say you want to make one of these functionalities 'PRIVATE'
 
-	When you make a method PRIVATE or attribute PRIVATTE, these are no longer accessed by the instances or objects.
+	When you make a method PRIVATE or attribute PRIVATE, these are no longer accessed by the instances or objects.
 
 	Often you have to specify whether PUBLIC (default) or PRIVATE
 
