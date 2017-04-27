@@ -201,10 +201,3 @@ print 'Your result: {}'.format(md1.result)
 md2 = MathDojo()
 md2.add(([(2,2),2]),(2,2,2),2,([2,2])).subtract((1,1),[1,(1,1)])
 print 'Your result: {}'.format(md2.result)
-
-
-'''
-BONUS FEATURES:
-(1) [DONE] setup add() method so a lists can contain tuples or lists, and tuples can contain tuples or lists
-(2) [DONE] setup subtract() method so lists/tuples can contain other lists or tuples (or integers)
-'''
