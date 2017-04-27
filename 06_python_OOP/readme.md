@@ -18,3 +18,6 @@ when you define your Child classes, be sure to use the name of the Parent as
 its property. ie, `class Dog(Animal)`, `Dog` is the name of the Child class,
 while `Animal` is the argument given which is the name of the Parent class.
 This allows the new class access to all of the Parent attributes.
+
+*Further Notes*: The `/animal` assignment is also a good project to examine the
+syntax for importing modules.
