@@ -48,5 +48,8 @@ QUESTIONS:
 		+ Use composition to package code into modules that are used in numerous unrelated places and situations.
 		+ Use inheritance lightly, when there are clearly related reusable pieces of code that fit on a single common concept, or if you must because of something you're using.
 
++ That said, do not be a slave to these rules. The thing to remember about object-oriented programming is that it is entirely a social convention that programmers created, to separate certain parts of the code and share others. Because this social convention is nonetheless codified in Python, you may be forced to go against these rules because of others on your team. In that case, find out how they approach these issues and adapt to the situation.
+
++ Modified from http://learnpythonthehardway.org/book/ex44.html.
 
 '''
