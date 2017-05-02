@@ -21,7 +21,7 @@
         + Navigate into your project folder (note, `<my_project>` refers to the name you you created)
         `cd <my_project>`
 
-        + Make a folder called `/app`s inside of `/<my_project>`
+        + Make a folder called `/apps` inside of `/<my_project>`
         `mkdir apps`
 
         + Go into apps
@@ -34,10 +34,10 @@
     4. Unpack your application files into `/apps/<my_app>` folder:
 
         + Make sure you're inside of your /apps folder and type:
-        `python ../manage.py startapp <my_app>`
+        `python ../manage.py startapp <first_app>`
 
-        + `my_app` folder is created inside of `/apps` and Django Python files are added
-        + You can name `my_app` whatever you want -- maybe a short hand of `<my_project>`
+        + `<first_app>` folder is created inside of `/apps` and Django Python files are added
+        + You can name `<first_app>` whatever you want -- maybe a short hand of `<my_project>`
         + currently no routes are setup, etc, but your server should run
         + You can run your server and check if you want
 
@@ -49,11 +49,12 @@
             `vi settings.py`
 
         + Edit the file as follows:
-            - Add `apps.first_app` to our `INSTALLED_APPS` list:
+            - Add `apps.<first_app>` to our `INSTALLED_APPS` list:
+            - `<first_app>` should match the name of `my_app` in: `<my_project>/apps/<my_app>`
 
             - Inside `<my_project>/settings.py`:
                 `INSTALLED_APPS = [
-                   'apps.<my_app>', ### added this line! * MAKE SURE TO INCLUDE COMMA AFTER OR APP WON'T WORK *
+                   'apps.<first_app>', ### added this line! * MAKE SURE TO INCLUDE COMMA AFTER OR APP WON'T WORK *
                    'django.contrib.admin',
                    'django.contrib.auth',
                    'django.contrib.contenttypes',
@@ -96,7 +97,7 @@
         can run on the same project.
         + In our case, we'll only have one folder in there for now, but
         we need to modularize it anyhow:
-        + Create directory `<my_project>\apps/<my_app>/templates/<my_app>/`:
+        + Create directory `<my_project>/apps/<my_app>/templates/<my_app>/`:
             `cd templates`
             `mkdir <my_app>`
         + **Warning**: `<my_app>` folder name must match `<my_project>/apps/<my_app>` folder name
