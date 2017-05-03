@@ -9,3 +9,4 @@ def index(request):
 		'currentTime' : time,
 	}
 	return render(request, 'timedisplay/index.html', data)
+	# `data`, the third parameter, is the dictionary data to send along with the Template
