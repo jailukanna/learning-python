@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Landscape Scene </title>
+</head>
+<body>
+	<h1>Scene of The Day!</h1>
+	{% if url %}
+		{% load staticfiles %}
+		<img src="{% static 'landscape/images/' %}{{url}}.jpg" style=""> <!-- `url` is the image name  -->
+		{{url}}
+	{% endif %}
+
+</body>
+</html>
