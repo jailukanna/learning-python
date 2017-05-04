@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Gives us Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load jQuery from static folder -->
+    <script type="text/javascript"  src="{% static "ajax/js/bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <!-- Load `main.js` from Django project's static folder -->
+    <script type="text/javascript" src="{% static "ajax/js/main.js" %}" ></script>
+    <title>Basic AJAX</title>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <form id="message_form">
+        <input type="submit" value="Click Me!">
+    </form>
+    <div id="response"></div>
+</body>
+</html>
