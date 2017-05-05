@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Load Access to Django Static Files -->
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- Load jQuery -->
+        <script type="text/javascript"  src="{% static "crawler/js/bower_components/jquery/dist/jquery.min.js" %}"></script>
+        <!-- Load Django Static CSS Sheet -->
+        <link rel="stylesheet" href="{% static "crawler/css/style.css" %}">
+        <!-- Load Django Main.JS File -->
+        <script type="text/javascript" src="{% static "crawler/js/main.js" %}"></script>
+        <title>Django Crawler</title>
+    </head>
+    <body>
+        <h1>Django Crawler</h1>
+        <p>This application grabs all URLs for a given site. The websites being scraped are defined on the server-side for now, but might be a worthwhile project later to expand this to a form-driven scraper, perhaps with validations.</p>
+        <hr>
+        <table>
+            <tr>
+                <th>URL:</th>
+                <th>Occurrences:</th>
+            </tr>
+            <!-- use Django to iterate through items inside of `data` dictionary -->
+            {% for key, value in data.items %}
+                <tr>
+                    <!-- Print the key (in this case, the URL) -->
+                    <td>{{key}}</td>
+                    <!-- Print the value (in this case, the occurrences of the URL) -->
+                    <td>{{value}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
