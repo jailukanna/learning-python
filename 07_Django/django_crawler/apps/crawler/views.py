@@ -30,6 +30,11 @@ def index(request):
     #-------------------------#
 
     # Save URL dictionary for Template usage:
+    '''
+    Notes for improvement: Change this code so that the user can define a URL
+    in a form, of which data is then fetched and returned to the template!
+    Use AJAX for more of a challenge.
+    '''
     urls = {
         "data" : make_url_dict(__crawl("http://www.google.com"))
     }
