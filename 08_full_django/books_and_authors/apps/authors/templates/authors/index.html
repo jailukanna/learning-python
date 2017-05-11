@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books and Authors</title>
+</head>
+<body>
+    <h1>Books and Authors</h1>
+    <p>In this assignment, we finally pratice connecting Django models to other models. For this project, we will use "one-to-many" -- meaning one author can have many books. We will be creating two models, and linking our authors table to an entry in our books table to record the relationship.</p>
+    <p>Please see the server console for the output of this assignment.</p>
+    <fieldset><legend><h3>Data Output:</h3></legend>
+        <h4>Authors:</h4>
+        <ul>
+            {% for author in authors %}
+                <li>{{author.name}}   |   {{author.DOB}}   |   {{author.id}}</li>
+            {% endfor %}
+        </ul>
+        <h4>Books</h4>
+        <ul>
+            {% for book in books %}
+                <li>{{book.title}}   |   {{book.author_id.id}}   |   {{book.publish_date}}   |   {{book.category}}   |   {{book.in_print}}</li>
+            {% endfor %}
+        </ul>
+    </fieldset>
+</body>
+</html>
