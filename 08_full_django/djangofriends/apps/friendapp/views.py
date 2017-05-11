@@ -3,9 +3,9 @@ from models import Users, Friendships
 # Create your views here.
 '''
 Notes: Numbers in the comments below have been included which correspond to the question number in the assignment
-I tred my best to choose appropriate variable names, but believe my variable naming could be improved, as some
-are a bit clunky, and I apologize in advance :) Please also note that I understand we are to fat models and skinny 
-controllers, but for this assignment all the logic will be done in the controller (haven't yet learned how to do 
+I tried my best to choose appropriate variable names, but believe my variable naming could be improved, as some
+are a bit clunky, and I apologize in advance :) Please also note that I understand we are to emulate fat models and skinny
+controllers, but for this assignment all the logic will be done in the controller (haven't yet learned how to do
 it in the model)
 '''
 
@@ -145,7 +145,7 @@ def index(req):
 	#3. show the first and last name of all friends who daniel is not friends with
 	#*** Come back to this one-- you're not getting the right output and you maybe
 	#misunderstanding the question.
-	
+
 	friends_of_daniel = Friendships.objects.filter(user__first_name='Daniel')
 	daniels_friends = []
 	print '%'*75
@@ -153,9 +153,9 @@ def index(req):
 		print friend_of_daniel.friend.id
 		print str(friend_of_daniel.user.id) + '&&'
 		daniels_friends.append(friend_of_daniel.friend.id)
-	
+
 	daniels_friends = list(set(daniels_friends)) # removes any duplicates and then converts back to list
-	daniels_friends.append(friends_of_daniel[0].user.id) # adds daniel's id himself to the list 
+	daniels_friends.append(friends_of_daniel[0].user.id) # adds daniel's id himself to the list
 	print daniels_friends
 	print '^'*50
 	print friends_of_daniel[0].user.id
@@ -180,7 +180,7 @@ def index(req):
 	print hernandez_friends # this any friends with user.last_name=Hernandez
 	print hernandez_friends.query
 
-	#5. Order these by friend first_name and print them on your index.html page. (Note the double output of Daniel Moore!). 
+	#5. Order these by friend first_name and print them on your index.html page. (Note the double output of Daniel Moore!).
 	# order friends with user.id=1 by first_name
 	ordered_friends = Friendships.objects.filter(user__id=1).order_by('friend__first_name')
 	print '&'*50
@@ -206,7 +206,7 @@ def index(req):
 
 	#7. use the query in question #6, but on the template side, of the friends returned, print first and last name of users with id=2:
 
-	#8. Re-do #4 using the related_name method: 
+	#8. Re-do #4 using the related_name method:
 	# Print all of the friends who are friends with both User with the id of 1 and with Users with the last name Hernandez
 	id_of_one_users = Users.objects.filter(usersfriend__friend__id=1)
 	hernandez_users = Users.objects.filter(usersfriend__friend__last_name='Hernandez')
@@ -226,7 +226,7 @@ def index(req):
 	#
 	#####
 
-	# Note: If things get too tricky, you can always add another DB query. 
+	# Note: If things get too tricky, you can always add another DB query.
 	# e.g. number2 = models.Users.get(id=2) and pass that to the context dictionary!
 
 	# Remember: you can always write your own query using. Users.objects.raw('your query here') if you need.
@@ -266,5 +266,3 @@ def index(req):
 
 
 # aren't you glad all of these print statements are over? me too! onwards!
-
-
