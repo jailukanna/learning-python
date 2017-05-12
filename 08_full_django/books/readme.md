@@ -24,5 +24,5 @@ Why is this happening?
 Here's the output:
 django.db.utils.OperationalError: table books_book has no column named in_print
 
-
-(when trying to add `in_print` to `Book`)
+- Solution:
+This is happening because you were manually instantiating objects in your `views.py`. Once you removed this, you were able to migrate!
