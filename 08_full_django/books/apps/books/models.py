@@ -9,4 +9,4 @@ class Book(models.Model):
     category = models.CharField(max_length=50)
     in_print = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True) # DateTimeField is field type for date and time
-    updated_at = models.DateTimeField(auto_now=True) # note the `auto_now=True` parameter.
+    updated_at = models.DateTimeField(auto_now=True) # note the `auto_now=True` parameter

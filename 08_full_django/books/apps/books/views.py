@@ -21,11 +21,11 @@ were created, you can enter the following command to do so:
 `from apps.books.models import Book` # Loads your models.
 `Book.objects.all().delete()` # this will delete all entries.
 """
-Book.objects.create(title="Brave New World",author="Aldous Huxley",publish_date="1932-01-01",category="Science Fiction",in_print="True")
-Book.objects.create(title="Nineteen Eighty-Four",author="George Orwell",publish_date="1949-06-08",category="Science Fiction",in_print="True")
-Book.objects.create(title="Wyoming Feathers",author="Bill Banks",publish_date="2011-01-01",category="Drama",in_print="False")
-Book.objects.create(title="Tips From The Road",author="Bill Banks",publish_date="2020-01-01",category="Comedy, Travel",in_print="False")
-Book.objects.create(title="Plants of the Pacific Northwest",author="Cary Conifer",publish_date="2015-01-01",category="Biology",in_print="True")
+# Book.objects.create(title="Brave New World",author="Aldous Huxley",publish_date="1932-01-01",category="Science Fiction")
+# Book.objects.create(title="Nineteen Eighty-Four",author="George Orwell",publish_date="1949-06-08",category="Science Fiction")
+# Book.objects.create(title="Wyoming Feathers",author="Bill Banks",publish_date="2011-01-01",category="Drama")
+# Book.objects.create(title="Tips From The Road",author="Bill Banks",publish_date="2020-01-01",category="Comedy, Travel")
+# Book.objects.create(title="Plants of the Pacific Northwest",author="Cary Conifer",publish_date="2015-01-01",category="Biology")
 
 def index(request):
     """Loads homepage."""
