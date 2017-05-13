@@ -1,8 +1,7 @@
-ifrom django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse
 
 # this will grab our Users table from our models.py
 from .models import Users
-
 
 # Create your views here.
 def index(request):
@@ -11,7 +10,7 @@ def index(request):
 	print Users.objects.all() # this sould print every object in the Users table
 	Users.objects.create(first_name='Tim', last_name='Knab', pw_hash='123123123') # creates a user object, Tim Knab with a pw hash of 123123123
 	print Users.objects.all() # your new user should now appear
-	
+
 # retrieves object, prints first_name of object, sets first_name of object, saves, gets again and prints:
 	u = Users.objects.get(id=1) # gets object with id of 1
 	print u.first_name # should print first_name (dot notation)
@@ -31,4 +30,3 @@ def index(request):
 		print user.first_name
 
 	return HttpResponse('OK')
-
