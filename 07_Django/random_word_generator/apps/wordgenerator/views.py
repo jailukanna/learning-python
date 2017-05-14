@@ -16,6 +16,7 @@ def index(request):
 		print randomWord
 		print '**' * 50
 	except KeyError:
+		counter = 1
 		request.session['attempt'] = 1
 		print '**' * 50
 		print request.session['attempt']
