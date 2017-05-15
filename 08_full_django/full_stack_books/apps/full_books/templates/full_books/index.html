@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'full_books/css/style.css' %}">
+    <title>Full Books, Coding Dojo, Tim Knab</title>
+</head>
+<body>
+    <h1>Full Stack Books</h1>
+    <p>In this application, we'll be building a simple application just to test handing things from our DB back to our Templates. In this assignment, create a book form, and display newly added books (and their respective info) on the table above. AJAX is not required, but the table should reflect newly added books. Later we will add in validations and use our Manager method to do more complex tasks, but for now we'll keep it simple.</p>
+    <fieldset><legend>Book Data:</legend>
+        <table>
+            <tr>
+                <th>Title:</th>
+                <th>Category:</th>
+                <th>Author:</th>
+            </tr>
+            <!-- use Django to iterate through items inside of `all_books` dictionary -->
+            {% if all_books %}
+                {% for book in all_books %}
+                    <tr>
+                        <!-- Print the Book Title -->
+                        <td>{{book.title}}</td>
+                        <!-- Print the Book Category -->
+                        <td>{{book.category}}</td>
+                        <!-- Print the Book Author -->
+                        <td>{{book.author}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </fieldset>
+    <fieldset><legend>Add a Book:</legend>
+        {% if errors %}
+            {% for error in errors %}
+                <p>{{error}}</p>
+            {% endfor %}
+        {% endif %}
+        <form action="/create" method="POST">
+            {% csrf_token %}
+            <label for="title"> Title
+                <input type="text" name="title" id="title">
+            </label>
+            <label for="category"> Category
+                <input type="text" name="category" id="category">
+            </label>
+            <label for="author"> Author
+                <input type="text" name="author" id="author">
+            </label>
+            <input type="submit" value="Create!">
+        </form>
+    </fieldset>
+</body>
+</html>
