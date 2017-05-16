@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+	{% load static %}
+	<meta charset="UTF-8">
+	<!-- Load Django Static CSS Sheet -->
+	<link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Course Confirm Delete</title>
+</head>
+<body>
+    <h1>Confirm Delete</h1>
+    <fieldset><legend>Are you sure you want to delete the following course?</legend>
+        {% if found_course %}
+            <p>{{found_course.name}}</p>
+            <p>{{found_course.description}}</p>
+        {% endif %}
+        <form>
+            {% csrf_token %}
+            <button formaction="/" formmethod="GET">NO</button>
+            <button formaction="/courses/destroy/{{found_course.id}}/" formmethod="POST" class="delete_button">YES DELETE!</button>
+        </form>
+
+    </fieldset>
+</body>
+</html>

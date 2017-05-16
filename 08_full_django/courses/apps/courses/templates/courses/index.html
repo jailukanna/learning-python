@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Load Access to Django Static Files -->
+	{% load static %}
+	<meta charset="UTF-8">
+	<!-- Load Django Static CSS Sheet -->
+	<link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+	<title>Full Stack Courses</title>
+</head>
+<body>
+	<h1>Courses Application</h1>
+	<p>Create an application which allows users to enter courses, and for them to be added to a table beneath. Each course item should have a `delete` button, which should load a confirmation page, prior to deleting the entry. Once deleted the program should return to the index page.</p>
+	<p>See readme.md in this project for more information.</p>
+	<hr>
+	<fieldset><legend>Add a New Course:</legend>
+		<form action="/" method="POST">
+			{% csrf_token %}
+			<label for="name">Name:
+				<input type="text" name="name" id="name">
+			</label>
+			<label for="description">Description:
+				<textarea name="description" id="description" cols="30" rows="10"></textarea>
+			</label>
+			<input type="submit" value="Add">
+		</form>
+	</fieldset>
+	<hr>
+	<fieldset><legend>Courses:</legend>
+		<table>
+		<tr>
+			<th>Course Name:</th>
+			<th>Description:</th>
+			<th>Date Added:</th>
+			<th>Actions:</th>
+		</tr>
+			<!-- use Django to iterate through items inside of `all_courses` dictionary -->
+			{% if all_courses %}
+				{% for course in all_courses %}
+					<tr>
+						<!-- Course Name -->
+						<td>{{course.name}}</td>
+						<!-- Course Description -->
+						<td>{{course.description}}</td>
+						<!-- Course Added Date -->
+						<td>{{course.created_at}}</td>
+						<!-- Delete Course -->
+						<td><a href='/courses/destroy/{{course.id}}'>Remove</a></td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+		</table>
+	</fieldset>
+</body>
+</html>
