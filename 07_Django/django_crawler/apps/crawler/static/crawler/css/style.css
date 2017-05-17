@@ -6,11 +6,14 @@ table {
 	width: 100%;
 	text-align: left;
 	padding: 15px;
-	border-collapse: collapse;			margin-top: 15px;
+	border-collapse: collapse;
+	margin-top: 15px;
 }
 
 tr:nth-child(even) {
-	background-color: whitesmoke;		}
+	background-color: whitesmoke;
+}
 
-						th, td {
-	padding: 10px;				}	
+th, td {
+	padding: 10px;
+}
