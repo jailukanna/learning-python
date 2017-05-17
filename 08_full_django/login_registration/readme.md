@@ -35,6 +35,7 @@ Don't worry about hashing passwords for now. We'll take a closer look at hashing
     - This project does not include hashing. Build that into your TEMPLATE for this LOGIN/REGISTRATION
     - Refactor wherever possible.
     - Setup Session so it can be easily imported also.
+    - **Experiment with the built in password validators -- see settings.py password validation section**
 
 ## Development Issues:
     - Note: One thing that's important to understand is that when you use `User.objects.get()` in Django models, if no item is found,
