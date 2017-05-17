@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Load Access to Django Static Files -->
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- Load Django Static CSS Sheet -->
+<link rel="stylesheet" href="{% static 'logreg/css/style.css' %}">
+<title>Login Registration</title>
+<body>
+    <h1>Login and Registration</h1>
+    <p>In this assignment, we'll use our knowledge of Django, Django Models and Django Managers to create a full functioning login and regsitration application with validations.</p>
+    <p>Please see the `readme.md` and `wireframe.png` included in this project for explicit details and specifications.</p>
+    <blockquote><em>Note: Password hashing (using `bcrypt`) is not present in this application and will be built into the next one.</em></blockquote>
+    <hr>
+    <fieldset><legend>Login:</legend>
+        <!-- Login Form -->
+        <!-- Display any error objects are returned: -->
+        {% if login_errors %}
+            <!-- Loop through each error -->
+            {% for error in login_errors %}
+                <!-- Print error -->
+                <p class="error">{{error}}</p>
+            {% endfor %}
+        {% endif %}
+        <form action="/" method="POST">
+            {% csrf_token %}
+            <label for="login_email"> Email:
+                <input type="email" name="login_email" id="login_email">
+            </label>
+            <label for="login_password"> Password:
+                <input type="password" name="login_password" id="login_password">
+            </label>
+            <input type="submit" value="Login!">
+        </form>
+    </fieldset>
+    <fieldset><legend>Register:</legend>
+        <!-- Registration Form -->
+        <!-- Display any error objects are returned: -->
+        {% if reg_errors %}
+            <!-- Loop through each error -->
+            {% for error in reg_errors %}
+                <!-- Print error -->
+                <p class="error">{{error}}</p>
+            {% endfor %}
+        {% endif %}
+        <form action="/register" method="POST">
+            {% csrf_token %}
+            <label for="first_name"> First Name:
+                <input type="text" name="first_name" id="first_name">
+            </label>
+            <label for="last_name"> Last Name:
+                <input type="text" name="last_name" id="last_name">
+            </label>
+            <label for="email"> Email:
+                <input type="email" name="email" id="email">
+            </label>
+            <label for="password"> Password:
+                <input type="password" name="password" id="password">
+            </label>
+            <label for="confirm_pwd"> Confirm Password:
+                <input type="password" name="confirm_pwd" id="confirm_pwd">
+            </label>
+            <input type="submit" value="Register!">
+        </form>
+    </fieldset>
+</body>
+</html>
