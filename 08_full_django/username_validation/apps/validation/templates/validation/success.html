@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'validation/css/style.css' %}">
+    <title>Success</title>
+</head>
+<body>
+    <h1>Success!</h1>
+    <!-- If logged in user object: -->
+    {% if logged_in_user %}
+        <!-- Print success message with logged_in_user details -->
+        <div class="success">
+            <h2>Successfully logged in:</h2>
+            <ul>
+                <!-- Username of logged in user -->
+                <li><strong>Username:</strong> {{logged_in_user.username}}</li>
+                <!-- Created at timestamp of logged in user -->
+                <li><strong>Registered:</strong> {{logged_in_user.created_at}}</li>
+            </ul>
+        </div>
+    {% endif %}
+    <hr>
+    <h2>All Users:</h2>
+    <!-- If all_users object -->
+    {% if all_users %}
+        <!-- Iterate through each user -->
+        {% for user in all_users %}
+            <!-- Print their name and created_at -->
+            <p>{{user.username}} | {{user.created_at}}</p>
+        {% endfor %}
+    {% endif %}
+    <h3><a href="/"><< Take Me Home</a></h3>
+</body>
+</html>
