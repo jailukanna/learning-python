@@ -48,7 +48,7 @@ Don't worry about hashing passwords for now. We'll take a closer look at hashing
 
     - *Validation Philosophy/Pseduocode*: In this file, we have a manager running for our Users model. We have created two methods as extensions onto
     our model Manager. The first handles the registration validations. All fields are validated, any errors are generated based upon validations, and
-    if errors are detected, the index page is loaded along with the errors and a `None` is returned. If no validation errors occur, the users's password is hashed, and the fully updated user data (as a `dict`) is sent back to views.py to be created. The second method handles the login validation. If any fields are flagged, errors are generated and a `None` is returned. If fields pass validation, `True` is returned. I'd like to break my validations
+    if errors are detected, the index page is loaded along with the errors and a `False` is returned. If no validation errors occur, the users's password is hashed, and the fully updated user data (as a `dict`) is sent back to views.py to be created. The second method handles the login validation. If any fields are flagged, errors are generated and a `False` is returned. If fields pass validation, `True` is returned. I'd like to break my validations
     into smaller bits for ease of reading, and to make things a bit more logical. I think for the most part it's OK, but it could be a little too busy.
     I think it's important to keep aiming for simplicity and organization. The more simple and organized, the better for everyone. Don't overcomplicate
     and over-busy things (my seeming slanted natural reaction..)

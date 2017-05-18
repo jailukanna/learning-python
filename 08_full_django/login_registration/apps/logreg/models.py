@@ -7,8 +7,8 @@ import bcrypt # grabs `bcrypt` module for encrypting and decrypting passwords
 
 # Add extra message levels to default messaging to handle login or registration error generation:
 # https://docs.djangoproject.com/en/1.11/ref/contrib/messages/#creating-custom-message-levels
-LOGIN_ERR = 50 # Integer for login errors
-REG_ERR = 60 # Integer for registration errors
+LOGIN_ERR = 50 # Integer level for login errors
+REG_ERR = 60 # Integer level for registration errors
 
 class UserManager(models.Manager):
     """
@@ -23,24 +23,20 @@ class UserManager(models.Manager):
         Runs validations on new User.
 
         Parameters:
-        -`self` - Instance to whom this method belongs.
-        -`**kwargs` - A dictionary of book data accompanied by two asterisks (mandatory)
+        - `self` - Instance to whom this method belongs.
+        - `**kwargs` - A dictionary of book data accompanied by two asterisks (mandatory)
+
+        Validations:
+        - No Existing User
+        - First Name - Required; No fewer than 2 characters; letters only
+        - Last Name - Required; No fewer than 2 characters; letters only
+        - Email - Required; Valid Format
+        - Password - Required; No fewer than 8 characters in length; matches Password Confirmation
         """
 
-        #---------------------#
-        #---- VALIDATIONS ----#
-        #---------------------#
-        """
-        + No Existing User
-        + First Name - Required; No fewer than 2 characters; letters only
-        + Last Name - Required; No fewer than 2 characters; letters only
-        + Email - Required; Valid Format
-        + Password - Required; No fewer than 8 characters in length; matches Password Confirmation
-        """
-
-        #----------------------------#
-        #-- FIRST_NAME, LAST_NAME: --#
-        #----------------------------#
+        #---------------------------#
+        #-- FIRST_NAME/LAST_NAME: --#
+        #---------------------------#
         # Check if first_name or last_name is less than 2 characters:
         if len(kwargs["first_name"]) < 2 or len(kwargs["last_name"]) < 2:
             print "Error, First and last name are required, and must be at least 2 characters."
@@ -48,8 +44,7 @@ class UserManager(models.Manager):
             messages.add_message(kwargs['request'], REG_ERR, 'First and last name are required must be at least 2 characters.', extra_tags="reg_errors")
 
         # Check if first_name or last_name contains letters only:
-        # Create regex object:
-        alphachar_regex = re.compile(r'^[a-zA-Z]*$')
+        alphachar_regex = re.compile(r'^[a-zA-Z]*$') # Create regex object
         # Test first_name and last_name against regex object:
         if not alphachar_regex.match(kwargs['first_name']) or not alphachar_regex.match(kwargs['last_name']):
             print "Error, first name and last name must be letters only."
@@ -62,7 +57,6 @@ class UserManager(models.Manager):
         # Check if email field is empty:
         if len(kwargs["email"]) < 5:
             print "Email field is required."
-            # Add error to Django's error messaging:
             messages.add_message(kwargs['request'], REG_ERR, 'Email field is required.', extra_tags="reg_errors")
 
         # Note: The `else` statements below will only run if the above if statement passes.
@@ -73,13 +67,11 @@ class UserManager(models.Manager):
             email_regex = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
             if not email_regex.match(kwargs['email']):
                 print "Error, Email format invalid."
-                # Add error to Django's error messaging:
                 messages.add_message(kwargs['request'], REG_ERR, 'Email format is invalid.', extra_tags="reg_errors")
             else: # If passes regex:
                 # Check for existing User via email:
                 if len(User.objects.filter(email=kwargs["email"])) > 0:
                     print "User with this email address already exists."
-                    # Add error to Django's error messaging:
                     messages.add_message(kwargs['request'], REG_ERR, 'Email address already registered.', extra_tags="reg_errors")
 
         #---------------#
@@ -97,12 +89,12 @@ class UserManager(models.Manager):
             # Check if password matches confirmation password:
             if kwargs["password"] != kwargs["confirm_pwd"]:
                 print "Error, Passwords do not match."
-                # Add error to Django's error messaging:
                 messages.add_message(kwargs['request'], REG_ERR, 'Password and confirmation password must match.', extra_tags="reg_errors")
 
-        # If no validation errors, hash password and send back validated data:
-        # Get current errors:
+        # Get current errors to check if any exist:
         errors = get_messages(kwargs["request"])
+
+        # If no validation errors, hash password and send back validated data:
         if len(errors) == 0:
             # Hash Password:
             kwargs["password"] = bcrypt.hashpw(kwargs["password"].encode(), bcrypt.gensalt(14))
@@ -111,12 +103,13 @@ class UserManager(models.Manager):
                 kwargs.pop("request")
             # Send Validated User Data (now with Hashed Password) for Instance Creation:
             return kwargs
-        # If validation errors, send back None:
+        # Else, if validation errors, send back False:
+        # Note: Error messages are attached to updated request object per Django messages:
         else:
             print "Errors validating User registration."
             for error in errors:
                 print "Validation Error: ", error
-            return None
+            return False
 
     def login_validate(self, **kwargs):
         """
@@ -125,19 +118,15 @@ class UserManager(models.Manager):
         Parameters:
         -`self` - Instance to whom this method belongs.
         -`**kwargs` - A dictionary of book data accompanied by two asterisks (mandatory)
-        """
 
-        #---------------------#
-        #---- VALIDATIONS ----#
-        #---------------------#
-        """
-        + All fields required.
-        + Email retrieves existing User.
-        + Password matches User's stored password.
+        Validations:
+        - All fields required.
+        - Email retrieves existing User.
+        - Password matches User's stored password (bcrypted).
         """
 
         #------------------#
-        #---- REQUIRED ----#
+        #--- ALL FIELDS ---#
         #------------------#
         # Check that all fields are required:
         if len(kwargs["email"]) < 5 or len(kwargs["password"]) < 8:
@@ -163,29 +152,29 @@ class UserManager(models.Manager):
                 # The zen master answers, "I have no sake."
                 if bcrypt.hashpw(kwargs["password"].encode(), logged_in_user.password.encode()) != logged_in_user.password:
                     print("Error, Password is incorrect.")
-                    # Add error to Django's error messaging:
                     messages.add_message(kwargs['request'], LOGIN_ERR, 'Login invalid.', extra_tags="login_errors")
 
             except User.DoesNotExist:
                 print "Error, User has not been found."
-                # Add error to Django's error messaging:
                 messages.add_message(kwargs['request'], LOGIN_ERR, 'Login invalid.', extra_tags="login_errors")
 
-        # If no validation errors, send back True:
-        # Get current errors:
+        # Get current errors to check if any exist:
         errors = get_messages(kwargs["request"])
+
+        # If no validation errors, send back True:
         if len(errors) == 0:
             # Delete request object we used for Django messaging:
             if kwargs.has_key("request"):
                 kwargs.pop("request")
             # Send True indicating Validation has been passed:
             return True
-        # If validation errors, send back None:
+        # Else if validation errors, send back False:
+        # Note: Errors are attached to request object per django messages
         else:
             print "Errors validating User login."
             for error in errors:
                 print "Validation Error: ", error
-            return None
+            return False
 
 class User(models.Model):
     """
@@ -196,9 +185,9 @@ class User(models.Model):
     """
 
     first_name = models.CharField(max_length=50) # CharField is field type for characters
-    last_name = models.CharField(max_length=50) # CharField is field type for characters
-    email = models.CharField(max_length=50) # CharField is field type for characters
-    password = models.CharField(max_length=22) # CharField is field type for characters
+    last_name = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=22)
     created_at = models.DateTimeField(auto_now_add=True) # DateTimeField is field type for date and time
     updated_at = models.DateTimeField(auto_now=True) # note the `auto_now=True` parameter
     objects = UserManager() # Attaches `UserManager` methods to our `User.objects` object.

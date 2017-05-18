@@ -12,7 +12,6 @@
     <h1>Login and Registration</h1>
     <p>In this assignment, we'll use our knowledge of Django, Django Models and Django Managers to create a full functioning login and regsitration application with validations.</p>
     <p>Please see the `readme.md` and `wireframe.png` included in this project for explicit details and specifications.</p>
-    <blockquote><em>Note: Password hashing (using `bcrypt`) is not present in this application and will be built into the next one.</em></blockquote>
     <hr>
     <fieldset><legend>Login:</legend>
         <!-- Login Form -->
@@ -24,14 +23,6 @@
                     {{ message }}
                 </p>
                 {% endif %}
-            {% endfor %}
-        {% endif %}
-        <!-- Display any error objects are returned: -->
-        {% if login_errors %}
-            <!-- Loop through each error -->
-            {% for error in login_errors %}
-                <!-- Print error -->
-                <p class="error">{{error}}</p>
             {% endfor %}
         {% endif %}
         <form action="/" method="POST">
@@ -55,14 +46,6 @@
                     {{ message }}
                 </p>
                 {% endif %}
-            {% endfor %}
-        {% endif %}
-        <!-- Display any error objects are returned: -->
-        {% if reg_errors %}
-            <!-- Loop through each error -->
-            {% for error in reg_errors %}
-                <!-- Print error -->
-                <p class="error">{{error}}</p>
             {% endfor %}
         {% endif %}
         <form action="/register" method="POST">
