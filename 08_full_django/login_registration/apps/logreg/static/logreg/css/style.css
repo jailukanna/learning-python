@@ -2,7 +2,7 @@
 /*--- MAIN STYLINGS---*/
 /*--------------------*/
 
-.error {
+.reg_errors, .login_errors, .error {
     background-color: red;
     color: white;
     padding: 10px;

@@ -1,6 +1,14 @@
 from __future__ import unicode_literals
 import re # import regex library
 from django.db import models
+from django.contrib import messages # grabs django's `messages` module
+from django.contrib.messages import get_messages # lets us access our messages we've created
+import bcrypt # grabs `bcrypt` module for encrypting and decrypting passwords
+
+# Add extra message levels to default messaging to handle login or registration error generation:
+# https://docs.djangoproject.com/en/1.11/ref/contrib/messages/#creating-custom-message-levels
+LOGIN_ERR = 50 # Integer for login errors
+REG_ERR = 60 # Integer for registration errors
 
 class UserManager(models.Manager):
     """
@@ -19,9 +27,6 @@ class UserManager(models.Manager):
         -`**kwargs` - A dictionary of book data accompanied by two asterisks (mandatory)
         """
 
-        # Create empty errors list to store any errors generated:
-        errors = []
-
         #---------------------#
         #---- VALIDATIONS ----#
         #---------------------#
@@ -39,8 +44,8 @@ class UserManager(models.Manager):
         # Check if first_name or last_name is less than 2 characters:
         if len(kwargs["first_name"]) < 2 or len(kwargs["last_name"]) < 2:
             print "Error, First and last name are required, and must be at least 2 characters."
-            # Add error to list:
-            errors.append("First and last name are required must be at least 2 characters.")
+            # Add error to Django's error messaging:
+            messages.add_message(kwargs['request'], REG_ERR, 'First and last name are required must be at least 2 characters.', extra_tags="reg_errors")
 
         # Check if first_name or last_name contains letters only:
         # Create regex object:
@@ -48,8 +53,8 @@ class UserManager(models.Manager):
         # Test first_name and last_name against regex object:
         if not alphachar_regex.match(kwargs['first_name']) or not alphachar_regex.match(kwargs['last_name']):
             print "Error, first name and last name must be letters only."
-            # Add error to list:
-            errors.append("First and last name must be letters only.")
+            # Add error to Django's error messaging:
+            messages.add_message(kwargs['request'], REG_ERR, 'First and last name must be letters only.', extra_tags="reg_errors")
 
         #------------#
         #-- EMAIL: --#
@@ -57,8 +62,8 @@ class UserManager(models.Manager):
         # Check if email field is empty:
         if len(kwargs["email"]) < 5:
             print "Email field is required."
-            # Add error to list:
-            errors.append("Email field is required.")
+            # Add error to Django's error messaging:
+            messages.add_message(kwargs['request'], REG_ERR, 'Email field is required.', extra_tags="reg_errors")
 
         # Note: The `else` statements below will only run if the above if statement passes.
         # This is to keep us from giving away too many errors when not quite yet necessary.
@@ -68,12 +73,14 @@ class UserManager(models.Manager):
             email_regex = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
             if not email_regex.match(kwargs['email']):
                 print "Error, Email format invalid."
-                errors.append("Email format is invalid.")
+                # Add error to Django's error messaging:
+                messages.add_message(kwargs['request'], REG_ERR, 'Email format is invalid.', extra_tags="reg_errors")
             else: # If passes regex:
                 # Check for existing User via email:
                 if len(User.objects.filter(email=kwargs["email"])) > 0:
                     print "User with this email address already exists."
-                    errors.append("Email address is already registered.")
+                    # Add error to Django's error messaging:
+                    messages.add_message(kwargs['request'], REG_ERR, 'Email address already registered.', extra_tags="reg_errors")
 
         #---------------#
         #-- PASSWORD: --#
@@ -81,22 +88,35 @@ class UserManager(models.Manager):
         # Check if password is not less than 8 characters:
         if len(kwargs["password"]) < 8:
             print "Error, Password too short."
-            # Add error to list:
-            errors.append("Password must be at least 8 characters.")
+            # Add error to Django's error messaging:
+            messages.add_message(kwargs['request'], REG_ERR, 'Password fields are required and must be at least 8 characters.', extra_tags="reg_errors")
+        # Otherwise check if it matches the confirmation. If it does, bcrpyt it and send it back.
         else:
             # The above else statement is so the code below only runs if the password
             # is more than 8 characters. Again, this is to prevent excessive errors.
             # Check if password matches confirmation password:
             if kwargs["password"] != kwargs["confirm_pwd"]:
                 print "Error, Passwords do not match."
-                errors.append("Password and confirmation password must match.")
+                # Add error to Django's error messaging:
+                messages.add_message(kwargs['request'], REG_ERR, 'Password and confirmation password must match.', extra_tags="reg_errors")
 
-        # Prepare dictionary for Template (saves us some formatting logic in our Controller):
-        error_data = {
-            "reg_errors": errors
-        }
-
-        return error_data
+        # If no validation errors, hash password and send back validated data:
+        # Get current errors:
+        errors = get_messages(kwargs["request"])
+        if len(errors) == 0:
+            # Hash Password:
+            kwargs["password"] = bcrypt.hashpw(kwargs["password"].encode(), bcrypt.gensalt(14))
+            # Delete request object we used for Django messaging:
+            if kwargs.has_key("request"):
+                kwargs.pop("request")
+            # Send Validated User Data (now with Hashed Password) for Instance Creation:
+            return kwargs
+        # If validation errors, send back None:
+        else:
+            print "Errors validating User registration."
+            for error in errors:
+                print "Validation Error: ", error
+            return None
 
     def login_validate(self, **kwargs):
         """
@@ -106,9 +126,6 @@ class UserManager(models.Manager):
         -`self` - Instance to whom this method belongs.
         -`**kwargs` - A dictionary of book data accompanied by two asterisks (mandatory)
         """
-
-        # Create empty errors list to store any errors generated:
-        errors = []
 
         #---------------------#
         #---- VALIDATIONS ----#
@@ -125,38 +142,50 @@ class UserManager(models.Manager):
         # Check that all fields are required:
         if len(kwargs["email"]) < 5 or len(kwargs["password"]) < 8:
             print "Error, Email and password are both required."
-            # Add error to list:
-            errors.append("All fields are required.")
-
-        #------------------#
-        #---- EXISTING ----#
-        #------------------#
-        # Try retrieving existing User:
-        try:
-            logged_in_user = User.objects.get(email=kwargs["email"])
-            print "User has been found..."
-
+            # Add error to Django's error messaging:
+            messages.add_message(kwargs['request'], LOGIN_ERR, 'All fields are required.', extra_tags="login_errors")
+        # If all fields are filled in:
+        else:
             #------------------#
-            #---- PASSWORD ----#
+            #---- EXISTING ----#
             #------------------#
-            # Would bcrypt compare password, but for now we'll manually compare fields (WARNING: Unecrypted passwords is a major security risk!)
-            # Check if password submitted matches stored password:
-            if logged_in_user.password != kwargs["password"]:
-                print "Error, Passwords do not match."
-                # Add error to error's list:
-                errors.append("Login invalid.") # Keep it vauge to give less info to hackers
+            # Try retrieving existing User:
+            try:
+                logged_in_user = User.objects.get(email=kwargs["email"])
+                print "User has been found..."
 
-        except User.DoesNotExist:
-            print "Error, User has not been found."
-            # Add error to error's list:
-            errors.append("Login invalid.")
+                #------------------#
+                #---- PASSWORD ----#
+                #------------------#
+                # Compare passwords with bcrypt:
+                # Notes: We pass in our `kwargs['password']` chained to the `str.encode()` method so it's ready for bcrypt.
+                # We could break this down into a separate variable, but instead we do it all at once for zen simplicity's sake.
+                # The zen master answers, "I have no sake."
+                if bcrypt.hashpw(kwargs["password"].encode(), logged_in_user.password.encode()) != logged_in_user.password:
+                    print("Error, Password is incorrect.")
+                    # Add error to Django's error messaging:
+                    messages.add_message(kwargs['request'], LOGIN_ERR, 'Login invalid.', extra_tags="login_errors")
 
-        # Prepare dictionary for Template (saves us some formatting logic in our Controller):
-        error_data = {
-            "login_errors": errors
-        }
+            except User.DoesNotExist:
+                print "Error, User has not been found."
+                # Add error to Django's error messaging:
+                messages.add_message(kwargs['request'], LOGIN_ERR, 'Login invalid.', extra_tags="login_errors")
 
-        return error_data
+        # If no validation errors, send back True:
+        # Get current errors:
+        errors = get_messages(kwargs["request"])
+        if len(errors) == 0:
+            # Delete request object we used for Django messaging:
+            if kwargs.has_key("request"):
+                kwargs.pop("request")
+            # Send True indicating Validation has been passed:
+            return True
+        # If validation errors, send back None:
+        else:
+            print "Errors validating User login."
+            for error in errors:
+                print "Validation Error: ", error
+            return None
 
 class User(models.Model):
     """

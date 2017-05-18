@@ -16,6 +16,16 @@
     <hr>
     <fieldset><legend>Login:</legend>
         <!-- Login Form -->
+        <!-- Django Messages Errors -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "login_errors" %}
+                <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
         <!-- Display any error objects are returned: -->
         {% if login_errors %}
             <!-- Loop through each error -->
@@ -37,6 +47,16 @@
     </fieldset>
     <fieldset><legend>Register:</legend>
         <!-- Registration Form -->
+        <!-- Django Messages Errors -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "reg_errors" %}
+                <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
         <!-- Display any error objects are returned: -->
         {% if reg_errors %}
             <!-- Loop through each error -->
