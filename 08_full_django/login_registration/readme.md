@@ -1,4 +1,13 @@
 # Assignment: Login and Registration
+
+**Note**
+This file is 1 of 2 projects which achieve the same functionality. V2 handles error generation differently when it comes to validations, and thus is contained in its own project.
+This project takes the approach of generating django-messages errors within the models.py file, but could potentially be hazardous to spoofed routes, as the entire request object
+is passed to models.py. I don't know how absolutely weak or strong this method is, so I am saving 2 versions of this project, one which passes the entire request object, another which
+does not, and am going to later try and hack/break them and see what goes down.
+
+See `login_registration_2` for the version of this project where the request object is more protected.
+
 Rebuild the Login and Registration assignment from the flask chapter, this time using Django.
 
 We’ve learned how to integrate models, validations, and controllers to our projects. Our next goal is to create a fully functional login and registration app! This will combine your knowledge of MVC patterns, validations, and password encryption.
@@ -46,9 +55,15 @@ Don't worry about hashing passwords for now. We'll take a closer look at hashing
     error handling, or a homebrew method is likely to be less shuffling around of the request object, but alas, this is taking advantage of
     Django's native features, and probably is "best practices". (But we'll keep learning).
 
-    - *Validation Philosophy/Pseduocode*: In this file, we have a manager running for our Users model. We have created two methods as extensions onto
-    our model Manager. The first handles the registration validations. All fields are validated, any errors are generated based upon validations, and
-    if errors are detected, the index page is loaded along with the errors and a `False` is returned. If no validation errors occur, the users's password is hashed, and the fully updated user data (as a `dict`) is sent back to views.py to be created. The second method handles the login validation. If any fields are flagged, errors are generated and a `False` is returned. If fields pass validation, `True` is returned. I'd like to break my validations
-    into smaller bits for ease of reading, and to make things a bit more logical. I think for the most part it's OK, but it could be a little too busy.
-    I think it's important to keep aiming for simplicity and organization. The more simple and organized, the better for everyone. Don't overcomplicate
-    and over-busy things (my seeming slanted natural reaction..)
+    - *Validation Philosophy/Pseduocode*: For now, what happens is the validators receive a request object, and then extract the data they
+    need for validations. If validations are passed, the new user is either created and returned, or the user is retrieved from the DB and returned.
+    If the user fails validations, `False` is returned.
+
+    - *Notes About Validations & Django Messages*: Essentially, the way you've got things setup right now, is that you're sending the entire `request` object
+    over to your django models.py. The only issue with this, if someone spoofed your routes and tried to send false data, the request object could reach
+    your models.py. This could then be used to initiate commands to your DB or corrupt data, etc. It was advised to not pass the entire `request` object, as
+    this opens the django application up to some potential liabilities. The only issue that should be noted is perhaps if you more iron lock down some of the
+    validations in `models.py`, for example, if you check for explicit keys in the request object.
+
+    Because of this potential `request` issue, I am going to duplicate this entire project into a new project called `logreg2`, and will be in the primary project:
+    `login_registration_2`.

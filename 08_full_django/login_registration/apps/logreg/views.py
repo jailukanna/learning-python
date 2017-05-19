@@ -50,12 +50,6 @@ def register(request):
     if request.method == "POST":
         print "Validating registration form..."
         # Validate registration data submitted from registration form:
-        """
-        Note: Double asterisks `**` must be included along with dict obj below for
-        the `register_validate(**kwargs)` function to work. This function either
-        returns `False` if validation fails, or returns validated user data with
-        the password now encrypted and ready for creation.
-        """
         validated = User.objects.register_validate(request) # see `./models.py`, `register_validate()`
         # If errors, reload index page (Django will load error objects):
         if validated == False:
