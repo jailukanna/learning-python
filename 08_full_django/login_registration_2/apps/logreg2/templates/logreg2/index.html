@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Load Access to Django Static Files -->
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- Load Django Static CSS Sheet -->
+<link rel="stylesheet" href="{% static 'logreg2/css/style.css' %}">
+<title>Login Registration v2</title>
+<body>
+    <h1>Login and Registration v2 (<em>Operation: Protect the Request</em>)</h1>
+    <p>In this assignment, we'll use our knowledge of Django, Django Models and Django Managers to create a full functioning login and regsitration application with validations.</p>
+    <p><blockquote>Note: In v2 here, we generate our django errors without passing the entire request object to our models.py. This could be potentially more secure and could require testing.</blockquote></p>
+    <p>Please see the `readme.md` and `wireframe.png` included in this project for explicit details and specifications.</p>
+    <hr>
+    <fieldset><legend>Login:</legend>
+        <!-- Login Form -->
+        <!-- Django Messages Errors -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "login_errors" %}
+                <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <form action="/" method="POST">
+            {% csrf_token %}
+            <label for="login_email"> Email:
+                <input type="email" name="login_email" id="login_email">
+            </label>
+            <label for="login_password"> Password:
+                <input type="password" name="login_password" id="login_password">
+            </label>
+            <input type="submit" value="Login!">
+        </form>
+    </fieldset>
+    <fieldset><legend>Register:</legend>
+        <!-- Registration Form -->
+        <!-- Django Messages Errors -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "reg_errors" %}
+                <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <form action="/register" method="POST">
+            {% csrf_token %}
+            <label for="first_name"> First Name:
+                <input type="text" name="first_name" id="first_name">
+            </label>
+            <label for="last_name"> Last Name:
+                <input type="text" name="last_name" id="last_name">
+            </label>
+            <label for="email"> Email:
+                <input type="email" name="email" id="email">
+            </label>
+            <label for="password"> Password:
+                <input type="password" name="password" id="password">
+            </label>
+            <label for="confirm_pwd"> Confirm Password:
+                <input type="password" name="confirm_pwd" id="confirm_pwd">
+            </label>
+            <input type="submit" value="Register!">
+        </form>
+    </fieldset>
+</body>
+</html>
