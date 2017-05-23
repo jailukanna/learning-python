@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from models import User # Gives us access to `User` and `Secret` models
+from models import User, Secret # Gives us access to `User` and `Secret` models
 from django.contrib import messages # grabs django's `messages` module
 from django.forms.models import model_to_dict # Let's us jsonify django model data for use in sessions
 
@@ -49,7 +49,7 @@ def index(request):
         # If validation successful, create new user and send it along with success page:
         except KeyError:
             # Set session to validated User:
-            request.session["logged_in_user"] = validated["logged_in_user"]
+            request.session["user_id"] = validated["logged_in_user"].id
             # Load dashboard page with `validated` user (already returned as a `dict` obj.)
             return render(request, "secrets/dashboard.html", validated)
     # If request method is not POST, load login/registration page:
@@ -90,15 +90,7 @@ def login(request):
         # If credentials are validated, load success page along with `logged_in_user`:
         except KeyError:
             # Set session to validated User:
-            print "///// REQUEST SESSION //////"
-            print validated["logged_in_user"].first_name
-            print validated["logged_in_user"].last_name
-            print validated["logged_in_user"].email
-            print validated["logged_in_user"].password
-            print "///// REQUEST SESSION //////"
-            request.session["user"] = json.dumps(validated["logged_in_user"])
-
-            # request.session["logged_in_user"] = validated["logged_in_user"]["id"]
+            request.session["user_id"] = validated["logged_in_user"].id
             # Return dashboard page with the validated user.
             return render(request, "secrets/dashboard.html", validated)
     # If request method is not a POST, reload index as this is an unexpected request:
@@ -115,7 +107,7 @@ def new_secret(request):
         # Prepare data for validation:
         secret_data = {
             "description": request.POST["description"],
-            "user_id": request.POST["user_id"],
+            "user_id": request.session["user_id"], # Retrieves session stored ID
         }
         # Validate seceret:
         validated = Secret.objects.secret_validate(**secret_data)
@@ -153,8 +145,7 @@ def new_secret(request):
 DO THIS:
 
 -- Build 1 function which receives new secret, validates, and then loads dashboard.
-
 -- Build 1 function which does the functions below (grabs recent secrets, grabs most popular secrets).
--- Create a function which (1) gets all recent secrets, (2) gets popular secrets, (3) gets count of all likes
+-- Create a function which (1) gets all recent secrets, (2) gets popular secrets, (3) gets count of all likes, (4) gets the current user based on session information, (5) get all current user secrets....
 -- Modify your `login` & `registration` so the above function retrieves said data & passes to template (to show for dashboard).
 """

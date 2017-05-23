@@ -239,13 +239,14 @@ class SecretManager(models.Manager):
         # If no validation errors, create new Secret:
         if len(errors) == 0:
             print "Secret description passed validation..."
-            # Retrieve current User:
+            # Retrieve current User by ID:
             print "Retrieving current user..."
-            user = request.session["logged_in_user"]
+            user = User.objects.get(id=kwargs["user_id"])
             print "Creating new secret with data..."
             # Create new validated Secret:
             validated_secret = {
-                "secret": Secret(description=kwargs["description"], user=user)
+                "secret": Secret(description=kwargs["description"], user=user),
+                "logged_in_user": User.objects.get(id=kwargs["user_id"]), # you might be able to remove this and streamline it with a helper function
             }
             # Save new Secret:
             validated_secret["secret"].save()
@@ -293,4 +294,4 @@ class Secret(models.Model):
     likes = models.ManyToManyField(User, related_name="liked") # Many to Many Relationship
     created_at = models.DateTimeField(auto_now_add=True) # DateTimeField is field type for date and time
     updated_at = models.DateTimeField(auto_now=True) # note the `auto_now=True` parameter
-    # objects = SecretManager() # Attaches `SecretManager` methods to our `Secret.objects` object.
+    objects = SecretManager() # Attaches `SecretManager` methods to our `Secret.objects` object.
