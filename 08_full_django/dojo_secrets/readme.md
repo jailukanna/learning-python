@@ -20,10 +20,6 @@ Create a Django app where registered users can post and like secrets.
 
 
 # Where I Left Off:
--- Found out that when I try to store session data in Django as a User object
-(such as which is returned when my custom validations run), I get an error
-as the object is not serializable. I either have to extract the ID or data
-from the object prior to storing, OR, I have to serialize it. May look into Serializing,
-as might be a good thing to do know how to do...OR, maybe I will just stick with the ID
-storage, to minimize complexity/run-time. Once this is dialed, I could use it for my
-black belt exam. <3
+-- Figured out why session storage was having issues. Changed it to user ID instead.
+-- Left a list at the bottom of `views.py` for what needs to be done to streamline things.
+-- Left off having gotten secrets to work properly, but have a lot more work to do here.
