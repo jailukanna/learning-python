@@ -13,26 +13,7 @@ def index(request):
 
     # If request method is a "POST", begin process of validating credentials logging user in:
     if request.method == "POST":
-        """
-        # Note:
-        I don't know if it's bad to pass the entire request
-        object along like I did below. The only reason I did this, was because in
-        order to use Django's `messaging` module, one of the required
-        arguments was the `request` object, as it uses the request object to attach
-        the messages to.
-
-        *If* it was bad to do this for performance or memory reasons,
-        another strategy might be to return a list of errors from the manager,
-        and then iterate over the errors here in `views.py` generating the official
-        Django messages errors. However, for simplicity, you might just choose to display
-        that manually as well.
-
-        Overall, my choice above was made in order to do all validations, all
-        error message generation, and all object creation or retrieval in my Manager,
-        and not my `views.py`
-        """
         # Validate credentials submitted to login form:
-        # Note: Returns validated user if passes validations, otherwise returns `False`.
         # Prepare user submitted data for validation:
         login_data = {
             "email": request.POST["login_email"],

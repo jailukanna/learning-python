@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 import re # import regex library
 from django.db import models
-from django.contrib import messages # grabs django's `messages` module
-from django.contrib.messages import get_messages # lets us access our messages we've created
 import bcrypt # grabs `bcrypt` module for encrypting and decrypting passwords
 
 # Add extra message levels to default messaging to handle login or registration error generation:
@@ -20,10 +18,10 @@ class UserManager(models.Manager):
 
     Functions:
     - `register_validate(self, **kwargs)` - Accepts a dictionary list of
-    registration form arguments. Either returns False if validation fails, or
+    registration form arguments. Either returns errors list if validation fails, or
     returns the validated and newly created `User`.
     - `login_validate(self, **kwargs)` - Accepts a dictionary list of login
-    form arguments. Either returns False if validation fails, or returns the
+    form arguments. Either returns errors list if validation fails, or returns the
     validated retrieved user.
 
     Notes:
@@ -37,7 +35,7 @@ class UserManager(models.Manager):
 
         Parameters:
         - `self` - Instance to whom this method belongs.
-        - `request` - The full request object: includes form data and the request object itself for django-messages
+        - `**kwargs` - Dictionary object of login values from controller to be validated.
 
         Validations:
         - First Name - Required; No fewer than 2 characters; letters only
@@ -126,7 +124,7 @@ class UserManager(models.Manager):
             print "Logging user in..." # // Development Improvement Note: // Could assign Session here.
             # Send newly created validated User back:
             return validated_user
-        # Else, if validation fails print errors to console and return `False`:
+        # Else, if validation fails print errors to console and return `errors` (list):
         else:
             print "Errors validating User registration."
             for error in errors:
@@ -143,7 +141,7 @@ class UserManager(models.Manager):
 
         Parameters:
         - `self` - Instance to whom this method belongs.
-        - `request` - The full request object: includes form data and the request object itself for django-messages
+        - `**kwargs` - Dictionary object of login values from controller to be validated.
 
         Validations:
         - All fields required.
@@ -196,7 +194,7 @@ class UserManager(models.Manager):
                 "logged_in_user": logged_in_user, # email of our retrieved `User` from above validations.
             }
             return validated_user
-        # Else, if validation fails print errors to console and return `False`:
+        # Else, if validation fails print errors to console and return `errors` (list):
         else:
             print "Errors validating User login."
             for error in errors:
