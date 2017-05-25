@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
-from models import User, Secret # Gives us access to `User` and `Secret` models
+from models import User, Secret # gives us access to `User` and `Secret` models
 from django.contrib import messages # grabs django's `messages` module
 from django.forms.models import model_to_dict # Let's us jsonify django model data for use in sessions
+from . import dashboard # grab custom dashboard helper module
 
 # Add extra message levels to default messaging to handle login or registration error generation:
 # https://docs.djangoproject.com/en/1.11/ref/contrib/messages/#creating-custom-message-levels
 LOGIN_ERR = 50 # Messages level for login errors
 REG_ERR = 60 # Messages level for registration errors
 SECRET_ERR = 70 # Messages level for secret errors
+
 
 def index(request):
     """
@@ -125,21 +127,42 @@ def new_secret(request):
             else:
                 # If this is firing, it means errors returned, but they weren't expected.
                 # Could mean someone is spoofing your URL request.
+                print "Unexpected errors occurred."
+                messages.add_message(request, SECRET_ERR, "An unexpected error has occurred.", extra_tags="secret_errors")
                 return redirect('/') # Added for extra security to cover all cases.
         # If secret is validated, get recent secrets/popular secrets and load dashboard:
         except KeyError:
-            # Get recent secrets:
-            # Get popular secrets:
-            # Get count of likes:
-            # Format data for template:
-            return render(request, "secrets/dashboard.html", validated)
+            # Run the function which creates a dictionary with:
+            ### all recent secrets // DONE
+            ### popular secrets // DONE
+            ### count on all likes
+            ### gets current user based on session
+            ### gets all current user secrets...
+            print "Getting dashboard data..."
+            # Prepare data for template:
+            dashboard_data = {
+                "recent_secrets": dashboard.get_recent_secrets(),
+                "popular_secrets": dashboard.get_popular_secrets(),
+                "logged_in_user": User.objects.get(id=request.session["user_id"]),
+                # "like_count": dashboard.get_popular_secrets(),
+            }
+            print "///////// DATA /////////"
+            print "RECENT SECRETS:"
+            for secret in dashboard_data["recent_secrets"]:
+                print "{} | {}".format(secret.description, secret.created_at)
+            print "POPULAR SECRETS:"
+            for pop_secret in dashboard_data["popular_secrets"]:
+                print "{} | {}".format(pop_secret.description, pop_secret.created_at)
+            print "LOGGED IN USER:"
+            print dashboard_data["logged_in_user"].first_name
+            print "////////////////////////"
+            return render(request, "secrets/dashboard.html", dashboard_data)
 
     # If request method is not POST, return to dashboard as this is an unexpected request:
     else:
         print "Unexpected errors occurred."
         messages.add_message(request, SECRET_ERR, "An unexpected error has occurred.", extra_tags="secret_errors")
         return render(request, "secrets/dashboard.html")
-
 
 """
 DO THIS:
