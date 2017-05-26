@@ -159,7 +159,7 @@ class UserManager(models.Manager):
             # Try retrieving existing User:
             try:
                 logged_in_user = User.objects.get(email=kwargs["email"])
-                print "User has been found..."
+                print "User found..."
 
                 #------------------#
                 #---- PASSWORD ----#

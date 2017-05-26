@@ -9,6 +9,7 @@ from . import dashboard # grab custom dashboard helper module
 LOGIN_ERR = 50 # Messages level for login errors
 REG_ERR = 60 # Messages level for registration errors
 SECRET_ERR = 70 # Messages level for secret errors
+LOGOUT_SUCC = 80 # Messages level for logout success messages
 
 
 def index(request):
@@ -40,20 +41,23 @@ def index(request):
                 for error in validated["errors"]:
                     # Add error to Django's error messaging:
                     messages.add_message(request, REG_ERR, error, extra_tags="reg_errors")
-                # Send back index with updated request object (which contains our Django error messages):
-                # Note: If we did a `redirect` to our index route, our django message data would not display,
-                # as it is stored in the updated request object.
-                return render(request, "secrets/index.html")
+                # Reload index page:
+                return redirect("/")
             else:
                 # If this is firing, it means errors returned, but they weren't expected.
                 # Could mean someone is spoofing your URL request.
-                return redirect('/')
-        # If validation successful, create new user and send it along with success page:
+                print "Unexpected errors occurred."
+                messages.add_message(request, REG_ERR, "An unexpected error has occurred.", extra_tags="reg_errors")
+                return redirect("/")
         except KeyError:
+            # If validation successful, create new user and load dashboard:
+            print "User passed validation and has been created..."
             # Set session to validated User:
+            print "Setting session data for logged in new user..."
             request.session["user_id"] = validated["logged_in_user"].id
-            # Load dashboard page with `validated` user (already returned as a `dict` obj.)
-            return render(request, "secrets/dashboard.html", validated)
+            # Load dashboard and get dashboard data:
+            return redirect("/dashboard")
+
     # If request method is not POST, load login/registration page:
     else:
         return render(request, "secrets/index.html")
@@ -67,7 +71,6 @@ def login(request):
     """
     # If request method is a POST, validate and login:
     if request.method == "POST":
-        print "Logging in User..."
         # Prepare user submitted data for validation:
         login_data = {
             "email": request.POST["login_email"],
@@ -82,24 +85,43 @@ def login(request):
                 for error in validated["errors"]:
                     # Add error to Django's error messaging:
                     messages.add_message(request, LOGIN_ERR, error, extra_tags="login_errors")
-                # We must render, not redirect, so `request` object gets updated with django messages:
-                # If we redirect, the request object is updated and our old modified one with the messages is lost.
-                return render(request, "secrets/index.html")
+                # Reload homepage:
+                return redirect("/")
             else:
                 # If this is firing, it means errors returned, but they weren't expected.
                 # Could mean someone is spoofing your URL request.
-                return redirect('/') # Added for extra security to cover all cases.
-        # If credentials are validated, load success page along with `logged_in_user`:
+                print "Unexpected errors occurred."
+                messages.add_message(request, LOGIN_ERR, "An unexpected error has occurred.", extra_tags="login_errors")
+                return redirect("/") # Added for extra security to cover all cases.
         except KeyError:
+            # If credentials are validated, set session, and load dashboard:
+            print "User passed validation..."
             # Set session to validated User:
+            print "Setting session data for logged in user..."
             request.session["user_id"] = validated["logged_in_user"].id
-            # Return dashboard page with the validated user.
-            return render(request, "secrets/dashboard.html", validated)
+            # Fetch dashboard data and load dashboard page:
+            return redirect("/dashboard")
+
     # If request method is not a POST, reload index as this is an unexpected request:
     else:
         print "Unexpected errors occurred."
         messages.add_message(request, LOGIN_ERR, "An unexpected error has occurred.", extra_tags="login_errors")
         return redirect("/")
+
+def logout(request):
+    """Logs out current user."""
+
+    # Try deleting session and send success message:
+    try:
+        # Deletes session:
+        del request.session['user_id']
+        # Adds success message:
+        messages.add_message(request, LOGOUT_SUCC, "Successfully logged out.", extra_tags="logout_succ")
+    except KeyError: # If `user_id` is not found pass
+        pass
+
+    # Return to index page:
+    return redirect("/")
 
 def new_secret(request):
     """Creates new secrets."""
@@ -121,54 +143,84 @@ def new_secret(request):
                 for error in validated["errors"]:
                     # Add error to Django's error messaging:
                     messages.add_message(request, SECRET_ERR, error, extra_tags="secret_errors")
-                # We must render, not redirect, so `request` object gets updated with django messages:
-                # If we redirect, the request object is updated and our old modified one with the messages is lost.
-                return render(request, "secrets/dashboard.html")
+                # Redirect to dashboard route which gets dashboard data and loads dashboard page:
+                return redirect("/dashboard")
             else:
                 # If this is firing, it means errors returned, but they weren't expected.
                 # Could mean someone is spoofing your URL request.
                 print "Unexpected errors occurred."
                 messages.add_message(request, SECRET_ERR, "An unexpected error has occurred.", extra_tags="secret_errors")
-                return redirect('/') # Added for extra security to cover all cases.
-        # If secret is validated, get recent secrets/popular secrets and load dashboard:
+                return redirect("/") # Added for extra security to cover all cases.
         except KeyError:
-            # Run the function which creates a dictionary with:
-            ### all recent secrets // DONE
-            ### popular secrets // DONE
-            ### count on all likes
-            ### gets current user based on session
-            ### gets all current user secrets...
-            print "Getting dashboard data..."
-            # Prepare data for template:
-            dashboard_data = {
-                "recent_secrets": dashboard.get_recent_secrets(),
-                "popular_secrets": dashboard.get_popular_secrets(),
-                "logged_in_user": User.objects.get(id=request.session["user_id"]),
-                # "like_count": dashboard.get_popular_secrets(),
-            }
-            print "///////// DATA /////////"
-            print "RECENT SECRETS:"
-            for secret in dashboard_data["recent_secrets"]:
-                print "{} | {}".format(secret.description, secret.created_at)
-            print "POPULAR SECRETS:"
-            for pop_secret in dashboard_data["popular_secrets"]:
-                print "{} | {}".format(pop_secret.description, pop_secret.created_at)
-            print "LOGGED IN USER:"
-            print dashboard_data["logged_in_user"].first_name
-            print "////////////////////////"
-            return render(request, "secrets/dashboard.html", dashboard_data)
+            #  If secret passes validation, and redirect to dashboard route which fetches dashboard data and loads dashboard:
+            print "Secret passed validation and has been created."
+            return redirect("/dashboard")
 
     # If request method is not POST, return to dashboard as this is an unexpected request:
     else:
         print "Unexpected errors occurred."
         messages.add_message(request, SECRET_ERR, "An unexpected error has occurred.", extra_tags="secret_errors")
-        return render(request, "secrets/dashboard.html")
+        return redirect("/dashboard")
 
-"""
-DO THIS:
+def delete(request, id):
+    """
+    Deletes secret by id.
 
--- Build 1 function which receives new secret, validates, and then loads dashboard.
--- Build 1 function which does the functions below (grabs recent secrets, grabs most popular secrets).
--- Create a function which (1) gets all recent secrets, (2) gets popular secrets, (3) gets count of all likes, (4) gets the current user based on session information, (5) get all current user secrets....
--- Modify your `login` & `registration` so the above function retrieves said data & passes to template (to show for dashboard).
-"""
+    Parameters:
+    - `id` - ID of a secret object to be deleted. Provided from template data.
+    """
+
+    print "Secret id to be deleted: {}".format(id)
+    print "Deleting secret..."
+    # Deletes secret by secret.id provided.
+    Secret.objects.get(id=id).delete()
+    print "Secret deleted."
+    return redirect("/dashboard")
+
+def get_dashboard_data(request):
+    """
+    Gets all dashboard data.
+
+    Data Fetched for Dashboard:
+    - `recent_secrets` - 3 most recent secrets
+    - `popular_secrets` - 4 most popular secrets by likes
+    - `logged_in_user` - currently logged in user
+    """
+
+    # Validate user session prior to fetching dashboard data:
+    try:
+        request.session["user_id"]
+        print "User session validated."
+        # Fetch dashboard data for template:
+        print "Fetching dashboard data..."
+        dashboard_data = dashboard.populate_data(request.session["user_id"])
+        # Load dashboard and send dashboard data:
+        return render(request, "secrets/dashboard.html", dashboard_data)
+    except KeyError:
+        # If session object not found, load index:
+        print "User session not validated."
+        return redirect("/")
+
+def like(request, id):
+    """
+    Like a secret.
+
+    Parameters:
+    - `id` - ID of secret object to be liked.
+    """
+
+    try:
+        # Get current logged in user:
+        user = User.objects.get(id=request.session["user_id"])
+        # Get current secret:
+        secret = Secret.objects.get(id=id)
+        print user.first_name
+        print secret.description
+        print "Liking secret..."
+        # Add user to secret's `likes`:
+        secret.likes.add(user)
+        print secret.likes
+        # Reload dashboard with updated dashboard data:
+        return redirect("/dashboard")
+    except KeyError:
+        print "Unexpected errors occurred."

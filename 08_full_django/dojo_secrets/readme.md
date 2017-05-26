@@ -20,11 +20,5 @@ Create a Django app where registered users can post and like secrets.
 
 
 # Where I Left Off:
-- Got the data I mostly need for template. But right now am building the dictionary
-in the new secret function and using the dashboard.py helper functions. However,
-this is too busy. Just boil it down to one function that grabs everything you need
-and hands back a full fledged dict. You can then just pass this to your Template
-without any extra work or code in your views.py (like you're doing now, generating
-the entire dictionary).
-
-- Setup security so the dashboard page cannot be accessed unless a valid session.
+- Like functionality. Seeming to have a little trouble getting the `add()` functionality
+to work when trying to add a like to our many-to-many relationships.
