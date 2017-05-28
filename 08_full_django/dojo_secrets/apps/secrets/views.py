@@ -217,9 +217,6 @@ def like(request, id):
         print user.first_name
         print secret.description
         print "Liking secret..."
-        # Add user to secret's `likes`:
-        secret.likes.add(user)
-        print secret.likes
         # Reload dashboard with updated dashboard data:
         return redirect("/dashboard")
     except KeyError:

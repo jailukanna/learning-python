@@ -7,9 +7,6 @@ Create a Django app where registered users can post and like secrets.
 + On both index and "Most Popular" page, show how many likes the secrets has received, a link to like that secret if the user hasn't already, and--if the logged-in user posted this secret--an option to delete. Also show when the secret was posted.
 + Secrets are anonymous--never display the name or E-mail of the person who posted the secret.
 
-
-
-
 # Development Notes:
 - Add Security Check so /dashboard cannot be accessed otherwise.
 - Clean up routing and controller methods so everything is clean.

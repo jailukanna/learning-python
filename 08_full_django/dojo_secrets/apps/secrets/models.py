@@ -291,7 +291,7 @@ class Secret(models.Model):
 
     description = models.CharField(max_length=100) # CharField is field type for characters
     user = models.ForeignKey(User, related_name="secrets") # One-to-Many Relationship
-    likes = models.ManyToManyField(User, related_name="liked") # Many to Many Relationship
+    likes = models.ManyToManyField(User) # Many to Many Relationship
     created_at = models.DateTimeField(auto_now_add=True) # DateTimeField is field type for date and time
     updated_at = models.DateTimeField(auto_now=True) # note the `auto_now=True` parameter
     objects = SecretManager() # Attaches `SecretManager` methods to our `Secret.objects` object.
