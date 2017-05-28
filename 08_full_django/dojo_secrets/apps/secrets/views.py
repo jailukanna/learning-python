@@ -217,6 +217,7 @@ def like(request, id):
         print user.first_name
         print secret.description
         print "Liking secret..."
+        # secret.likes.add(user) # why is this not working?
         # Reload dashboard with updated dashboard data:
         return redirect("/dashboard")
     except KeyError:
