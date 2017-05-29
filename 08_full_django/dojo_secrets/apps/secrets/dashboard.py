@@ -1,6 +1,7 @@
 """Helper module for gathering Dashboard data."""
 
 from models import User, Secret
+from django.db.models import Count
 
 def get_recent_secrets():
     """Gets 3 most recent secrets."""
@@ -12,8 +13,8 @@ def get_recent_secrets():
 def get_popular_secrets():
     """Gets 4 most popular secrets."""
 
-    # Get all secrets, order by likes and take the top 4 in the list:
-    most_popular_4 = Secret.objects.all().order_by("-likes")[:4]
+    # Count likes, order all Secrets by like count and take the top 4 in the list:
+    most_popular_4 = Secret.objects.annotate(like_count=Count('likes')).order_by('-like_count')[:4]
     return most_popular_4
 
 def get_like_count(recent_secrets, popular_secrets):
@@ -23,21 +24,18 @@ def get_like_count(recent_secrets, popular_secrets):
     for secret in recent_secrets:
         secret.like_count = secret.likes.all().count()
         secret.liked_users = secret.likes.all()
-        secret.save()
-        print secret.like_count
 
     # Loop through Popular Secrets and count each Secret's likes, and append to each Secret object:
     for secret in popular_secrets:
         secret.like_count = secret.likes.all().count()
         secret.liked_users = secret.likes.all()
-        secret.save()
-        print secret.like_count
 
     # Return a dictionary with our modified secret lists which now contain a `like_count` property on each Secret:
     like_count_data = {
         "recent_secrets": recent_secrets,
         "popular_secrets": popular_secrets,
     }
+
     return like_count_data
 
 def populate_data(id):

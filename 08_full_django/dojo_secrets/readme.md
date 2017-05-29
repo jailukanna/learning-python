@@ -11,10 +11,14 @@ Create a Django app where registered users can post and like secrets.
 + Added `session`, so user data is stored on server upon login.
 + Added an authorization check when gathering dashboard data, so if User is not currently in session, then the index page is loaded.
 
-# Where I Left Off:
-- Experiencing a weird issue where it seems that popular secrets, if there are only 2, is populating 2 entires twice. Troubleshoot this next, but overall, this baby is locked down.
 
 # Development Notes:
+- Issue: When I tried to gather the top 4 liked secrets by using `Secret.objects.all().order_by("-likes")[:4]`, I was *not* getting desired results. I was receiving multiple copies of each Secret.
+    + Solution: `Secret.objects.annotate(like_count=Count('likes')).order_by('-like_count')[:4]`
+    Use the annotate method to create a variable called `like_count`, which counts all the likes for
+    each secret, and then order by the like count, taking the top 4 in the list. This will give you
+    the top 4 secrets with like counts in decreasing order.
+
 - Issue: "Time since" setup for Secret Timestamps on Template.
     + Solution: Use Django's built in `timesince` attribute when building your Template variables. IE, `{{secret.created_at|timesince}}` will output the time since in comparison with current time.
 
