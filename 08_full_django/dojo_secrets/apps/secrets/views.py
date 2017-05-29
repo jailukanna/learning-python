@@ -76,7 +76,7 @@ def login(request):
             "email": request.POST["login_email"],
             "password": request.POST["login_password"],
         }
-        validated = User.objects.login_validate(**login_data) # pass entire request object as we need this for creating django-messages
+        validated = User.objects.login_validate(**login_data) # pass in login data
         try:
             # If errors, load homepage with errors:
             if len(validated["errors"]) > 0:
@@ -199,6 +199,7 @@ def get_dashboard_data(request):
     except KeyError:
         # If session object not found, load index:
         print "User session not validated."
+        messages.add_message(request, LOGIN_ERR, "You must be logged in to view this page.", extra_tags="login_errors")
         return redirect("/")
 
 def like(request, id):
@@ -217,7 +218,8 @@ def like(request, id):
         print user.first_name
         print secret.description
         print "Liking secret..."
-        # secret.likes.add(user) # why is this not working?
+        secret.likes.add(user)
+        print "Secret liked..."
         # Reload dashboard with updated dashboard data:
         return redirect("/dashboard")
     except KeyError:

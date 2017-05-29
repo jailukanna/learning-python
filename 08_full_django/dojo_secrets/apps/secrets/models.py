@@ -167,10 +167,13 @@ class UserManager(models.Manager):
                 # Compare passwords with bcrypt:
                 # Notes: We pass in our `kwargs['password']` chained to the `str.encode()` method so it's ready for bcrypt.
                 # We could break this down into a separate variable, but instead we do it all at once for zen simplicity's sake.
-                # The zen master answers, "I have no sake."
-                if bcrypt.hashpw(kwargs["password"].encode(), logged_in_user.password.encode()) != logged_in_user.password:
-                    # Add error to error's list:
-                    errors.append('Login invalid.')
+                try:
+                    if bcrypt.hashpw(kwargs["password"].encode(), logged_in_user.password.encode()) != logged_in_user.password:
+                        # Add error to error's list:
+                        errors.append('Login invalid.')
+                except ValueError:
+                    # This will only run if the user's stored DB password is unable to be used by bcrypt (meaning the created user's p/w was never hashed):
+                    errors.append('This user is corrupt. Please contact the administrator.')
 
             except User.DoesNotExist:
                 print "Error, User has not been found."
