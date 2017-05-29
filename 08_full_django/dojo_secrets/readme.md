@@ -18,6 +18,7 @@ Create a Django app where registered users can post and like secrets.
     Use the annotate method to create a variable called `like_count`, which counts all the likes for
     each secret, and then order by the like count, taking the top 4 in the list. This will give you
     the top 4 secrets with like counts in decreasing order.
+    + https://docs.djangoproject.com/en/1.11/topics/db/aggregation/ for more info.
 
 - Issue: "Time since" setup for Secret Timestamps on Template.
     + Solution: Use Django's built in `timesince` attribute when building your Template variables. IE, `{{secret.created_at|timesince}}` will output the time since in comparison with current time.
