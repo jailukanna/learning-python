@@ -223,4 +223,7 @@ def like(request, id):
         # Reload dashboard with updated dashboard data:
         return redirect("/dashboard")
     except KeyError:
+        # This would only run if somehow user was unable to be obtained by current session:
         print "Unexpected errors occurred."
+        messages.add_message(request, SECRET_ERR, "An unexpected error has occurred.", extra_tags="secret_errors")
+        return redirect("/dashboard")
