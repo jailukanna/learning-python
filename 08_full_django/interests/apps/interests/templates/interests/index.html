@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'interests/css/style.css' %}">
+    <title>Create New Interest:</title>
+</head>
+<body>
+    <fieldset><legend>Enter a User Interest</legend>
+        <form action="/add" method="POST">
+            {% if messages %}
+            {% for message in messages %}
+            <p{% if message.tags %} class="messages {{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% csrf_token %}
+            <label for="name"> Name:
+                <input type="text" id="name" name="name">
+            </label>
+            <label for="interest"> Interest:
+                <input type="text" id="interest" name="interest">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+    </fieldset>
+</body>
+</html>

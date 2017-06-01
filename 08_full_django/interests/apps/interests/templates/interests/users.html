@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'interests/css/style.css' %}">
+    <title>All User's Interests</title>
+</head>
+<body>
+    <fieldset><legend>All Users:</legend>
+        <table>
+        <tr>
+            <th>User Name:</th>
+            <th>Actions:</th>
+        </tr>
+            <!-- use Django to iterate through items inside of `all_users` dictionary -->
+            {% if all_users %}
+                {% for user in all_users %}
+                    <tr>
+                        <!-- User Name -->
+                        <td>{{user.name}}</td>
+                        <!-- View Link -->
+                        <td><a href='/show/{{user.id}}'>View</a></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </fieldset>
+    <a href="/">Enter another user interest</a>
+</body>
+</html>
