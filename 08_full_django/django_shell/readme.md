@@ -2,7 +2,7 @@
 
 In this assignment, you will learn how to interact with the Django Shell (similiar to Mongo shell), which will allow you to interact with your SQLite DB (or any DB you've assigned to your project).
 
-To access the Django Shell, we must first have an app created in our Django Project, and have also defined our models in `models.py`. 
+To access the Django Shell, we must first have an app created in our Django Project, and have also defined our models in `models.py`.
 
 Follow the instructions below:
 
@@ -25,12 +25,12 @@ Your terminal output should look like so:
 
 	* See `./shell.png` *
 
-Once you're in shell, you'll have access to the functions contained in your files. However, just like in your Python documents, you have to import the modules (files) that you need. Note: be sure to replace anything with {{}}, including the braces with the correct project and app names for your project. Enter the following with the appropriate values replaced.
+Once you're in shell, you'll have access to the functions contained in your files. However, just like in your Python documents, you have to import the modules (files) that you need. Note: be sure to replace anything with {{}}, including the braces with the correct project and app names for your project. Enter the  ls with the appropriate values replaced.
 
 	`from apps.{{app_name}}.models import {{table_name}}`
 
 Now we'll learn two ORM queries that will help us insert into and read from the database. We'll use the course example from the previous tab.
-	
+
 	`course = Course.objects.create(name="Python",description="Learn how to write Python like a boss.")
 	course
 	# your result will look like:

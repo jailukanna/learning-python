@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from models import User, Secret # gives us access to `User` and `Secret` models
 from django.contrib import messages # grabs django's `messages` module
-from django.forms.models import model_to_dict # Let's us jsonify django model data for use in sessions
 from . import dashboard # grab custom dashboard helper module
 
 # Add extra message levels to default messaging to handle login or registration error generation:
