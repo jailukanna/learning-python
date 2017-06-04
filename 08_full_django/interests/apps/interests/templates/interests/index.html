@@ -14,9 +14,9 @@
     <fieldset><legend>Enter a User Interest</legend>
         <form action="/add" method="POST">
             {% if messages %}
-            {% for message in messages %}
-            <p{% if message.tags %} class="messages {{ message.tags }}"{% endif %}>{{ message }}</p>
-            {% endfor %}
+                {% for message in messages %}
+                    <p{% if message.tags %} class="messages {{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
             {% endif %}
             {% csrf_token %}
             <label for="name"> Name:
