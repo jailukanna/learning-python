@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'client_resources/css/style.css' %}">
+    <title>{{client.name}}</title>
+</head>
+<body>
+    <h1>{{client.name}}</h1>
+    <fieldset><legend>Information:</legend>
+    <h3>Projects</h3>
+        <ul>
+        {% if projects %}
+            {% for project in projects %}
+            <li><a href="../../show/projects/{{project.id}}">{{project.name}}</a></li>
+            {% endfor %}
+        {% endif %}
+        </ul>
+    <h3>Contact</h3>
+        <ul>
+            <li>Email: <a href="mailto:{{client.email}}">{{client.email}}</a></li>
+            <li>Phone: <a href="tel:{{client.phone}}">{{client.phone}}</a></li>
+        </ul>
+    <h3>Notes</h3>
+    <p>{{client.notes}}</p>
+    <form method="GET">
+        <!-- {% csrf_token %} -->
+        <button formaction="/" formmethod="GET">Back</button>
+        <button formaction="/{{client.id}}/addproject">Add Project</button>
+    </form>
+</fieldset>
+</body>
+</html>

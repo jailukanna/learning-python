@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'client_resources/css/style.css' %}">
+    <title>Client Resources</title>
+</head>
+<body>
+    <h1>Clients</h1>
+    <fieldset><legend>All Clients:</legend>
+    <table>
+    <tr>
+        <th>Business Name:</th>
+        <th>Email:</th>
+        <th>Phone:</th>
+    </tr>
+        <!-- use Django to iterate through items inside of `all_clients` dictionary -->
+        {% if all_clients %}
+            {% for client in all_clients %}
+                <tr>
+                    <!-- Business Name -->
+                    <td><a href="/client/{{client.id}}/">{{client.name}}</a></td>
+                    <!-- Email -->
+                    <td>{{client.email}}</td>
+                    <!-- Phone  -->
+                    <td>{{client.phone}}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+    <form>
+        <button formaction="/client/add" formmethod="GET">Add a Client</button>
+    </form>
+</fieldset>
+</body>
+</html>

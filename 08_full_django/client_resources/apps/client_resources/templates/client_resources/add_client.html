@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'client_resources/css/style.css' %}">
+    <title>Add Client</title>
+</head>
+<body>
+    <h1>Add Client</h1>
+    <fieldset><legend>Add New Client:</legend>
+        <form action="/client/add" method="POST">
+            {% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p{% if message.tags %} class="messages {{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <label for="name">Business Name:
+                <input type="text" name="name" id="name">
+            </label>
+            <label for="email">Email:
+                <input type="email" name="email" id="email">
+            </label>
+            <label for="phone">Phone:
+                <input type="text" name="phone" id="phone">
+            </label>
+            <label for="notes">Notes:
+                <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
+            </label>
+            <input type="submit" value="Add">
+            <button formaction="/" formmethod="POST">Cancel</button>
+        </form>
+    </fieldset>
+</body>
+</html>

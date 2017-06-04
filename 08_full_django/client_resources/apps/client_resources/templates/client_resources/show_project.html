@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Access to Django Static Files -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Load Django Static CSS Sheet -->
+    <link rel="stylesheet" href="{% static 'client_resources/css/style.css' %}">
+    <title>{{project.name}}</title>
+</head>
+<body>
+    <h1>{{project.name}}</h1>
+    <fieldset><legend>Notes:</legend>
+    <p>{{project.notes}}</p>
+    <form>
+        {% csrf_token %}
+        <button formaction="/client/{{project.client.id}}" formmethod="GET">Back</button>
+    </form>
+</fieldset>
+</body>
+</html>
