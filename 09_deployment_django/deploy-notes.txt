@@ -1,3 +1,5 @@
+*NOTE: OLD WALK-THROUGH, see `deployment-walkthrough-updated-june-2017.txt`*
+
 https://github.com/MikeHannon/DjangoDeployment
 
 Make sure to create a .gitignore
@@ -69,7 +71,7 @@ venv/
 
 // CLONE YOUR PROJECT ONTO YOUR AWS SITE FROM YOUR GITHUB
 
-1. from your ssh connection with AWS, type: 
+1. from your ssh connection with AWS, type:
 	'git clone https://github.com/<username>/<myrepo>.git'
 2. your github project should download.
 3. if you type -ls you should now see your project directory! (w00t) - and if you go inside that folder, you should see manage.py
@@ -114,7 +116,6 @@ pip install psycopg2
 
 6. Now just ctrl-X and the Y to save! We just set up our settings.py for a postgres database and added a place for all of our static files.
 
-QWD:c5-`hj(.8h3$
 
 // CONFIGURE OUR DATABASE
 
@@ -163,12 +164,12 @@ QWD:c5-`hj(.8h3$
 
 	##REMINDER: myRepoName is the name of the repo you cloned in, projectName is the name of the folder that was used when you ran the django-admin startproject command. This folder is sibling to your apps folder.
 
-	## Here's what's actually happening: 
-		1. runlevels are system configuration bytes (just use 2,3,4,5 as stated on the start, stop) 
-		2. respawn -- if the project stops, restart it 
-		3. setuid -- ubuntu can use this project 
-		4. setgid -- establishes a group 
-		5. chdir -- go to the /home/ubuntu/{yourProject} #This needs to be updated to have your project's name 
+	## Here's what's actually happening:
+		1. runlevels are system configuration bytes (just use 2,3,4,5 as stated on the start, stop)
+		2. respawn -- if the project stops, restart it
+		3. setuid -- ubuntu can use this project
+		4. setgid -- establishes a group
+		5. chdir -- go to the /home/ubuntu/{yourProject} #This needs to be updated to have your project's name
 		6. exec venv/bin/gunicorn... -- execute gunicorn in your virtualenv where you pip installed it. Futhermore, bind some workers to it and activate the wsgi file in your main project folder. Look at these names carefully!
 
 4. CTRL + X to save and then type Y and hit enter.
@@ -183,7 +184,7 @@ QWD:c5-`hj(.8h3$
 // FINAL EDITS
 
 1. From your terminal with your ssh connection (no virtual env running):
-2. type: 
+2. type:
 	'sudo nano /etc/nginx/sites-available/{{projectName}}'
 3. Add this to the following, editing what's inside curly brackets {{}}:
 	* NOTE * make sure to add the ; after each line or it won't work!
@@ -212,10 +213,6 @@ QWD:c5-`hj(.8h3$
 
 5. Finally, restart your server:
 	'sudo service nginx restart'
-	If you get an OK, hopefully you are rockin and rollin' and your app is deployed! 
+	If you get an OK, hopefully you are rockin and rollin' and your app is deployed!
 
 6. Go to the public domain and bask in its brilliance!
-
-
-
-
