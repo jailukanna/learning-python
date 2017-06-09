@@ -17,6 +17,5 @@ Break the wireframe down into required routes:
 4. '/add'
 
 
-
 ## Ninja Challenge:
 Add the option to remove an interest from a user's list. Remember that this action should remove the connection, not the user or the interest. You'll need one more route, now!
