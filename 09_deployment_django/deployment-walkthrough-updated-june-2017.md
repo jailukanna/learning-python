@@ -1,4 +1,13 @@
 
+# AWS Django Deployment, Ubuntu 16.04:
+### Updated: June 2017
+
+The steps below outline how to take a Django project and deploy it on an AWS box
+running Ubuntu 16.04. Note: A free AWS account is required prior to starting this tutorial.
+
+*Note: This file may be updated in the future, as new versions of Ubuntu are released,
+or if there are any changes to required modules*
+
 1. Activate Required Virtual Environment and Generate `requirements.txt`:
     - Navigate into root of project directory.
     - Start your VENV.
