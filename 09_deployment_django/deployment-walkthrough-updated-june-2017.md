@@ -87,14 +87,11 @@
 
 9. Setup Gunicorn:
 
-    - Direct gunicorn to wsgi file:
-    - `gunicorn --bind 0.0.0.0:8000 {{projectName}}.wsgi:application`
+    - Direct gunicorn to wsgi file: `gunicorn --bind 0.0.0.0:8000 {{projectName}}.wsgi:application`
 
-    - Exit process:
-    - `ctrl-c`
+    - Exit process: `ctrl-c`
 
-    - Deactivate your virtual env:
-    - `deactivate`
+    - Deactivate your virtual env: `deactivate`
 
     - Setup Gunicorn to run as a service (so that it will always start with the server):
     (otherwise you'd have to manually start it every time):
@@ -109,7 +106,7 @@
             User=ubuntu
             Group=www-data
             WorkingDirectory=/home/ubuntu/{{repoName}}
-            ExecStart=/home/ubuntu/Envs/{{virtualenv_name}}/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
+            ExecStart=/home/ubuntu/Envs/{{virtualenvNAME}}/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
             [Install]
             WantedBy=multi-user.target
             ````
@@ -119,16 +116,16 @@
         of the `home/ubuntu/Envs/{{virtualenv_name}}` folder*
         + Save and close the file.
         + Enable the service so it starts on boot:
-            `sudo systemctl daemon-reload`
-            `sudo systemctl start gunicorn`
-            `sudo systemctl enable gunicorn`
+            - `sudo systemctl daemon-reload`
+            - `sudo systemctl start gunicorn`
+            - `sudo systemctl enable gunicorn`
         + Note: if any additional changes are made to the gunicorn.service the previous three commands will need to be run in order to sync things up and restart our service.
 
 10. Setup Nginx:
     + Open Nginx config file:
     - `sudo vim /etc/nginx/sites-available/{{projectName}}`
 
-    + Add the following:
+    + Add the following (be sure to update variables in the `{{curly_brackets}}`'s'):
     ```
     server {
         listen 80;
@@ -146,7 +143,7 @@
 
     + Save and exit.
 
-    + Now in the terminal, run the following (taking note of the space after {{projectName}}):
+    + Now in the terminal, run the following (taking note of the space after `{{projectName}}`):
 
         - `sudo ln -s /etc/nginx/sites-available/{{projectName}} /etc/nginx/sites-enabled`
         - `sudo nginx -t`
@@ -161,7 +158,7 @@
     + If you see anything other than your app, review your server file for errors.
 
 12. Common Errors:
-    + 502, bad gateway: there is a problem in your code. Hint: any error starting with 5 indicates a server error
+    + `502, bad gateway`: there is a problem in your code. Hint: any error starting with 5 indicates a server error
     + Your Gunicorn process won’t start: Check your .service file; typos and wrong file paths are common mistakes
     + Your NGINX restart fails: Check your NGINX file in the sites-available directory. Common problems include typos and forgetting to insert your project name where indicated.
 
