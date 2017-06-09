@@ -104,7 +104,8 @@
         + Create a systemd service file:
             `sudo vim /etc/systemd/system/gunicorn.service`
         + In the VIM editor, copy and paste the following code:
-            `[Unit]
+            ````
+            [Unit]
             Description=gunicorn daemon
             After=network.target
             [Service]
@@ -113,7 +114,8 @@
             WorkingDirectory=/home/ubuntu/{{repoName}}
             ExecStart=/home/ubuntu/Envs/{{virtualenv_name}}/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
             [Install]
-            WantedBy=multi-user.target`
+            WantedBy=multi-user.target
+            ````
         *Make sure the above is not indented.*
         *Make sure that gunicorn ExecStart path is correctly pointing to your virtualenv.
         Because we are using `virtualenvwrapper` to help us, our virtualenv is located inside
