@@ -30,16 +30,13 @@
     - Click blue "Connect" button. Paste this SSH stuff into terminal.
 
 5. Install `python`, `python` `dev`, `pip`, `nginx`, and `git` on your AWS box:
-    - Update apt-get:
-    - `sudo apt-get update`
+    - Update apt-get: `sudo apt-get update`
 
-    - Install python, pip, nginx, git:
-    - `sudo apt-get install python-pip python-dev nginx git`
+    - Install python, pip, nginx, git: `sudo apt-get install python-pip python-dev nginx git`
 
-    - Update apt-get again after we've installed everything:
-    - `sudo apt-get update`
+    - Update apt-get again after we've installed everything: `sudo apt-get update`
 
-    - Install virtualenv and virtualenvwrapper:
+    Install virtualenv and virtualenvwrapper:
     - `sudo pip install --upgrade pip`
     - `sudo -H pip install virtualenv`
     - `pip install virtualenvwrapper`
