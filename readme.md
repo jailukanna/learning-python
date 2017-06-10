@@ -6,7 +6,7 @@ This repository contains Python-related projects of which may utilize the follow
 + APIs
 + AJAX
 + Django
-+ Deployment
++ Amazon Web Services Deployment
 
 ## About:
 These projects were created during my learning of Full Stack Python with the Coding Dojo.
