@@ -46,9 +46,9 @@ or if there are any changes to required modules*
     - Update apt-get again after we've installed everything: `sudo apt-get update`
 
     Install virtualenv and virtualenvwrapper:
-    - `sudo pip install --upgrade pip`
+    - `sudo -H pip install --upgrade pip`
     - `sudo -H pip install virtualenv`
-    - `pip install virtualenvwrapper`
+    - `sudo pip install virtualenvwrapper`
     - `export WORKON_HOME=~/Envs` # sets up virtualenvwrapper
     - `source /usr/local/bin/virtualenvwrapper.sh` # sets up virtualenvwrapper
 
@@ -106,7 +106,7 @@ or if there are any changes to required modules*
     (otherwise you'd have to manually start it every time):
         + Create a systemd service file:
             - `sudo vim /etc/systemd/system/gunicorn.service`
-        + In the VIM editor, copy and paste the following code:
+        + In the VIM editor, copy and paste the following code, *update* all variables in `{{curly brackets}}`:
             ````
             [Unit]
             Description=gunicorn daemon
@@ -120,9 +120,8 @@ or if there are any changes to required modules*
             WantedBy=multi-user.target
             ````
         *Make sure the above is not indented.*
-        *Make sure that gunicorn ExecStart path is correctly pointing to your virtualenv.
-        Because we are using `virtualenvwrapper` to help us, our virtualenv is located inside
-        of the `home/ubuntu/Envs/{{virtualenv_name}}` folder*
+        *Make sure that gunicorn `ExecStart` path is correctly pointing to your virtualenv directory.
+        In our case, `home/ubuntu/Envs/{{virtualenv_name}}` -- this is due to use of `virtualenvwrapper`*
         + Save and close the file.
         + Enable the service so it starts on boot:
             - `sudo systemctl daemon-reload`
