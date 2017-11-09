@@ -158,9 +158,9 @@ or if there are any changes to required modules*
     - Save and close the file.
         
     Enable the service so it starts on boot:
-       - `sudo systemctl daemon-reload`
-       - `sudo systemctl start gunicorn`
-       - `sudo systemctl enable gunicorn`
+    - `sudo systemctl daemon-reload`
+    - `sudo systemctl start gunicorn`
+    - `sudo systemctl enable gunicorn`
         
     *Note: If any additional changes are made to the gunicorn.service the previous three commands will need to be run in order to sync things up and restart our service.*
 
