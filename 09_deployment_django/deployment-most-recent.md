@@ -103,70 +103,66 @@ Install all pip packages, django, bcrypt, and gunicorn:
 - `pip install gunicorn` # install green unicorn
 
 8. Edit Settings.py
+- `cd {{projectName}}`
+- `sudo vim settings.py`
 
-    - `cd {{projectName}}`
-    - `sudo vim settings.py`
+- Once inside:
+  + Inside settings.py
+  + Modify these lines:
+      - `DEBUG = False`
+      - `ALLOWED_HOSTS = ['{{yourEC2.PUBLIC.ip}}', '{{sub.domain}}', '{{www.sub.domain}}']`
+  + Add the line below to the bottom of the file:
+      - `STATIC_ROOT = os.path.join(BASE_DIR, "static/")`
+  + Save changes and quit.
+      - `Esc`, `:wq`
+  + To get back to folder with manage.py
+      - `cd ..`
 
-    - Once inside:
-
-        + Inside settings.py
-        + Modify these lines:
-            - `DEBUG = False`
-            - `ALLOWED_HOSTS = ['{{yourEC2.PUBLIC.ip}}', '{{sub.domain}}', '{{www.sub.domain}}']`
-        + Add the line below to the bottom of the file:
-            - `STATIC_ROOT = os.path.join(BASE_DIR, "static/")`
-        + Save changes and quit.
-            - `Esc`, `:wq`
-        + To get back to folder with manage.py
-            - `cd ..`
-
-    Run "collect static":
-    `python manage.py collectstatic` # say yes -- collects all static files
+- Run "collect static":
+  + `python manage.py collectstatic` # say yes -- collects all static files
     
-    *Personal Note: Adding any or updating fav icons may require you to run this command again, else django won't update static files. This may be true for adding images or image sets as well, or any static file, although I've only experienced this need thus far when changing fav icons.*
+*Personal Note: Adding any or updating fav icons may require you to run this command again, else django won't update static files. This may be true for adding images or image sets as well, or any static file, although I've only experienced this need thus far when changing fav icons.*
 
 9. Setup Gunicorn:
 
-    - Direct gunicorn to wsgi file: `gunicorn --bind 0.0.0.0:8000 {{projectName}}.wsgi:application`
-
-    - Exit process: `ctrl-c`
-
-    - Deactivate your virtual env: `deactivate`
-
-    - Setup Gunicorn to run as a service (so that it will always start with the server):
+- Direct gunicorn to wsgi file: `gunicorn --bind 0.0.0.0:8000 {{projectName}}.wsgi:application`
+- Exit process: `ctrl-c`
+- Deactivate your virtual env: `deactivate`
+- Setup Gunicorn to run as a service (so that it will always start with the server):
     (otherwise you'd have to manually start it every time):
-        + Create a systemd service file:
-            - `sudo vim /etc/systemd/system/gunicorn.service`
-        + In the VIM editor, copy and paste the following code, *update* all variables in `{{curly brackets}}`:
-            ````
-            [Unit]
-            Description=gunicorn daemon
-            After=network.target
-            [Service]
-            User=ubuntu
-            Group=www-data
-            WorkingDirectory=/home/ubuntu/{{repoName}}
-            ExecStart=/home/ubuntu/Envs/{{virtualenvNAME}}/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
-            [Install]
-            WantedBy=multi-user.target
-            ````       
-    Notes About Config File:
-        - *Make sure the above is not indented.*
-        - *Make sure that gunicorn `ExecStart` path is correctly pointing to your virtualenv directory.
-        - In our case, `home/ubuntu/Envs/{{virtualenv_name}}` -- this is due to use of `virtualenvwrapper`*
-        - **IMPORTANT IF NOT USING VIRTUALENVWRAPPER**: Because virtualenvwrapper creates a little different folder structure, if choosing NOT to utilize it, be sure to updated the `ExecStart` line in the config file above to the following instead:
-            ```
-            ExecStart=/home/ubuntu/{{repoName}}/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
-            ```
-            *Note: The virtual environment path is different when not using virtualenvwrapper*
-        - Save and close the file.
+  + Create a systemd service file:
+      - `sudo vim /etc/systemd/system/gunicorn.service`
+  + In the VIM editor, copy and paste the following code, *update* all variables in `{{curly brackets}}`:
+  ````
+  [Unit]
+  Description=gunicorn daemon
+  After=network.target
+  [Service]
+  User=ubuntu
+  Group=www-data
+  WorkingDirectory=/home/ubuntu/{{repoName}}
+  ExecStart=/home/ubuntu/Envs/{{virtualenvNAME}}/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
+  [Install]
+  WantedBy=multi-user.target
+  ````       
+
+*Notes About Config File:*
+- *Make sure the above is not indented.*
+- *Make sure that gunicorn `ExecStart` path is correctly pointing to your virtualenv directory.
+- In our case, `home/ubuntu/Envs/{{virtualenv_name}}` -- this is due to use of `virtualenvwrapper`*
+- **IMPORTANT IF NOT USING VIRTUALENVWRAPPER**: Because virtualenvwrapper creates a little different folder structure, if choosing NOT to utilize it, be sure to updated the `ExecStart` line in the config file above to the following instead:
+```
+ExecStart=/home/ubuntu/{{repoName}}/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
+```
+*Note: The virtual environment path is different when not using virtualenvwrapper*
+- Save and close the file.
         
-    Enable the service so it starts on boot:
-            - `sudo systemctl daemon-reload`
-            - `sudo systemctl start gunicorn`
-            - `sudo systemctl enable gunicorn`
+Enable the service so it starts on boot:
+   - `sudo systemctl daemon-reload`
+   - `sudo systemctl start gunicorn`
+   - `sudo systemctl enable gunicorn`
     
-    *Note: If any additional changes are made to the gunicorn.service the previous three commands will need to be run in order to sync things up and restart our service.*
+*Note: If any additional changes are made to the gunicorn.service the previous three commands will need to be run in order to sync things up and restart our service.*
 
 10. Setup Nginx:
     + Open Nginx config file:
