@@ -173,7 +173,7 @@ or if there are any changes to required modules*
     server {
         listen 80;
         server_name {{yourEC2.PUBLIC.ip}} {{sub.domain}} {{www.sub.domain}};
-        server_log /var/log/nginx/error.log warn;  # you can change `warn` to `debug` if you need detailed info
+        error_log /var/log/nginx/error.log warn;  # you can change `warn` to `debug` if you need detailed info
         access_log /var/log/nginx/access.log;
         location = /favicon.ico { access_log off; log_not_found off; }
         location /static/ {
