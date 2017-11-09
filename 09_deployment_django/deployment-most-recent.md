@@ -81,26 +81,26 @@ or if there are any changes to required modules*
 
 7. If everything looks good, make the virtual environment, activate it and pip install.
 
-**If using Virtualenvwrapper:**
-- If virtualenvwrapper with *Python 3*:
-  + `which python3`
-  + (Should give output: /usr/bin/python3)
-  + `mkvirtualenv --python=/usr/bin/python3 {{virtualenvNAME}}` 
-  + (Python3 will now be set to default for `python` command and your virtualenv will setup utilizing py3 modules.)
-    
-- If virtualenvwrapper with *Python 2*:
-  + `mkvirtualenv {{my_virtual_environment}}` # creates virtualenv
+    **If using Virtualenvwrapper:**
+    - If virtualenvwrapper with *Python 3*:
+      + `which python3`
+      + (Should give output: /usr/bin/python3)
+      + `mkvirtualenv --python=/usr/bin/python3 {{virtualenvNAME}}` 
+      + (Python3 will now be set to default for `python` command and your virtualenv will setup utilizing py3 modules.)
         
-- Once virtualenv is setup for either py2 or py3:
-  + `workon {{my_virtual_environment}}` # starts virtualenv    
-    
-**If NOT using Virtualenvwrapper:**
-  + `source venv/bin/activate`
+    - If virtualenvwrapper with *Python 2*:
+      + `mkvirtualenv {{my_virtual_environment}}` # creates virtualenv
+            
+    - Once virtualenv is setup for either py2 or py3:
+      + `workon {{my_virtual_environment}}` # starts virtualenv    
+        
+    **If NOT using Virtualenvwrapper:**
+      + `source venv/bin/activate`
 
-Install all pip packages, django, bcrypt, and gunicorn:
-- `pip install -r requirements.txt` # installs files from requirements.txt -- *do not run these commands as sudo*
-- `pip install django bcrypt django-extensions`
-- `pip install gunicorn` # install green unicorn
+    Install all pip packages, django, bcrypt, and gunicorn:
+    - `pip install -r requirements.txt` # installs files from requirements.txt -- *do not run these commands as sudo*
+    - `pip install django bcrypt django-extensions`
+    - `pip install gunicorn` # install green unicorn
 
 8. Edit Settings.py
 - `cd {{projectName}}`
