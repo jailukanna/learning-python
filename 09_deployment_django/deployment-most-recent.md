@@ -103,25 +103,25 @@ or if there are any changes to required modules*
     - `pip install gunicorn` # install green unicorn
 
 8. Edit Settings.py
-- `cd {{projectName}}`
-- `sudo vim settings.py`
-
-- Once inside:
-  + Inside settings.py
-  + Modify these lines:
-      - `DEBUG = False`
-      - `ALLOWED_HOSTS = ['{{yourEC2.PUBLIC.ip}}', '{{sub.domain}}', '{{www.sub.domain}}']`
-  + Add the line below to the bottom of the file:
-      - `STATIC_ROOT = os.path.join(BASE_DIR, "static/")`
-  + Save changes and quit.
-      - `Esc`, `:wq`
-  + To get back to folder with manage.py
-      - `cd ..`
-
-- Run "collect static":
-  + `python manage.py collectstatic` # say yes -- collects all static files
+    - `cd {{projectName}}`
+    - `sudo vim settings.py`
     
-*Personal Note: Adding any or updating fav icons may require you to run this command again, else django won't update static files. This may be true for adding images or image sets as well, or any static file, although I've only experienced this need thus far when changing fav icons.*
+    - Once inside:
+      + Inside settings.py
+      + Modify these lines:
+          - `DEBUG = False`
+          - `ALLOWED_HOSTS = ['{{yourEC2.PUBLIC.ip}}', '{{sub.domain}}', '{{www.sub.domain}}']`
+      + Add the line below to the bottom of the file:
+          - `STATIC_ROOT = os.path.join(BASE_DIR, "static/")`
+      + Save changes and quit.
+          - `Esc`, `:wq`
+      + To get back to folder with manage.py
+          - `cd ..`
+    
+    - Run "collect static":
+      + `python manage.py collectstatic` # say yes -- collects all static files
+    
+    *Personal Note: Adding any or updating fav icons may require you to run this command again, else django won't update static files.                  This may be true for adding images or image sets as well, or any static file, although I've only experienced this need thus far when changing fav icons.*
 
 9. Setup Gunicorn:
 
