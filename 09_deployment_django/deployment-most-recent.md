@@ -46,21 +46,25 @@ or if there are any changes to required modules*
 
     - Update apt-get again after we've installed everything: `sudo apt-get update`
 
-    Install virtualenv and virtualenvwrapper:
+    Install virtualenv:
     - `sudo -H pip install --upgrade pip`
     - `sudo -H pip install virtualenv`
+    
+    If wishing to **use Virtualenvwrapper**:
     - `sudo pip install virtualenvwrapper`
     - `export WORKON_HOME=~/Envs` # sets up virtualenvwrapper
     - `source /usr/local/bin/virtualenvwrapper.sh` # sets up virtualenvwrapper
-    
-    Update your ubuntu user profile so you don't have to re-run the virtualenvwrapper setup every time:
-    - `cd ~`
-    - `cd -a` (shows hidden files)
-    - `sudo vim .profile`
-    - Add these two lines to the very bottom of the file:
-        - `export WORKON_HOME=~/Envs` # sets up virtualenvwrapper
-        - `source /usr/local/bin/virtualenvwrapper.sh` # sets up virtualenvwrapper
-    - Hit `Esc` key and type `:wq` to save and exit file.
+        Update your ubuntu user profile so you don't have to re-run the virtualenvwrapper setup every time:
+        - `cd ~`
+        - `cd -a` (shows hidden files)
+        - `sudo vim .profile`
+        - Add these two lines to the very bottom of the file:
+            - `export WORKON_HOME=~/Envs` # sets up virtualenvwrapper
+            - `source /usr/local/bin/virtualenvwrapper.sh` # sets up virtualenvwrapper
+        - Hit `Esc` key and type `:wq` to save and exit file.
+        
+    If **NOT using Virtualenvwrapper**:
+    - `virtualenv venv`    
 
 6. Clone your Git Repo onto your Ubuntu Box:
     - git clone https://github.com/username/project.git
@@ -75,17 +79,26 @@ or if there are any changes to required modules*
     - Navigate into this project and run `ls` in your terminal.
     - If you don’t see `manage.py` as one of the files, STOP. Review the setting up GitHub/Git pieces from earlier.
 
-7. If everything looks good, make the virtual environment, and activate it.
+7. If everything looks good, make the virtual environment, activate it and pip install.
 
-    If virtualenvwrapper with Python3:
-       - `which python3` #Output: /usr/bin/python3
-       - `mkvirtualenv --python=/usr/bin/python3 {{virtualenvNAME}}` #Python3 will now be set to default for `python` command and your virtualenv will setup utilizing py3 modules
+**If using Virtualenvwrapper:**
+   If virtualenvwrapper with *Python 3*:
+    - `which python3`
+    - (Should give output: /usr/bin/python3)
+    - `mkvirtualenv --python=/usr/bin/python3 {{virtualenvNAME}}` 
+    - (Python3 will now be set to default for `python` command and your virtualenv will setup utilizing py3 modules.)
     
-    If virtualenvwrapper with Python2:
-        - `mkvirtualenv {{my_virtual_environment}}` # creates virtualenv
+   If virtualenvwrapper with *Python 2*:
+    - `mkvirtualenv {{my_virtual_environment}}` # creates virtualenv
         
    Once virtualenv is setup for either py2 or py3:
     - `workon {{my_virtual_environment}}` # starts virtualenv    
+    
+**If NOT using Virtualenvwrapper:**
+    - `source venv/bin/activate`
+
+Install all pip packages, django, bcrypt, and gunicorn:
+
     - `pip install -r requirements.txt` # installs files from requirements.txt -- *do not run these commands as sudo*
     - `pip install django bcrypt django-extensions`
     - `pip install gunicorn` # install green unicorn
@@ -137,16 +150,24 @@ or if there are any changes to required modules*
             ExecStart=/home/ubuntu/Envs/{{virtualenvNAME}}/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
             [Install]
             WantedBy=multi-user.target
-            ````
-        *Make sure the above is not indented.*
-        *Make sure that gunicorn `ExecStart` path is correctly pointing to your virtualenv directory.
-        In our case, `home/ubuntu/Envs/{{virtualenv_name}}` -- this is due to use of `virtualenvwrapper`*
-        + Save and close the file.
-        + Enable the service so it starts on boot:
+            ````       
+    Notes About Config File:
+        - *Make sure the above is not indented.*
+        - *Make sure that gunicorn `ExecStart` path is correctly pointing to your virtualenv directory.
+        - In our case, `home/ubuntu/Envs/{{virtualenv_name}}` -- this is due to use of `virtualenvwrapper`*
+        - **IMPORTANT IF NOT USING VIRTUALENVWRAPPER**: Because virtualenvwrapper creates a little different folder structure, if choosing NOT to utilize it, be sure to updated the `ExecStart` line in the config file above to the following instead:
+            ```
+            ExecStart=/home/ubuntu/{{repoName}}/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
+            ```
+            *Note: The virtual environment path is different when not using virtualenvwrapper*
+        - Save and close the file.
+        
+    Enable the service so it starts on boot:
             - `sudo systemctl daemon-reload`
             - `sudo systemctl start gunicorn`
             - `sudo systemctl enable gunicorn`
-        + Note: if any additional changes are made to the gunicorn.service the previous three commands will need to be run in order to sync things up and restart our service.
+    
+    *Note: If any additional changes are made to the gunicorn.service the previous three commands will need to be run in order to sync things up and restart our service.*
 
 10. Setup Nginx:
     + Open Nginx config file:
@@ -188,15 +209,19 @@ or if there are any changes to required modules*
 
 12. Common Errors:
     + `502, bad gateway`: there is a problem in your code. Hint: any error starting with 5 indicates a server error
-        - Take a look at your `/var/log/nginx` folder at the `error.log` and `access.log`. Update Your nginx config and change your error.log from `warn` to `debug` for more detailed info. The access.log can give you information about requests.
-        - Make sure you've restarted nginx, or if you've changed gunicorn settings, that you restart gunicorn.
-        - Try restarting the system via `sudo reboot`. This will close your AWS connection while the virtual instance restarts.
-        - If you updated an A record, be patient, it may take an hour or more, or even longer if you made multiple A record updates. Take a breakd and step back and return.
+    + See `/var/log/nginx` folder for `error.log` and `access.log` for log files for errors and http requests. 
+    + Update your nginx config and change your error.log from `warn` to `debug` for more detailed info.
+    + Make sure you've restarted nginx, or if you've changed gunicorn settings, that you restart gunicorn.
+    + Try restarting the system via `sudo reboot`. This will close your AWS connection while the virtual instance restarts.
+    + If you updated an A record, be patient, it may take an hour or more, or even longer if you made multiple A record updates. Take a breakd and step back and return.
     + Your Gunicorn process won’t start: Check your .service file; typos and wrong file paths are common mistakes
     + Your NGINX restart fails: Check your NGINX file in the sites-available directory. Common problems include typos and forgetting to insert your project name where indicated.
 
 13. Updating your Codebase:
     + You can update your codebase by using `sudo git pull origin master` from within your `/var/www/{{project_directory}}` folder. This will pull your changes from GitHub/your repo but will not wipe out your settings.py changes, server configs, etc.
+    + **DO NOT** `git add`, or `git commit` from your repo to the main branch. This will overwrite your development settings.py with your production settings.py.
+    + **DO NOT** `git stash` changes either, as this will pull your settings.py and wipe out your production settings.
+    + *You may want to create two seperate branches, one for development and one for production, and push your development branch to your production branch, and when doing so, discard any changes to settings.py etc*
 
 14. Add in MySQL:
 
