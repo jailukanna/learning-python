@@ -152,7 +152,7 @@ or if there are any changes to required modules*
     - In our case, `home/ubuntu/Envs/{{virtualenv_name}}` -- this is due to use of `virtualenvwrapper`*
     - **IMPORTANT IF NOT USING VIRTUALENVWRAPPER**: Because virtualenvwrapper creates a little different folder structure, if choosing NOT to utilize it, be sure to updated the `ExecStart` line in the config file above to the following instead:
     ```
-    ExecStart=/home/ubuntu/{{repoName}}/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
+    ExecStart=/home/ubuntu/{{repoName}}/{{virtualenvNAME}}/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
     ```
     *Note: The virtual environment path is different when not using virtualenvwrapper*
     - Save and close the file.
