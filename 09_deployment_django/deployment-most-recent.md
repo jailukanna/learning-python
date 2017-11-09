@@ -220,65 +220,65 @@ or if there are any changes to required modules*
 
 14. Add in MySQL:
 
-**WARNING: I have not successfully been able to utilize these directions for MySQL. May have to try again or research and update the write-up below. Proceed at your own risk.**
+    **WARNING: I have not successfully been able to utilize these directions for MySQL. May have to try again or research and update the write-up below. Proceed at your own risk.**
 
-    + First, must install everything we need to run MySQL:
-    - `sudo apt-get install libmysqlclient-dev`
+     + First, must install everything we need to run MySQL:
+     - `sudo apt-get install libmysqlclient-dev`
 
-    + Install `MySQL-server`:
-        - `sudo apt-get install mysql-server`
-        + enter `root` as password
+     + Install `MySQL-server`:
+         - `sudo apt-get install mysql-server`
+         + enter `root` as password
 
-    + Switch to root user:
-        - `sudo su`
+     + Switch to root user:
+         - `sudo su`
 
-    + Open MySQL command line:
-        - `mysql -u root -p`
+     + Open MySQL command line:
+         - `mysql -u root -p`
 
-    + Create a database for this project:
-        - `CREATE DATABASE {{projectName}};` # note the semi-colon
+     + Create a database for this project:
+         - `CREATE DATABASE {{projectName}};` # note the semi-colon
+    
+     + Exit the MySQL prompt:
+         - `exit;`
 
-    + Exit the MySQL prompt:
-        - `exit;`
+     + Deactivate the root user:
+         - `exit` # no semi-colon
+         *CRITICAL STEP*
 
-    + Deactivate the root user:
-        - `exit` # no semi-colon
-        *CRITICAL STEP*
+     + Enter project folder so we may access `settings.py`:
+         - `cd {{projectName}}`
 
-    + Enter project folder so we may access `settings.py`:
-        - `cd {{projectName}}`
+     + Activate your virtualenv:
+         - `source venv/bin/activate`
 
-    + Activate your virtualenv:
-        - `source venv/bin/activate`
+     + Install a pip module so we may connect our python code to our mysql code:
+         - `pip install mysql-python`
 
-    + Install a pip module so we may connect our python code to our mysql code:
-        - `pip install mysql-python`
+        + Open up `settings.py` and configure your database:
+            - `sudo vim settings.py`
 
-    + Open up `settings.py` and configure your database:
-        - `sudo vim settings.py`
-
-        - Change the databases section to look like this:
-        ```
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME': '{{projectName}}',
-                'USER': 'root',
-                'PASSWORD': 'root',
-                'HOST': 'localhost',
-                'PORT': '3306',
+         - Change the databases section to look like this:
+         ```
+         DATABASES = {
+             'default': {
+                 'ENGINE': 'django.db.backends.mysql',
+                 'NAME': '{{projectName}}',
+                 'USER': 'root',
+                  'PASSWORD': 'root',
+                    'HOST': 'localhost',
+                    'PORT': '3306',
+                }
             }
-        }
-        ```
-        - Save and exit vim.
+            ```
+            - Save and exit vim.
 
-    + Make migrations:
-        - `cd ..` # go back to your root project directory
-        - `python manage.py makemigrations` # setup migrations
-        - `python manage.py migrate` # make migrations
+     + Make migrations:
+         - `cd ..` # go back to your root project directory
+         - `python manage.py makemigrations` # setup migrations
+         - `python manage.py migrate` # make migrations
 
-    + Restart Nginx:
-        `sudo service nginx restart`
+     + Restart Nginx:
+          `sudo service nginx restart`
 
-    + Now visit your site! You should be finished at this point, with a fully functioning site.
-    + Your old data will *not* show up, but you should be able to perform all operations as you did previously.
+     + Now visit your site! You should be finished at this point, with a fully functioning site.
+     + Your old data will *not* show up, but you should be able to perform all operations as you did previously.
