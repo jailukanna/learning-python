@@ -198,7 +198,7 @@ or if there are any changes to required modules*
         - `sudo rm /etc/nginx/sites-enabled/default`
     + Restart server:
         - `sudo service nginx restart`
-    + If your server restarted correctly, you will see the new command line, and your app is deployed!
+    + If your server restarted correctly, you will see a new command line (no error, just a blinking cursor), and your app is deployed!
     + Go to the public domain and your app should be there.
     + If you see anything other than your app, review your server file for errors.
 
