@@ -83,16 +83,16 @@ or if there are any changes to required modules*
 
 **If using Virtualenvwrapper:**
    If virtualenvwrapper with *Python 3*:
-    - `which python3`
-    - (Should give output: /usr/bin/python3)
-    - `mkvirtualenv --python=/usr/bin/python3 {{virtualenvNAME}}` 
-    - (Python3 will now be set to default for `python` command and your virtualenv will setup utilizing py3 modules.)
+        - `which python3`
+        - (Should give output: /usr/bin/python3)
+        - `mkvirtualenv --python=/usr/bin/python3 {{virtualenvNAME}}` 
+        - (Python3 will now be set to default for `python` command and your virtualenv will setup utilizing py3 modules.)
     
    If virtualenvwrapper with *Python 2*:
-    - `mkvirtualenv {{my_virtual_environment}}` # creates virtualenv
+        - `mkvirtualenv {{my_virtual_environment}}` # creates virtualenv
         
    Once virtualenv is setup for either py2 or py3:
-    - `workon {{my_virtual_environment}}` # starts virtualenv    
+        - `workon {{my_virtual_environment}}` # starts virtualenv    
     
 **If NOT using Virtualenvwrapper:**
     - `source venv/bin/activate`
