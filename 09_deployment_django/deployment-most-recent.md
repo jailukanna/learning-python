@@ -260,15 +260,15 @@ or if there are any changes to required modules*
          - Change the databases section to look like this:
          ```
          DATABASES = {
-             'default': {
-                 'ENGINE': 'django.db.backends.mysql',
-                 'NAME': '{{projectName}}',
-                 'USER': 'root',
-                  'PASSWORD': 'root',
-                    'HOST': 'localhost',
-                    'PORT': '3306',
-                }
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': '{{projectName}}',
+                'USER': 'root',
+                'PASSWORD': 'root',
+                'HOST': 'localhost',
+                'PORT': '3306',
             }
+         }
          ```
          - Save and exit vim.
 
