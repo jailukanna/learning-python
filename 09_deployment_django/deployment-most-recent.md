@@ -269,8 +269,8 @@ or if there are any changes to required modules*
                     'PORT': '3306',
                 }
             }
-            ```
-            - Save and exit vim.
+         ```
+         - Save and exit vim.
 
      + Make migrations:
          - `cd ..` # go back to your root project directory
