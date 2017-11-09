@@ -56,7 +56,7 @@ or if there are any changes to required modules*
     - `source /usr/local/bin/virtualenvwrapper.sh` # sets up virtualenvwrapper
         Update your ubuntu user profile so you don't have to re-run the virtualenvwrapper setup every time:
         - `cd ~`
-        - `cd -a` (shows hidden files)
+        - `ls -a` (shows hidden files)
         - `sudo vim .profile`
         - Add these two lines to the very bottom of the file:
             - `export WORKON_HOME=~/Envs` # sets up virtualenvwrapper
