@@ -213,14 +213,22 @@ or if there are any changes to required modules*
     + Your NGINX restart fails: Check your NGINX file in the sites-available directory. Common problems include typos and forgetting to insert your project name where indicated.
 
 13. Updating your Codebase:
-    + You can update your codebase by using `sudo git pull origin master` from within your `/var/www/{{project_directory}}` folder. This will pull your changes from GitHub/your repo but will not wipe out your settings.py changes, server configs, etc.
-    + **DO NOT** `git add`, or `git commit` from your repo to the main branch. This will overwrite your development settings.py with your production settings.py.
-    + **DO NOT** `git stash` changes either, as this will pull your settings.py and wipe out your production settings.
-    + *You may want to create two seperate branches, one for development and one for production, and push your development branch to your production branch, and when doing so, discard any changes to settings.py etc*
+    + Make changes to your development project (on your local machine) as you normally would. 
+    + Commit and push your changes to your public repository (ie, GitHub)
+    + Now, to get those changes to your EC2 Instance, log back in via SSH (*See Step 4*)
+    + Navigate to your project directory:
+        - `cd ~`
+        - `cd {{projectName}}`
+    + Now, pull your most recent changes: 
+        - `sudo git pull origin master` 
+    + Make sure you're inside your project folder. This will pull your changes from GitHub/your repo but will **NOT** wipe out your settings.py changes, server configs, etc.
+    + **DO NOT** `git add`, or `git commit` from your EC2 repo to the main branch. This will overwrite your development settings.py with your production settings.py.
+    + **DO NOT** `git stash` from your EC2 repo either, as this will pull your settings.py and wipe out your production settings.
+    + *You may want to create two seperate branches, one for development and one for production, and push your development branch to your production branch, and when doing so, discard any changes to settings.py etc, but this takes extra steps.*
 
 14. Add in MySQL:
 
-    **WARNING: I have not successfully been able to utilize these directions for MySQL. May have to try again or research and update the write-up below. Proceed at your own risk.**
+    **WARNING: I have NOT successfully been able to utilize these directions for MySQL. May have to try again or research and update the write-up below. Proceed at your own risk.**
 
      + First, must install everything we need to run MySQL:
      - `sudo apt-get install libmysqlclient-dev`
