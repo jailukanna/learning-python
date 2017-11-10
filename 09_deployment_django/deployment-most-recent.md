@@ -222,6 +222,8 @@ or if there are any changes to required modules*
     + Now, pull your most recent changes: 
         - `sudo git pull origin master` 
     + Make sure you're inside your project folder. This will pull your changes from GitHub/your repo but will **NOT** wipe out your settings.py changes, server configs, etc.
+    + Run `sudo service nginx restart` (Restart nginx)
+    + Sometimes you may also need to `sudo reboot` if you're still not seeing your changes updated in the browser (be sure to also clear your web cache, or use an icognito tab as well to make sure you're getting a fresh copy from the server)
     + **DO NOT** `git add`, or `git commit` from your EC2 repo to the main branch. This will overwrite your development settings.py with your production settings.py.
     + **DO NOT** `git stash` from your EC2 repo either, as this will pull your settings.py and wipe out your production settings.
     + *You may want to create two seperate branches, one for development and one for production, and push your development branch to your production branch, and when doing so, discard any changes to settings.py etc, but this takes extra steps.*
